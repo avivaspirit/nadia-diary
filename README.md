@@ -12,7 +12,7 @@ Local website:
 
 GitHub Pages website:
 
-`https://ddianeyy.github.io/nadia-diary/`
+`https://avivaspirit.github.io/nadia-diary/`
 
 ## Very Important Photo Rule
 
@@ -74,7 +74,7 @@ If `assets/uploads` is missing online, the website will show broken photos.
 
 After upload, test this image:
 
-`https://ddianeyy.github.io/nadia-diary/assets/uploads/nadia-mac-pov-collage.jpg`
+`https://avivaspirit.github.io/nadia-diary/assets/uploads/nadia-mac-pov-collage.jpg`
 
 If that opens, the website photos should work.
 
@@ -92,6 +92,6 @@ This folder is already a git repo.
 
 Remote should point to:
 
-`https://github.com/ddianeyy/nadia-diary.git`
+`https://github.com/avivaspirit/nadia-diary.git`
 
 If pushing works, use git. If pushing is blocked, manually upload the whole folder contents on GitHub.
