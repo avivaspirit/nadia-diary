@@ -12,20 +12,18 @@ function assetPath(src) {
   return value;
 }
 
-function alternatePhotoPath(src) {
+function rootPhotoFallback(src) {
   const value = String(src || "").trim();
+  if (!value.includes("assets/uploads/")) return "";
   const fileName = value.split("/").filter(Boolean).pop();
-  if (!fileName) return "";
-  if (value.includes("assets/uploads/")) return `./${fileName}`;
-  if (/^\.\/[^/]+\.(jpg|jpeg|png|webp)$/i.test(value)) return `./assets/uploads/${fileName}`;
-  return "";
+  return fileName ? `./${fileName}` : "";
 }
 
 function applyImageFallback(img) {
   if (!img || img.dataset.fallbackReady === "true") return;
   img.dataset.fallbackReady = "true";
   img.addEventListener("error", () => {
-    const fallback = alternatePhotoPath(img.getAttribute("src"));
+    const fallback = rootPhotoFallback(img.getAttribute("src"));
     if (!fallback || img.dataset.usedRootFallback === "true") return;
     img.dataset.usedRootFallback = "true";
     img.setAttribute("src", fallback);

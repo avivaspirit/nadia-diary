@@ -3,14 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Happy Birthday</title>
-    <link rel="stylesheet" href="./styles.css" />
-    <link rel="stylesheet" href="./fluffy-preview.css" />
-    <link rel="stylesheet" href="./birthday-envelope-preview.css" />
+    <title>Happy Birthday | Nadia's Diary 🎀</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Caveat:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/diary.css" />
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="./index.html">Nadia's Diary 🎀</a>
+      <a class="brand" href="./index.html" id="siteTitle">Nadia's Diary 🎀</a>
       <nav aria-label="Main navigation">
         <a href="./index.html">Dianeyy 🐰</a>
         <a href="./collection.html">Nadia's Dolls 🧸</a>
@@ -19,96 +20,52 @@
     </header>
 
     <main>
-      <section class="birthday-hero">
-        <p class="eyebrow"></p>
-        <h1>Happy birthday Nadia 🎂, my favorite person.</h1>
-        <figure class="hero-memory-strip">
-          <img src="./assets/uploads/birthday-wedding-left.jpg" onerror="this.onerror=null;this.src='./birthday-wedding-left.jpg'" alt="A sweet photo memory together" />
-          <img src="./assets/uploads/birthday-wedding-right.jpg" onerror="this.onerror=null;this.src='./birthday-wedding-right.jpg'" alt="A sweet photo memory together" />
-        </figure>
-        <p>You bring laughter and radiate positivity everywhere you go. You’re brilliant, talented, and incredibly kind-hearted. Thank you for always treating me so well, and for being the best friend and girlfriend I could ever ask for. My life is so much brighter with you in it. ✨</p>
+      <!-- ================== act 1: the cake & the wish ==================== -->
+      <section class="birthday-stage" aria-label="Birthday cake">
+        <p class="eyebrow" id="candlesEyebrow"></p>
+        <h1 id="candlesTitle"></h1>
+        <p class="candle-hint" id="candleHint" aria-live="polite"></p>
+
+        <div class="cake" id="cake">
+          <div class="cake-candles" id="cakeCandles"></div>
+          <div class="cake-tier tier-top"><span class="tier-dots" aria-hidden="true">● ● ●</span></div>
+          <div class="cake-tier tier-bottom"><span class="tier-dots" aria-hidden="true">● ● ● ● ●</span></div>
+          <div class="cake-plate"></div>
+        </div>
+
+        <p class="candle-counter" id="candleCounter"></p>
+
+        <!-- ============== act 2: revealed once candles are lit ============ -->
+        <div class="birthday-reveal" id="birthdayReveal">
+          <h2 id="birthdayHeadline" style="font-size:clamp(28px,4vw,42px);"></h2>
+          <div class="hero-memory-strip" id="memoryStrip"></div>
+          <p class="lede" id="birthdayIntro" style="margin-inline:auto;"></p>
+          <p class="hand" style="font-size:24px; margin-top:18px;">now scroll down, your letters are waiting ⌄</p>
+        </div>
       </section>
 
+      <!-- ===================== act 3: the letters ========================= -->
       <section class="envelope-stage" aria-label="Birthday letters">
-        <div class="envelope-intro">
-          <p class="eyebrow">Birthday letters ♡</p>
-          <h2>Two little letters waiting for you.</h2>
-          <p>Tap each envelope once to open a tiny birthday secret!</p>
+        <div class="envelope-intro reveal">
+          <p class="eyebrow" id="lettersEyebrow"></p>
+          <h2 id="lettersTitle"></h2>
+          <p class="hand" id="lettersHint"></p>
         </div>
+        <div class="envelope-grid" id="envelopeGrid"></div>
+      </section>
 
-        <div class="envelope-grid">
-          <div class="envelope-card">
-            <button class="envelope-cover" type="button" aria-label="Open For you letter">
-              <span class="envelope-cover-inner">
-                <span class="wax-seal">🎀</span>
-                <strong>For you</strong>
-                <span>tap to open</span>
-              </span>
-            </button>
-            <article class="wish-card">
-              <div class="wish-text">
-                <span class="wish-sticker soft-bear" aria-hidden="true">🧸</span>
-                <h3>For you</h3>
-                <p>My wish for you is that you feel deeply loved in every single moment. Take time to appreciate the incredible person you are, each and every day.</p>
-                <p>Here’s to your vibrant health and strength. May you always be surrounded by kind-hearted people who lift you up.</p>
-                <p>Success is bound to follow as you build your career and your own brand. You deserve true joy in everything you touch.</p>
-              </div>
-              <div class="wish-photos" aria-hidden="true">
-                <figure class="polaroid tilt-a portrait-top">
-                  <img src="./assets/uploads/birthday-solo-1.jpg" onerror="this.onerror=null;this.src='./birthday-solo-1.jpg'" alt="Photo memory" loading="lazy" />
-                  <figcaption></figcaption>
-                </figure>
-                <figure class="polaroid tilt-b portrait-top">
-                  <img src="./assets/uploads/birthday-solo-2.png" onerror="this.onerror=null;this.src='./birthday-solo-2.png'" alt="Photo memory" loading="lazy" />
-                  <figcaption></figcaption>
-                </figure>
-              </div>
-            </article>
-            <button class="close-envelope" type="button">close</button>
-          </div>
-
-          <div class="envelope-card">
-            <button class="envelope-cover" type="button" aria-label="Open For us letter">
-              <span class="envelope-cover-inner">
-                <span class="wax-seal">💌</span>
-                <strong>For us</strong>
-                <span>tap to open</span>
-              </span>
-            </button>
-            <article class="wish-card">
-              <div class="wish-text">
-                <span class="wish-sticker tiny-dolls" aria-hidden="true">🎎</span>
-                <h3>For us</h3>
-                <p>As for us, let's keep creating tiny, beautiful memories together. I love our everyday conversations that make us feel right at home.</p>
-                <p>I can't wait to cross continents by your side. Let's explore every corner of this world and never stop chasing fun new adventures.</p>
-                <p>Let’s always choose love over any fear or doubt. No matter what comes our way, let's keep growing side by side for an eternity.</p>
-              </div>
-              <div class="wish-photos" aria-hidden="true">
-                <figure class="polaroid tilt-a">
-                  <img src="./assets/uploads/birthday-couple-1.jpg" onerror="this.onerror=null;this.src='./birthday-couple-1.jpg'" alt="Photo memory" loading="lazy" />
-                  <figcaption></figcaption>
-                </figure>
-                <figure class="polaroid tilt-b">
-                  <img src="./assets/uploads/birthday-couple-2.jpg" onerror="this.onerror=null;this.src='./birthday-couple-2.jpg'" alt="Photo memory" loading="lazy" />
-                  <figcaption></figcaption>
-                </figure>
-              </div>
-            </article>
-            <button class="close-envelope" type="button">close</button>
-          </div>
-        </div>
+      <!-- ===================== act 4: the sign-off ======================== -->
+      <section class="birthday-closing reveal" aria-label="Closing">
+        <p class="closing-line" id="closingText"></p>
+        <p class="closing-signature" id="closingSignature"></p>
+        <p class="closing-hearts" aria-hidden="true">♡ ♡ ♡</p>
       </section>
     </main>
 
-    <script>
-      document.querySelectorAll(".envelope-card").forEach((letter) => {
-        letter.querySelector(".envelope-cover").addEventListener("click", () => {
-          letter.classList.add("is-open");
-        });
-        letter.querySelector(".close-envelope").addEventListener("click", () => {
-          letter.classList.remove("is-open");
-        });
-      });
-    </script>
+    <footer id="siteFooter"></footer>
+
+    <script src="./content/site-data.js"></script>
+    <script src="./assets/js/magic.js"></script>
+    <script src="./assets/js/birthday.js"></script>
   </body>
 </html>

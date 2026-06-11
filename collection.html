@@ -4,9 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Nadia's Dolls | Nadia's Diary 🎀</title>
-    <link rel="stylesheet" href="./styles.css" />
-    <link rel="stylesheet" href="./fluffy-preview.css" />
-    <link rel="stylesheet" href="./collection-edit-preview.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Caveat:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/diary.css" />
   </head>
   <body>
     <header class="site-header">
@@ -19,31 +20,41 @@
     </header>
 
     <main>
-      <section class="page-intro doll-preview-hero cabinet-hero">
-        <p class="eyebrow">Nadia's tiny cabinet 🧸</p>
-        <h1>Nadia's tiny cabinet of soft treasures.</h1>
-        <p>
-          Plushies, charms, and little finds sit together like a private mini
-          museum. Tap a cabinet door to peek inside each tiny story 🗝️.
-        </p>
-        <figure class="cabinet-hero-photo">
-          <img src="./assets/uploads/nadia-cabinet-hero.jpg" alt="Nadia holding flowers with a night city view" />
-        </figure>
-      </section>
-
-      <section>
-        <div class="section-heading">
-          <p class="eyebrow">Tiny cabinet stories</p>
-          <h2>Open a little treasure door</h2>
+      <!-- ========================= cabinet hero =========================== -->
+      <section class="cabinet-hero">
+        <div>
+          <p class="eyebrow" id="dollsEyebrow"></p>
+          <h1 id="dollsTitle"></h1>
+          <p class="lede" id="dollsIntro"></p>
         </div>
-        <div id="previewCollectionGrid" class="doll-grid doll-keepsake-grid"></div>
+        <div data-parallax="0.05">
+          <figure class="washi-frame" style="margin:0;">
+            <img id="dollsHeroPhoto" alt="" />
+            <figcaption class="washi-caption" id="dollsHeroCaption"></figcaption>
+          </figure>
+        </div>
       </section>
 
-      <section class="doll-studio-preview drawer-editor" aria-label="Add or edit a doll">
+      <!-- ========================= the cabinet ============================ -->
+      <section>
+        <div class="section-heading reveal">
+          <p class="eyebrow" id="shelfEyebrow"></p>
+          <h2 id="shelfTitle"></h2>
+        </div>
+        <div class="cabinet-shelf">
+          <div id="dollGrid" class="doll-grid"></div>
+        </div>
+      </section>
+
+      <!-- ====================== add / edit drawer ========================= -->
+      <section class="drawer-editor" aria-label="Add or edit a doll">
         <button class="drawer-editor-cover" type="button" aria-expanded="false" aria-controls="previewDollForm">
           <span aria-hidden="true">🗝️</span>
-          <strong>Add a tiny treasure</strong>
-          <small>Open this drawer to add a new doll or save an edit.</small>
+          <span>
+            <strong>Add a tiny treasure</strong>
+            <small>Open this drawer to add a new doll or save an edit.</small>
+          </span>
+          <span class="drawer-arrow" aria-hidden="true">⌄</span>
         </button>
         <form id="previewDollForm" class="preview-doll-form" hidden>
           <input id="editingIndexInput" type="hidden" value="" />
@@ -89,8 +100,10 @@
       </section>
     </main>
 
-    <footer>Made for her favorite little friends.</footer>
-    <script src="./content/content.js"></script>
-    <script src="./collection-edit-preview.js"></script>
+    <footer id="siteFooter"></footer>
+
+    <script src="./content/site-data.js"></script>
+    <script src="./assets/js/magic.js"></script>
+    <script src="./assets/js/dolls.js"></script>
   </body>
 </html>

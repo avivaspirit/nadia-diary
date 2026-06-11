@@ -34,9 +34,29 @@ Do not use absolute Windows paths in HTML/CSS/JS because they will not work on G
 
 - `index.html` is the home page, called Dianeyy.
 - `collection.html` is Nadia's Dolls / tiny cabinet.
-- `birthday.html` is the Happy Birthday page.
+- `birthday.html` is the Happy Birthday page (light the candles, then the letters).
 
 Preview files may exist, but the real pages above are the ones to upload.
+
+## How To Edit Content (Important)
+
+ALL text, photos, notes, letters, and dolls live in ONE file:
+
+`content/site-data.js`
+
+Open it, edit any text or photo path, save, and re-upload that file.
+No other file needs to change for content edits.
+
+Supporting files (do not edit for content changes):
+
+- `assets/css/diary.css` — the design system for all three pages.
+- `assets/js/magic.js` — shared animation: sparkles, scroll reveals, lightbox, confetti, page transitions.
+- `assets/js/home.js`, `assets/js/dolls.js`, `assets/js/birthday.js` — page renderers.
+
+Legacy files (`styles.css`, `fluffy-preview.css`, `script.js`, `content/content.js`,
+`content/site.json`, `content/dolls.json`, the `*-preview.*` files, and `admin/`)
+are no longer used by the live pages. They are kept for history only —
+editing `content/site.json` or the admin panel will NOT change the live site anymore.
 
 ## Uploading To GitHub
 
