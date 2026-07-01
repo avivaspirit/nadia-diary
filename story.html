@@ -31,6 +31,73 @@
           <p class="lede" id="storyIntro"></p>
           <div class="days-counter" id="daysCounter"></div>
         </div>
+
+        <!-- ⏳ Hourglass -->
+        <div class="hourglass-section reveal">
+          <div class="hourglass-wrap" id="hourglassWrap">
+            <svg class="hourglass-svg" viewBox="0 0 100 160" aria-hidden="true">
+              <!-- frame top/bottom -->
+              <rect class="frame" x="10" y="2" width="80" height="6" rx="3"/>
+              <rect class="frame" x="10" y="152" width="80" height="6" rx="3"/>
+              <!-- glass outline -->
+              <path class="glass" d="M 20 8 L 80 8 L 50 78 L 80 148 L 20 148 L 50 78 Z"/>
+              <!-- glass fill -->
+              <path class="glass-inner" d="M 22 10 L 78 10 L 50 76 L 78 146 L 22 146 L 50 76 Z"/>
+              <!-- sand top pile -->
+              <path class="sand-top" id="sandTop" d="M 28 12 L 72 12 L 50 50 Z" opacity="0.85"/>
+              <!-- sand bottom pile -->
+              <path class="sand-bottom" id="sandBottom" d="M 35 146 L 65 146 L 58 110 L 42 110 Z" opacity="0.85"/>
+              <!-- sand stream line -->
+              <line class="sand-stream" x1="50" y1="50" x2="50" y2="110"/>
+            </svg>
+          </div>
+          <div class="hourglass-label">time we've shared</div>
+          <div class="hourglass-days" id="hourglassDays">—</div>
+          <div class="hourglass-sub" id="hourglassSub">days, and every single one matters</div>
+        </div>
+
+        <!-- 🌙 Moon Phase -->
+        <div class="moon-section reveal">
+          <div class="moon-display">
+            <div class="moon-card">
+              <div class="moon-emoji" id="moonMetEmoji">🌑</div>
+              <div class="moon-label">when we met</div>
+              <div class="moon-date" id="moonMetDate">May 21</div>
+            </div>
+            <div class="moon-arrow">→</div>
+            <div class="moon-card">
+              <div class="moon-emoji" id="moonNowEmoji">🌕</div>
+              <div class="moon-label">tonight</div>
+              <div class="moon-date" id="moonNowDate">Today</div>
+            </div>
+          </div>
+          <div class="moon-caption" id="moonCaption"></div>
+        </div>
+
+        <!-- 🕯️ Wish Candle -->
+        <div class="candle-section reveal">
+          <div class="candle-stage" id="candleStage" role="button" tabindex="0" aria-label="Light a wish candle">
+            <div class="glow"></div>
+            <div class="candle-flame"></div>
+            <div class="candle-wick"></div>
+            <div class="candle-body"></div>
+          </div>
+          <div class="candle-hint" id="candleHint">tap to light a candle ♡</div>
+          <div class="candle-wish" id="candleWish"></div>
+        </div>
+
+        <!-- ✨ Starry Night -->
+        <div class="starry-section reveal" id="starrySection">
+          <div class="starry-caption">tap a star to make a wish ✨</div>
+          <div class="starry-hint">each star is a little dream for us</div>
+        </div>
+
+        <!-- 💌 Floating Love Notes -->
+        <div class="love-float-section reveal">
+          <div class="love-float-label">little things, always true ♡</div>
+          <div class="love-float-area" id="loveFloatArea"></div>
+        </div>
+
         <div class="timeline" id="timeline"></div>
       </section>
     </main>
