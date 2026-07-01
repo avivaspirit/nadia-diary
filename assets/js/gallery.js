@@ -60,8 +60,23 @@
   const savePhotoBtn = $("#savePhotoBtn");
   const cancelUploadBtn = $("#cancelUploadBtn");
 
-  /* Open file picker */
-  uploadBtn.addEventListener("click", () => fileInput.click());
+  /* Open file picker — wrap in try/catch for browsers that block programmatic clicks */
+  function openFilePicker() {
+    try {
+      fileInput.click();
+    } catch (e) {
+      /* fallback: focus + Enter key */
+      fileInput.style.position = "fixed";
+      fileInput.style.top = "50%";
+      fileInput.style.left = "50%";
+      fileInput.style.width = "1px";
+      fileInput.style.height = "1px";
+      fileInput.style.opacity = "0.01";
+      fileInput.removeAttribute("style");
+      fileInput.focus();
+    }
+  }
+  uploadBtn.addEventListener("click", openFilePicker);
 
   /* Read selected file → open edit panel */
   fileInput.addEventListener("change", () => {
