@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Nadia's Diary 🎀</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./manifest.json" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Caveat:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -16,6 +18,8 @@
         <a aria-current="page" href="./index.html">Dianeyy 🐰</a>
         <a href="./collection.html">Nadia's Dolls 🧸</a>
         <a href="./birthday.html">Happy Birthday 🎂</a>
+        <a href="./story.html">Our Story 📖</a>
+        <a href="./gallery.html">Gallery 📸</a>
       </nav>
     </header>
 
@@ -27,6 +31,7 @@
           <h1 id="homeHeadline"></h1>
           <p class="lede" id="homeDescription"></p>
           <div class="hero-actions" id="heroActions"></div>
+          <div class="days-counter" id="daysCounter"></div>
         </div>
         <div data-parallax="0.05">
           <figure class="washi-frame" id="heroFrame" style="margin:0;">
@@ -83,6 +88,35 @@
           <p class="hand" style="font-size:21px;">tap a photo to look closer ✨</p>
         </div>
         <div class="polaroid-wall" id="momentsWall"></div>
+      </section>
+
+      <!-- =========================== love jar ============================= -->
+      <section class="love-jar-section" aria-label="Love jar">
+        <div class="love-jar-wrap reveal">
+          <p class="eyebrow" id="loveJarEyebrow"></p>
+          <h2 id="loveJarTitle"></h2>
+          <div class="love-jar" id="loveJar">
+            <svg class="love-jar-svg" viewBox="0 0 200 260" aria-hidden="true">
+              <!-- lid -->
+              <ellipse cx="100" cy="40" rx="60" ry="14" fill="#e58aa0" />
+              <rect x="40" y="32" width="120" height="16" rx="4" fill="#d96a86" />
+              <!-- jar body -->
+              <path d="M 44 48 Q 44 52 48 52 L 152 52 Q 156 52 156 48 L 156 220 Q 156 245 130 245 L 70 245 Q 44 245 44 220 Z"
+                fill="rgba(255,255,255,0.45)" stroke="#e58aa0" stroke-width="2.5" />
+              <!-- jar shine -->
+              <path d="M 60 60 Q 56 80 56 120 L 56 200" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="3" stroke-linecap="round" />
+              <!-- folded papers inside -->
+              <rect x="68" y="70" width="64" height="10" rx="3" fill="#f6c8d6" transform="rotate(-8 100 75)" opacity="0.7" />
+              <rect x="66" y="88" width="68" height="10" rx="3" fill="#f3ddb9" transform="rotate(5 100 93)" opacity="0.7" />
+              <rect x="70" y="106" width="60" height="10" rx="3" fill="#ddeee6" transform="rotate(-3 100 111)" opacity="0.7" />
+              <rect x="67" y="124" width="66" height="10" rx="3" fill="#e8e2f6" transform="rotate(7 100 129)" opacity="0.7" />
+              <rect x="69" y="142" width="62" height="10" rx="3" fill="#f6c8d6" transform="rotate(-5 100 147)" opacity="0.7" />
+              <rect x="65" y="160" width="70" height="10" rx="3" fill="#f3ddb9" transform="rotate(4 100 165)" opacity="0.7" />
+            </svg>
+            <div class="jar-paper" id="loveJarNote" hidden></div>
+          </div>
+          <p class="love-jar-hint" id="loveJarHint"></p>
+        </div>
       </section>
 
       <!-- ========================= section cards ========================== -->

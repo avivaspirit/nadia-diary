@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Our Story | Nadia's Diary 🎀</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Caveat:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/diary.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./index.html" id="siteTitle">Nadia's Diary 🎀</a>
+      <nav aria-label="Main navigation">
+        <a href="./index.html">Dianeyy 🐰</a>
+        <a href="./collection.html">Nadia's Dolls 🧸</a>
+        <a href="./birthday.html">Happy Birthday 🎂</a>
+        <a aria-current="page" href="./story.html">Our Story 📖</a>
+        <a href="./gallery.html">Gallery 📸</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="timeline-page">
+        <div class="timeline-hero reveal">
+          <p class="eyebrow" id="storyEyebrow"></p>
+          <h1 id="storyTitle"></h1>
+          <p class="lede" id="storyIntro"></p>
+          <div class="days-counter" id="daysCounter"></div>
+        </div>
+        <div class="timeline" id="timeline"></div>
+      </section>
+    </main>
+
+    <footer id="siteFooter"></footer>
+
+    <script src="./content/site-data.js"></script>
+    <script src="./assets/js/magic.js"></script>
+    <script src="./assets/js/story.js"></script>
+  </body>
+</html>

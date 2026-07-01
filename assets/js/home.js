@@ -43,6 +43,15 @@
   heroImg.fetchPriority = "high";
   setText("#heroCaption", home.heroPhoto.caption);
 
+  /* days counter */
+  const daysHost = $("#daysCounter");
+  if (daysHost && data.site.firstDay) {
+    const start = new Date(data.site.firstDay);
+    const now = new Date();
+    const days = Math.max(1, Math.floor((now - start) / 86400000));
+    daysHost.innerHTML = `<span>Day</span> <span class="days-number">${days}</span> <span>together</span> <span class="days-heart">♡</span>`;
+  }
+
   /* bio */
   setText("#bioEyebrow", home.bio.eyebrow);
   setText("#bioTitle", home.bio.title);
@@ -87,6 +96,51 @@
     wall.appendChild(fig);
   });
   stagger(wall, 0.1, 0.5);
+
+  /* love jar */
+  const jarHost = $("#loveJarSection");
+  if (jarHost && data.loveJar) {
+    const lj = data.loveJar;
+    setText("#loveJarEyebrow", lj.eyebrow);
+    setText("#loveJarTitle", lj.title);
+
+    const jarEl = $("#loveJar");
+    const noteEl = $("#loveJarNote");
+    const hintEl = $("#loveJarHint");
+    setText("#loveJarHint", lj.hint);
+
+    const reasons = [...lj.reasons];
+    let lastIdx = -1;
+
+    jarEl.addEventListener("click", () => {
+      // pick a random reason, avoiding immediate repeat
+      let idx;
+      do { idx = Math.floor(Math.random() * reasons.length); }
+      while (idx === lastIdx && reasons.length > 1);
+      lastIdx = idx;
+      const reason = reasons[idx];
+      const tilts = [-3, -1, 1, 2, -2, 3];
+      const tilt = tilts[Math.floor(Math.random() * tilts.length)];
+
+      // shake the jar
+      jarEl.style.transform = "scale(0.92) rotate(-3deg)";
+      setTimeout(() => { jarEl.style.transform = "scale(1) rotate(2deg)"; }, 150);
+      setTimeout(() => { jarEl.style.transform = ""; }, 350);
+
+      // show the note
+      noteEl.hidden = false;
+      noteEl.innerHTML = "";
+      noteEl.style.setProperty("--note-tilt", `${tilt}deg`);
+      // restart animation by toggling class
+      noteEl.className = "jar-paper";
+      void noteEl.offsetWidth; // force reflow
+      setTimeout(() => {
+        noteEl.textContent = reason;
+      }, 200);
+
+      hintEl.style.opacity = "0";
+    });
+  }
 
   /* section preview cards */
   const cards = $("#sectionCards");

@@ -4,18 +4,35 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Happy Birthday | Nadia's Diary 🎀</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./manifest.json" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Caveat:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./assets/css/diary.css" />
   </head>
   <body>
+    <!-- password gate -->
+    <div class="password-gate" id="passwordGate">
+      <div class="password-gate-box">
+        <span class="gift-box" id="gateIcon">🎁</span>
+        <h2 id="gateTitle"></h2>
+        <p id="gateSubtitle"></p>
+        <input type="text" id="gateInput" inputmode="numeric" maxlength="4" placeholder="••••" autocomplete="off" />
+        <button class="button primary" type="button" id="gateBtn">Open ♡</button>
+        <p class="gate-error" id="gateError"></p>
+        <p class="gate-hint" id="gateHint"></p>
+      </div>
+    </div>
+
     <header class="site-header">
       <a class="brand" href="./index.html" id="siteTitle">Nadia's Diary 🎀</a>
       <nav aria-label="Main navigation">
         <a href="./index.html">Dianeyy 🐰</a>
         <a href="./collection.html">Nadia's Dolls 🧸</a>
         <a aria-current="page" href="./birthday.html">Happy Birthday 🎂</a>
+        <a href="./story.html">Our Story 📖</a>
+        <a href="./gallery.html">Gallery 📸</a>
       </nav>
     </header>
 
@@ -54,7 +71,18 @@
         <div class="envelope-grid" id="envelopeGrid"></div>
       </section>
 
-      <!-- ===================== act 4: the sign-off ======================== -->
+      <!-- ===================== act 4: write back ========================== -->
+      <section class="write-back-section reveal" aria-label="Write back to Mac">
+        <p class="eyebrow" id="writeBackEyebrow"></p>
+        <h2 id="writeBackTitle"></h2>
+        <div class="write-back-form">
+          <textarea id="writeBackTextarea" rows="4"></textarea>
+          <button class="button primary" type="button" id="writeBackBtn"></button>
+        </div>
+        <div class="write-back-list" id="writeBackList"></div>
+      </section>
+
+      <!-- ===================== act 5: the sign-off ======================== -->
       <section class="birthday-closing reveal" aria-label="Closing">
         <p class="closing-line" id="closingText"></p>
         <p class="closing-signature" id="closingSignature"></p>
