@@ -14,6 +14,46 @@
   setText("#siteTitle", data.site.title);
   setText("#siteFooter", data.site.footerLine);
 
+  /* ------------------------------------------- PASSWORD GATE */
+  const gate = data.birthday.gate;
+  const gateEl = $("#passwordGate");
+  if (gateEl && gate) {
+    setText("#gateTitle", gate.title);
+    setText("#gateSubtitle", gate.subtitle);
+    const gateIcon = $("#gateIcon");
+    if (gateIcon) gateIcon.textContent = gate.icon;
+    const gateHint = $("#gateHint");
+    if (gateHint) gateHint.textContent = gate.hint;
+
+    const gateInput = $("#gateInput");
+    const gateBtn = $("#gateBtn");
+    const gateError = $("#gateError");
+
+    function tryUnlock() {
+      const val = (gateInput.value || "").trim();
+      if (val === gate.pin) {
+        gateEl.hidden = true;
+        burstConfetti(1500);
+        // Save unlocked state for this session
+        try { sessionStorage.setItem("nadiaBdayUnlocked", "1"); } catch {}
+      } else {
+        gateError.textContent = "Not quite... try again ♡";
+        gateInput.value = "";
+        gateInput.focus();
+        gateEl.style.animation = "none";
+        setTimeout(() => { gateEl.style.animation = "floaty 3s ease-in-out infinite"; }, 10);
+      }
+    }
+
+    // Check if already unlocked this session
+    try {
+      if (sessionStorage.getItem("nadiaBdayUnlocked") === "1") gateEl.hidden = true;
+    } catch {}
+
+    gateBtn.addEventListener("click", tryUnlock);
+    gateInput.addEventListener("keydown", (e) => { if (e.key === "Enter") tryUnlock(); });
+  }
+
   /* ----------------------------------------------- act 1: the candles */
   setText("#candlesEyebrow", bday.candles.eyebrow);
   setText("#candlesTitle", bday.candles.title);
@@ -84,6 +124,39 @@
   setText("#lettersHint", bday.lettersHint);
 
   const grid = $("#envelopeGrid");
+
+  function typewriterEffect(element, paragraphs, speed = 28) {
+    element.innerHTML = "";
+    let pIdx = 0;
+    let charIdx = 0;
+    let currentP = el("p");
+    element.appendChild(currentP);
+    const cursor = el("span", "typewriter-cursor");
+    element.appendChild(cursor);
+
+    function tick() {
+      if (pIdx >= paragraphs.length) {
+        cursor.remove();
+        return;
+      }
+      const text = paragraphs[pIdx];
+      if (charIdx < text.length) {
+        currentP.textContent += text[charIdx];
+        charIdx++;
+        setTimeout(tick, speed);
+      } else {
+        pIdx++;
+        charIdx = 0;
+        if (pIdx < paragraphs.length) {
+          currentP = el("p");
+          element.insertBefore(currentP, cursor);
+        }
+        setTimeout(tick, speed * 3);
+      }
+    }
+    tick();
+  }
+
   bday.letters.forEach((letter) => {
     const card = el("div", "envelope-card reveal");
     const photosHtml = (letter.photos || []).map((photo, i) => `
@@ -107,18 +180,23 @@
         <div class="wish-card-inner">
           <span class="wish-sticker" aria-hidden="true">${escapeHtml(letter.sticker)}</span>
           <h3>${escapeHtml(letter.title)}</h3>
-          <div class="wish-text">
-            ${letter.paragraphs.map((p) => `<p>${escapeHtml(p)}</p>`).join("")}
-          </div>
+          <div class="wish-text"></div>
           <div class="wish-photos">${photosHtml}</div>
         </div>
         <button class="close-envelope" type="button">close letter</button>
       </article>`;
 
     const cover = card.querySelector(".envelope-cover");
+    let hasTyped = false;
     cover.addEventListener("click", () => {
       card.classList.add("is-open");
       cover.setAttribute("aria-expanded", "true");
+      // Start typewriter effect on first open
+      if (!hasTyped) {
+        hasTyped = true;
+        const textEl = card.querySelector(".wish-text");
+        setTimeout(() => typewriterEffect(textEl, letter.paragraphs), 700);
+      }
     });
     card.querySelector(".close-envelope").addEventListener("click", () => {
       card.classList.remove("is-open");
@@ -136,7 +214,61 @@
     grid.appendChild(card);
   });
 
-  /* ---------------------------------------------- act 4: the sign-off */
+  /* --------------------------------------- act 4: write back section */
+  if (bday.writeBack) {
+    const wb = bday.writeBack;
+    setText("#writeBackEyebrow", wb.eyebrow);
+    setText("#writeBackTitle", wb.title);
+
+    const ta = $("#writeBackTextarea");
+    const btn = $("#writeBackBtn");
+    if (ta) ta.placeholder = wb.placeholder;
+    if (btn) btn.textContent = wb.button;
+
+    const listEl = $("#writeBackList");
+    const STORAGE_KEY = wb.storageKey || "nadiaWriteBackNotes";
+
+    function loadNotes() {
+      if (!listEl) return;
+      let notes = [];
+      try { notes = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); } catch {}
+      listEl.innerHTML = "";
+      if (!notes.length) return;
+      notes.slice().reverse().forEach((note) => {
+        const div = el("div", "write-back-note");
+        div.style.setProperty("--note-tilt", `${(Math.random() - 0.5) * 6}deg`);
+        div.innerHTML = `${escapeHtml(note.text)}<span class="note-date">${escapeHtml(note.date || "")}</span>`;
+        listEl.appendChild(div);
+      });
+    }
+    loadNotes();
+
+    function saveNote() {
+      const text = (ta?.value || "").trim();
+      if (!text) return;
+      let notes = [];
+      try { notes = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); } catch {}
+      const now = new Date();
+      notes.push({
+        text,
+        date: now.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+      ta.value = "";
+      loadNotes();
+      // Show confirmation
+      btn.textContent = wb.savedMsg;
+      btn.style.background = "linear-gradient(135deg, #c8e6c9, #81c784)";
+      setTimeout(() => {
+        btn.textContent = wb.button;
+        btn.style.background = "";
+      }, 2500);
+    }
+
+    btn?.addEventListener("click", saveNote);
+  }
+
+  /* ---------------------------------------------- act 5: the sign-off */
   setText("#closingText", bday.closing.text);
   const closingSignature = $("#closingSignature");
   const elephantIcon = `

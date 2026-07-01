@@ -101,7 +101,7 @@
     resize();
     window.addEventListener("resize", resize);
 
-    const COLORS = ["#f6c8d6", "#f3dde6", "#e8ddf5", "#f7e3c8"];
+    const COLORS = window.__DIARY_SEASON_COLORS || ["#f6c8d6", "#f3dde6", "#e8ddf5", "#f7e3c8"];
     const isSmall = window.innerWidth < 700;
     const COUNT = isSmall ? 16 : 26;
 
@@ -330,6 +330,69 @@
     requestAnimationFrame(frame);
   }
 
+  /* ------------------------------------------------------- seasonal themes */
+  function initSeasonal() {
+    const month = new Date().getMonth(); // 0-11
+    let season;
+    if (month >= 2 && month <= 4) season = "spring";
+    else if (month >= 5 && month <= 7) season = "summer";
+    else if (month >= 8 && month <= 10) season = "autumn";
+    else season = "winter";
+    document.body.classList.add("season-" + season);
+
+    // seasonal sparkle colors
+    const seasonColors = {
+      spring: ["#f6c8d6", "#f3dde6", "#e8ddf5", "#f7e3c8"],
+      summer: ["#f6c8d6", "#f3dde6", "#fce8c8", "#cdeadd"],
+      autumn: ["#e5b58c", "#d9a866", "#e58aa0", "#f3ddb9"],
+      winter: ["#dde6f0", "#e8e2f6", "#f3dde6", "#f6c8d6"]
+    };
+    // override sparkle colors based on season
+    if (seasonColors[season]) {
+      window.__DIARY_SEASON_COLORS = seasonColors[season];
+    }
+  }
+
+  /* ------------------------------------------------------- music toggle */
+  function initMusic() {
+    const trackId = window.NADIA_DATA?.music?.spotifyId;
+    if (!trackId) return;
+
+    /* floating button */
+    const btn = el("button", "music-toggle");
+    btn.type = "button";
+    btn.setAttribute("aria-label", "Open music player");
+    btn.textContent = "🎵";
+    document.body.appendChild(btn);
+
+    /* floating player with Spotify embed */
+    const player = el("div", "music-player");
+    player.id = "musicPlayer";
+    player.innerHTML =
+      '<button class="music-player-close" aria-label="Close player">✕</button>' +
+      '<iframe src="https://open.spotify.com/embed/track/' + trackId +
+      '?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" ' +
+      'loading="lazy"></iframe>';
+    document.body.appendChild(player);
+
+    const closeBtn = player.querySelector(".music-player-close");
+
+    let open = false;
+    btn.addEventListener("click", () => {
+      open = !open;
+      player.classList.toggle("open", open);
+      btn.classList.toggle("playing", open);
+      btn.textContent = open ? "🎶" : "🎵";
+    });
+    closeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      open = false;
+      player.classList.remove("open");
+      btn.classList.remove("playing");
+      btn.textContent = "🎵";
+    });
+  }
+
   /* ------------------------------------------------------------- expose */
   window.DiaryMagic = {
     $, $$, el, escapeHtml,
@@ -341,10 +404,12 @@
   };
 
   document.addEventListener("DOMContentLoaded", () => {
+    initSeasonal();
     initPageTransitions();
     initSparkles();
     initCardGlow();
     initParallax();
+    initMusic();
     // initReveals is called by each page AFTER it renders dynamic content
   });
 })();

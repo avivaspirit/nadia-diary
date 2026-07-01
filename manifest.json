@@ -1,0 +1,16 @@
+{
+  "name": "Nadia's Diary",
+  "short_name": "Nadia's Diary",
+  "description": "A cozy diary for her smile, her stories, and her tiny treasures.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fff8f2",
+  "theme_color": "#e58aa0",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

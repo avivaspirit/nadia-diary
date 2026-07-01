@@ -11,7 +11,9 @@ window.NADIA_DATA = {
   /* ------------------------------ SITE-WIDE ----------------------------- */
   site: {
     title: "Nadia's Diary 🎀",
-    footerLine: "Made for little collections, many birthdays ahead, and one very loved girl."
+    footerLine: "Made for little collections, many birthdays ahead, and one very loved girl.",
+    // Day 1 of the relationship — used by the live days counter
+    firstDay: "2026-05-21"
   },
 
   /* ----------------------------- HOME / DIANEYY ------------------------- */
@@ -85,7 +87,95 @@ window.NADIA_DATA = {
         num: "03", emoji: "🎂", title: "Happy Birthday",
         text: "A private birthday wish filled with memories and letters made just for her.",
         href: "./birthday.html"
+      },
+      {
+        num: "04", emoji: "📖", title: "Our Story",
+        text: "A little timeline of the moments that brought us here, one chapter at a time.",
+        href: "./story.html"
+      },
+      {
+        num: "05", emoji: "📸", title: "Photo Gallery",
+        text: "Every little moment, captured together in one cozy scrapbook wall.",
+        href: "./gallery.html"
       }
+    ]
+  },
+
+  /* ------------------------------- LOVE JAR ----------------------------- */
+  loveJar: {
+    eyebrow: "A jar of reasons 💗",
+    title: "Tap the jar for a little reason.",
+    hint: "tap the jar to pull out a note ♡",
+    /* Each tap pulls out one at random. Duplicate the 12 notes above + extras */
+    reasons: [
+      "She brings laughter and good energy everywhere she goes.",
+      "She has the prettiest face, and an even more beautiful soul.",
+      "She never misses a barre or yoga session.",
+      "She looks beautiful on Instagram, but real-life Nadia is even better.",
+      "She is brilliant, talented, and quietly hardworking.",
+      "She has the kindest heart, even in the smallest moments.",
+      "She makes everyday conversations feel warm and easy.",
+      "She laughs at every joke, funny or not.",
+      "She has a soft little world full of cute treasures.",
+      "She deserves every success waiting for her career and brand.",
+      "She makes every little spot feel like its own adventure.",
+      "She makes love feel like home, adventure, and forever.",
+      "She makes me smile without even trying.",
+      "Her laugh is the best sound in the world.",
+      "She remembers the little things that others forget.",
+      "She makes ordinary dinners feel like dates in Paris.",
+      "She is the first person I want to share everything with.",
+      "She makes me want to be better every single day.",
+      "She has the cutest way of getting excited over little things.",
+      "She is my favorite hello and my hardest goodbye.",
+      "She turns the most boring day into something worth remembering.",
+      "She makes me feel like the luckiest person alive.",
+      "She is the plot twist I never knew I needed.",
+      "She has a heart that could make the whole world softer.",
+      "She is exactly who I want beside me for every adventure.",
+      "She makes home feel like a person, not a place.",
+      "She is the reason I look forward to coming home.",
+      "She makes even grocery runs feel like a date."
+    ]
+  },
+
+  /* ------------------------------ OUR STORY ---------------------------- */
+  story: {
+    eyebrow: "Our Story 📖",
+    title: "Every little chapter that led us here.",
+    intro: "A growing timeline of the moments that made us, us. From day one to forever.",
+    milestones: [
+      {
+        date: "May 21, 2026",
+        emoji: "💕",
+        title: "Day One",
+        text: "The day everything started. The first hello, the first smile, the moment our story began.",
+        photo: ""
+      }
+    ]
+  },
+
+  /* ---------------------------- PHOTO GALLERY -------------------------- */
+  gallery: {
+    eyebrow: "Photo Gallery 📸",
+    title: "Every little moment, in one place.",
+    intro: "A scrapbook wall of our favorite memories. Tap any photo to look closer ✨",
+    /* Uses all photos from uploads folder. Add more here as they come. */
+    photos: [
+      { src: "./assets/uploads/nadia-mac-pov-collage.jpg", alt: "His and her POV collage", caption: "same moment, two views" },
+      { src: "./assets/uploads/nadia-note-1.jpg",          alt: "Photo of Nadia",            caption: "the diary girl" },
+      { src: "./assets/uploads/nadia-note-2.jpg",          alt: "Nadia by a blue door",      caption: "soft and bright" },
+      { src: "./assets/uploads/nadia-note-3.jpg",          alt: "Nadia with dessert",        caption: "night sparkle" },
+      { src: "./assets/uploads/nadia-note-4.jpg",          alt: "Nadia at dinner",           caption: "little bunny" },
+      { src: "./assets/uploads/nadia-note-couple.jpg",     alt: "Nadia and Mac together",    caption: "little us moment" },
+      { src: "./assets/uploads/nadia-cabinet-hero.jpg",    alt: "Nadia with flowers",        caption: "keeper of the cabinet" },
+      { src: "./assets/uploads/birthday-solo-1.jpg",       alt: "A sweet memory",            caption: "birthday sparkle" },
+      { src: "./assets/uploads/birthday-solo-2-web.jpg",   alt: "A sweet memory",            caption: "birthday glow" },
+      { src: "./assets/uploads/birthday-couple-1.jpg",     alt: "Together",                  caption: "us, always" },
+      { src: "./assets/uploads/birthday-couple-2.jpg",     alt: "Together",                  caption: "forever vibes" },
+      { src: "./assets/uploads/birthday-wedding-left.jpg",  alt: "A sweet photo memory",      caption: "pretty in pink" },
+      { src: "./assets/uploads/birthday-wedding-right.jpg", alt: "A sweet photo memory",      caption: "golden night" },
+      { src: "./assets/uploads/doll-mimi.jpg",              alt: "Mimi the doll",             caption: "first little resident" }
     ]
   },
 
@@ -115,6 +205,15 @@ window.NADIA_DATA = {
 
   /* ------------------------------ HAPPY BIRTHDAY ------------------------ */
   birthday: {
+    /* Password gate — she enters this to see the surprise */
+    gate: {
+      icon: "🎁",
+      title: "A little surprise inside...",
+      subtitle: "Enter our special day to open this (DDMM)",
+      pin: "2105",
+      hint: "hint: the day our story began ♡"
+    },
+
     /* Step 1 — the candles. She taps each one to light it. */
     candles: {
       count: 5,
@@ -132,7 +231,7 @@ window.NADIA_DATA = {
       { src: "./assets/uploads/birthday-wedding-right.jpg", alt: "A sweet photo memory together" }
     ],
 
-    /* Step 3 — the letters. */
+    /* Step 3 — the letters. Typewriter effect on open. */
     lettersEyebrow: "Birthday letters ♡",
     lettersTitle: "Two little letters waiting for you.",
     lettersHint: "Tap an envelope to open a tiny birthday secret.",
@@ -167,7 +266,17 @@ window.NADIA_DATA = {
       }
     ],
 
-    /* Step 4 — the closing line at the very end. */
+    /* Step 4 — write back section */
+    writeBack: {
+      eyebrow: "Write back ♡",
+      title: "Leave a little note for Mac.",
+      placeholder: "Write something sweet here... he'll see it next time he visits ♡",
+      button: "Send my note 💕",
+      savedMsg: "Saved! He'll see this next time ♡",
+      storageKey: "nadiaWriteBackNotes"
+    },
+
+    /* Step 5 — the closing line at the very end. */
     closing: {
       text: "Happy birthday, my love. This little world is yours.",
       signature: "Mac",
@@ -176,5 +285,12 @@ window.NADIA_DATA = {
         king: "King BoBo"
       }
     }
+  },
+
+  /* ------------------------------ MUSIC ------------------------------- */
+  /* Spotify track ID — leave empty to disable music feature entirely */
+  music: {
+    spotifyId: "6gkbtMtioHgtyGjrMel6ei",
+    emoji: "🎵"
   }
 };
