@@ -41,6 +41,22 @@
           </button>
           <span class="upload-hint">pick a frame, write a caption, make it yours ♡</span>
         </div>
+
+        <!-- Category filter + Layout switcher -->
+        <div class="gallery-controls reveal">
+          <div class="gallery-filters" id="galleryFilters">
+            <button class="gallery-filter active" data-filter="all">All ♡</button>
+            <button class="gallery-filter" data-filter="me">Just me 🐰</button>
+            <button class="gallery-filter" data-filter="us">Us together 💑</button>
+            <button class="gallery-filter" data-filter="birthday">Birthdays 🎂</button>
+          </div>
+          <div class="gallery-layouts" id="galleryLayouts">
+            <button class="layout-btn active" data-layout="scrapbook" title="Scattered scrapbook"><span> Scrapbook</span></button>
+            <button class="layout-btn" data-layout="grid" title="Neat grid"><span> Grid</button>
+            <button class="layout-btn" data-layout="mosaic" title="Mosaic mix"><span> Mosaic</button>
+            <button class="layout-btn" data-layout="postcards" title="Postcard stack"><span> Postcards</button>
+          </div>
+        </div>
         <input type="file" id="fileInput" accept="image/*" style="position:absolute;width:0;height:0;opacity:0;overflow:hidden;border:0;" />
 
         <!-- Edit panel (slides open after selecting a photo) -->
