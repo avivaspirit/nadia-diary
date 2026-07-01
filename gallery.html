@@ -30,7 +30,85 @@
           <h1 id="galleryTitle"></h1>
           <p class="lede" id="galleryIntro"></p>
         </div>
+
+        <!-- Upload bar -->
+        <div class="upload-bar reveal">
+          <button class="upload-btn" id="uploadBtn" type="button">
+            <span class="upload-icon">📷</span> Add your photo
+          </button>
+          <span class="upload-hint">pick a frame, write a caption, make it yours ♡</span>
+        </div>
+        <input type="file" id="fileInput" accept="image/*" hidden />
+
+        <!-- Edit panel (slides open after selecting a photo) -->
+        <div class="upload-panel" id="uploadPanel">
+          <div class="upload-panel-inner">
+            <div class="upload-preview">
+              <div class="upload-preview-img" id="uploadPreviewImg">
+                <img id="previewImg" alt="" />
+              </div>
+            </div>
+            <div class="upload-controls">
+              <div>
+                <label>Caption</label>
+                <input type="text" id="captionInput" placeholder="a little memory..." maxlength="60" />
+              </div>
+              <div>
+                <label>Frame style</label>
+                <div class="frame-chooser" id="frameChooser">
+                  <div class="frame-option fo-clean selected" data-frame="clean" title="Clean">
+                    <div class="frame-option-inner">clean</div>
+                  </div>
+                  <div class="frame-option fo-polaroid" data-frame="polaroid" title="Polaroid">
+                    <div class="frame-option-inner">polaroid</div>
+                  </div>
+                  <div class="frame-option fo-film" data-frame="film" title="Film">
+                    <div class="frame-option-inner">film</div>
+                  </div>
+                  <div class="frame-option fo-white" data-frame="white" title="White">
+                    <div class="frame-option-inner">white</div>
+                  </div>
+                  <div class="frame-option fo-tinted" data-frame="tinted" title="Tinted">
+                    <div class="frame-option-inner">tinted</div>
+                  </div>
+                </div>
+                <div class="frame-label-row">
+                  <span class="frame-label">clean</span>
+                  <span class="frame-label">polaroid</span>
+                  <span class="frame-label">film</span>
+                  <span class="frame-label">white</span>
+                  <span class="frame-label">tinted</span>
+                </div>
+              </div>
+              <div id="tintRow" style="display:none;">
+                <label>Border color</label>
+                <div class="tint-colors" id="tintColors">
+                  <div class="tint-dot selected" style="background:#e58aa0" data-color="#e58aa0" title="rose"></div>
+                  <div class="tint-dot" style="background:#d9a866" data-color="#d9a866" title="gold"></div>
+                  <div class="tint-dot" style="background:#a08ed4" data-color="#a08ed4" title="lavender"></div>
+                  <div class="tint-dot" style="background:#7ec8a0" data-color="#7ec8a0" title="mint"></div>
+                  <div class="tint-dot" style="background:#7cb8e0" data-color="#7cb8e0" title="sky"></div>
+                  <div class="tint-dot" style="background:#46282f" data-color="#46282f" title="dark"></div>
+                </div>
+              </div>
+              <div class="upload-actions">
+                <button class="btn-save" id="savePhotoBtn" type="button">Add to gallery ✨</button>
+                <button class="btn-cancel" id="cancelUploadBtn" type="button">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="gallery-grid" id="galleryGrid"></div>
+
+        <!-- User uploaded photos section -->
+        <div class="my-photos-divider" id="myPhotosDivider" style="display:none;">
+          <span>Nadia's picks ✨</span>
+        </div>
+        <div class="gallery-grid" id="myPhotosGrid"></div>
+        <div class="my-photos-empty" id="myPhotosEmpty">
+          No photos yet — tap "Add your photo" to start your wall ♡
+        </div>
       </section>
     </main>
 
