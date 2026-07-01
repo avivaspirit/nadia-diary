@@ -197,13 +197,15 @@ window.NADIA_DATA = {
         name: "Mimi",
         tag: "first little resident",
         photo: "./assets/uploads/doll-mimi.jpg",
-        caption: "Mimi sits in the middle of a soft birthday shelf, surrounded by tiny keepsakes and warm pink light. She looks like the first page of a very loved collection."
+        caption: "Mimi sits in the middle of a soft birthday shelf, surrounded by tiny keepsakes and warm pink light. She looks like the first page of a very loved collection.",
+        tags: ["plushie"]
       },
       {
         name: "Bunny 🎀",
         tag: "เด็กหญิงบันนี่",
         photo: "./assets/uploads/doll-bunny.png",
-        caption: "Bunny 🎀 (บันนี่) — เด็กหญิงบันนี่"
+        caption: "Bunny 🎀 (บันนี่) — เด็กหญิงบันนี่",
+        tags: ["plushie"]
       }
     ],
     footerLine: "Made for her favorite little friends."
