@@ -2583,6 +2583,150 @@ body.season-winter { }
 .manage-mode .gallery-card:hover { transform: rotate(0deg) translateY(0) !important; }
 .gallery-card { position: relative; }
 
+/* ================================================================ GALLERY CONTROLS */
+.gallery-controls {
+  max-width: 1200px;
+  margin: 0 auto 24px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.gallery-filters, .gallery-layouts {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.gallery-filter {
+  padding: 7px 16px;
+  border: 1.5px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255,255,255,0.6);
+  font-family: var(--font-ui);
+  font-size: 13px; font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.gallery-filter:hover {
+  border-color: var(--rose);
+  color: var(--rose-deep);
+  transform: translateY(-1px);
+}
+.gallery-filter.active {
+  background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(160,74,96,0.2);
+}
+.layout-btn {
+  padding: 7px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255,255,255,0.6);
+  font-family: var(--font-ui);
+  font-size: 12px; font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.layout-btn:hover {
+  border-color: var(--gold);
+  color: var(--rose-deep);
+}
+.layout-btn.active {
+  background: var(--gold);
+  color: #fff;
+  border-color: transparent;
+}
+
+/* ===== LAYOUT: Grid (neat uniform) ===== */
+.gallery-grid.layout-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+.layout-grid .gallery-item,
+.layout-grid .gallery-card {
+  border-radius: 14px;
+  overflow: hidden;
+  transform: rotate(0deg) !important;
+}
+.layout-grid .gallery-item img,
+.layout-grid .gallery-card img {
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.layout-grid .gallery-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(124,51,73,0.6));
+  color: #fff; padding: 20px 10px 8px;
+  opacity: 0; transition: opacity 0.3s;
+}
+.layout-grid .gallery-item:hover .gallery-caption { opacity: 1; }
+
+/* ===== LAYOUT: Mosaic (varied sizes) ===== */
+.gallery-grid.layout-mosaic {
+  columns: 3;
+  column-gap: 10px;
+  max-width: 1000px;
+}
+.layout-mosaic .gallery-item,
+.layout-mosaic .gallery-card {
+  break-inside: avoid;
+  margin-bottom: 10px;
+  border-radius: 14px;
+  overflow: hidden;
+  transform: rotate(0deg) !important;
+  width: 100%;
+}
+.layout-mosaic .gallery-item:nth-child(3n+1) { width: 100%; }
+.layout-mosaic .gallery-item:nth-child(3n+2) { width: 80%; }
+.layout-mosaic .gallery-item:nth-child(3n) { width: 90%; }
+.layout-mosaic .gallery-item img {
+  width: 100%; height: auto; aspect-ratio: auto;
+}
+.layout-mosaic .gallery-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(124,51,73,0.6));
+  color: #fff; padding: 16px 8px 6px; font-size: 13px;
+  opacity: 0; transition: opacity 0.3s;
+}
+.layout-mosaic .gallery-item:hover .gallery-caption { opacity: 1; }
+@media (max-width: 640px) {
+  .gallery-grid.layout-mosaic { columns: 2; }
+}
+
+/* ===== LAYOUT: Postcards (scattered stack) ===== */
+.gallery-grid.layout-postcards {
+  display: block;
+  max-width: 900px;
+  text-align: center;
+}
+.layout-postcards .gallery-item {
+  display: inline-block;
+  width: 220px;
+  margin: 8px;
+  background: #fff;
+  padding: 10px 10px 0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  border-radius: 4px;
+}
+.layout-postcards .gallery-item img {
+  width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 2px;
+}
+.layout-postcards .gallery-caption {
+  position: static; background: none; color: var(--ink-soft);
+  font-family: var(--font-hand); font-size: 17px;
+  padding: 8px 4px 12px; opacity: 1;
+}
+.gallery-grid.layout-scrapbook {
+  /* default existing layout — no overrides needed */
+}
+
 /* ---------------------------------------------------------------- motion safety */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
