@@ -46,9 +46,12 @@
   /* days counter */
   const daysHost = $("#daysCounter");
   if (daysHost && data.site.firstDay) {
-    const start = new Date(data.site.firstDay);
+    /* Parse as local date to avoid timezone off-by-one */
+    const startParts = data.site.firstDay.split("-").map(Number);
+    const s = new Date(startParts[0], startParts[1] - 1, startParts[2]);
     const now = new Date();
-    const days = Math.max(1, Math.floor((now - start) / 86400000));
+    const n = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const days = Math.max(1, Math.round((n - s) / 86400000));
     daysHost.innerHTML = `<span>Day</span> <span class="days-number">${days}</span> <span>together</span> <span class="days-heart">♡</span>`;
   }
 

@@ -1,320 +1,404 @@
-/* Renders Nadia's Dolls cabinet from window.NADIA_DATA + localStorage edits. */
+/* ================================================================
+   NADIA'S DOLLS — Gallery-style cabinet
+   Same design as photo gallery: filters, layouts, upload, manage
+   ================================================================ */
 (() => {
   "use strict";
-  const { $, el, escapeHtml, stagger, initReveals } = window.DiaryMagic;
+  const { $, el, escapeHtml, stagger, initReveals, lightbox } = window.DiaryMagic;
   const data = window.NADIA_DATA;
-  const dollsData = data.dolls;
+  const dd = data.dolls;
 
-  const STORAGE_KEY = "nadiaDollPreviewItems";
-  const PERMANENT_STORAGE_KEY = "nadiaDollPermanentOverrides";
+  const STORAGE_KEY = "nadia-dolls-user";
+  const HIDDEN_KEY = "nadia-dolls-hidden";
+  const OVERRIDE_KEY = "nadia-dolls-overrides";
+  const DELETED_KEY = "nadia-dolls-deleted";
 
-  function setText(sel, value) {
-    const node = $(sel);
-    if (node) node.textContent = value ?? "";
+  /* ===== Helpers ===== */
+  function setText(sel, val) { const n = $(sel); if (n) n.textContent = val ?? ""; }
+
+  /* ===== State ===== */
+  let userDolls = [];
+  try { userDolls = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); } catch { userDolls = []; }
+  let hiddenBuiltin = [];
+  try { hiddenBuiltin = JSON.parse(localStorage.getItem(HIDDEN_KEY) || "[]"); } catch { hiddenBuiltin = []; }
+  let builtinOverrides = {};
+  try { builtinOverrides = JSON.parse(localStorage.getItem(OVERRIDE_KEY) || "{}"); } catch { builtinOverrides = {}; }
+  let deletedBuiltin = [];
+  try { deletedBuiltin = JSON.parse(localStorage.getItem(DELETED_KEY) || "[]"); } catch { deletedBuiltin = []; }
+
+  let editMode = false;
+  let editingUser = -1;
+  let editingBuiltin = -1;
+  let activeFilter = "all";
+  let activeLayout = "scrapbook";
+  let pendingPhoto = "";
+
+  function saveAll() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(userDolls));
+    localStorage.setItem(HIDDEN_KEY, JSON.stringify(hiddenBuiltin));
+    localStorage.setItem(OVERRIDE_KEY, JSON.stringify(builtinOverrides));
+    localStorage.setItem(DELETED_KEY, JSON.stringify(deletedBuiltin));
   }
 
-  /* ------------------------------------------------------ page chrome */
+  /* ===== Page chrome ===== */
   document.title = `Nadia's Dolls | ${data.site.title}`;
   setText("#siteTitle", data.site.title);
-  setText("#siteFooter", dollsData.footerLine || data.site.footerLine);
-  setText("#dollsEyebrow", dollsData.eyebrow);
-  setText("#dollsTitle", dollsData.title);
-  setText("#dollsIntro", dollsData.intro);
-  setText("#shelfEyebrow", dollsData.shelfEyebrow);
-  setText("#shelfTitle", dollsData.shelfTitle);
+  setText("#siteFooter", dd.footerLine || data.site.footerLine);
+  setText("#dollsEyebrow", dd.eyebrow);
+  setText("#dollsTitle", dd.title);
+  setText("#dollsIntro", dd.intro);
 
-  const heroImg = $("#dollsHeroPhoto");
-  heroImg.src = dollsData.heroPhoto.src;
-  heroImg.alt = dollsData.heroPhoto.alt || "";
-  setText("#dollsHeroCaption", dollsData.heroPhoto.caption);
-
-  /* --------------------------------------------------------- state
-     Dolls from site-data.js are the permanent collection.
-     Dolls added in the browser live in localStorage on top of them. */
-  let localDolls = [];
-  let permanentOverrides = {};
-  try {
-    localDolls = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    if (!Array.isArray(localDolls)) localDolls = [];
-  } catch { localDolls = []; }
-  try {
-    permanentOverrides = JSON.parse(localStorage.getItem(PERMANENT_STORAGE_KEY) || "{}");
-    if (!permanentOverrides || Array.isArray(permanentOverrides) || typeof permanentOverrides !== "object") {
-      permanentOverrides = {};
-    }
-  } catch { permanentOverrides = {}; }
-
-  function allDolls() {
-    const added = localDolls.map((d, index) => ({
-      ...d,
-      _source: "local",
-      _sourceIndex: index
-    }));
-    const permanent = dollsData.items.flatMap((doll, index) => {
-      const override = permanentOverrides[index];
-      if (override?.deleted) return [];
-      return [{
-        ...doll,
-        ...(override || {}),
-        _source: "permanent",
-        _sourceIndex: index
-      }];
-    });
-    return [...added, ...permanent];
-  }
-
-  function saveLocal() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(localDolls));
-    localStorage.setItem(PERMANENT_STORAGE_KEY, JSON.stringify(permanentOverrides));
-  }
-
-  /* --------------------------------------------------------- render */
+  /* ===== Elements ===== */
   const grid = $("#dollGrid");
+  const userGrid = $("#userDollGrid");
+  const userSection = $("#userDollsSection");
+  const panel = $("#dollPanel");
+  const fileInput = $("#dollFileInput");
+  const previewImg = $("#dollPreviewPhoto");
+  const nameInput = $("#dollNameInput");
+  const tagInput = $("#dollTagInput");
+  const captionInput = $("#dollCaptionInput");
+  const saveBtn = $("#saveDollBtn");
+  const cancelBtn = $("#cancelDollBtn");
+  const manageToggleBtn = $("#manageToggleBtn");
+  const manageLabel = $("#manageLabel");
 
-  function normalizePhotoPath(value) {
-    const trimmed = String(value || "").trim().replaceAll("\\", "/");
-    if (!trimmed) return "";
-    if (/^(https?:|data:|blob:)/i.test(trimmed)) return trimmed;
-    const fileName = trimmed.split("/").filter(Boolean).pop();
-    return fileName ? `./assets/uploads/${fileName}` : "";
-  }
+  /* ===== Frame chooser ===== */
+  let selectedFrame = "clean";
+  let selectedColor = "#f6c8d6";
 
-  function render() {
-    const dolls = allDolls();
-    grid.innerHTML = "";
-
-    if (dolls.length === 0) {
-      grid.innerHTML = `
-        <div class="empty-cabinet">
-          <strong>No dolls yet</strong>
-          <span>Open the drawer below to add the first tiny treasure.</span>
-        </div>`;
-      return;
-    }
-
-    dolls.forEach((doll) => {
-      const name = doll.name || "Unnamed doll";
-      const tag = doll.tag || "soft sweetheart";
-      const caption = doll.caption || "";
-      const photo = doll.photo || "";
-      const photoHtml = photo
-        ? `<img src="${escapeHtml(photo)}" alt="${escapeHtml(name)}" loading="lazy" decoding="async" />`
-        : `<span>photo coming soon 🎀</span>`;
-      const manageHtml = `
-        <div class="doll-manage">
-          <button class="doll-manage-toggle" type="button" aria-label="Manage ${escapeHtml(name)}" aria-expanded="false" title="Manage this tiny treasure">🗝️</button>
-          <div class="doll-manage-menu" role="menu">
-            <span class="manage-menu-label">tiny changes</span>
-            <button class="edit-doll-button" type="button" role="menuitem" data-source="${doll._source}" data-index="${doll._sourceIndex}"><span aria-hidden="true">✎</span> Edit</button>
-            <button class="delete-doll-button" type="button" role="menuitem" data-source="${doll._source}" data-index="${doll._sourceIndex}"><span aria-hidden="true">×</span> Delete</button>
-          </div>
-        </div>`;
-
-      const card = el("article", "doll-card");
-      card.innerHTML = `
-        <div class="doll-card-inner">
-          <button class="doll-face doll-door" type="button" aria-expanded="false">
-            <span class="door-knob" aria-hidden="true"></span>
-            <span class="door-bow" aria-hidden="true">🎀</span>
-            <span class="door-name">${escapeHtml(name)}</span>
-            <span class="door-tag">${escapeHtml(tag)}</span>
-            <span class="door-hint">tap to open</span>
-          </button>
-          <div class="doll-face doll-inside">
-            <div class="doll-photo">${photoHtml}</div>
-            <div class="doll-text">
-              <span class="doll-tag">${escapeHtml(tag)}</span>
-              <h3>${escapeHtml(name)}</h3>
-              <p>${escapeHtml(caption)}</p>
-            </div>
-            <button class="doll-close" type="button">close door 🗝️</button>
-          </div>
-        </div>
-        ${manageHtml}`;
-      grid.appendChild(card);
+  function setupFrameChooser() {
+    const chooser = $("#dollFrameChooser");
+    chooser?.addEventListener("click", (e) => {
+      const opt = e.target.closest(".frame-option");
+      if (!opt) return;
+      selectedFrame = opt.dataset.frame;
+      chooser.querySelectorAll(".frame-option").forEach((o) => o.classList.toggle("selected", o === opt));
     });
 
-    stagger(grid, 0.1, 0.5);
+    const tintChooser = $("#dollTintChooser");
+    tintChooser?.addEventListener("click", (e) => {
+      const opt = e.target.closest(".tint-option");
+      if (!opt) return;
+      selectedColor = opt.dataset.color;
+      tintChooser.querySelectorAll(".tint-option").forEach((o) => o.classList.toggle("selected", o === opt));
+    });
+  }
+  setupFrameChooser();
+
+  /* ===== Get effective doll (apply overrides) ===== */
+  function getEffectiveDoll(i) {
+    const original = dd.items[i];
+    const ov = builtinOverrides[i];
+    return {
+      name: ov?.name || original.name,
+      tag: ov?.tag || original.tag || "",
+      photo: ov?.photo || original.photo,
+      caption: ov?.caption || original.caption || "",
+      frame: ov?.frame || "clean",
+      color: ov?.color || "#f6c8d6"
+    };
+  }
+
+  /* ===== Render builtin dolls ===== */
+  function renderDolls() {
+    grid.innerHTML = "";
+    grid.className = "gallery-grid layout-" + activeLayout;
+
+    dd.items.forEach((doll, i) => {
+      if (deletedBuiltin.includes(i) && !editMode) return;
+
+      /* Category filter */
+      if (activeFilter !== "all") {
+        const tags = doll.tags || ["plushie"];
+        if (!tags.includes(activeFilter)) return;
+      }
+
+      const eff = getEffectiveDoll(i);
+      const isHidden = hiddenBuiltin.includes(i);
+      if (isHidden && !editMode) return;
+
+      const card = buildDollCard(eff, false, i);
+      grid.appendChild(card);
+
+      if (editMode) {
+        const menu = el("div", "gallery-manage-menu");
+        let btns = "";
+        if (deletedBuiltin.includes(i)) {
+          btns = `<button class="gm-restore" data-builtin="${i}"><span>♻️</span> Restore</button>`;
+        } else {
+          btns = `<button class="gm-edit-builtin" data-builtin="${i}"><span>✎</span> Edit</button>`;
+          btn += btns;
+          if (isHidden) {
+            btns += `<button class="gm-unhide" data-builtin="${i}"><span>👁️</span> Show</button>`;
+          } else {
+            btns += `<button class="gm-hide" data-builtin="${i}"><span>🙈</span> Hide</button>`;
+          }
+          btns += `<button class="gm-delete-builtin" data-builtin="${i}"><span>🗑️</span> Delete</button>`;
+        }
+        menu.innerHTML = btns;
+        card.appendChild(menu);
+      }
+    });
+
+    /* Render user dolls */
+    userGrid.innerHTML = "";
+    userGrid.className = "gallery-grid layout-" + activeLayout;
+    userDolls.forEach((doll, i) => {
+      const card = buildDollCard(doll, true, i);
+      userGrid.appendChild(card);
+      if (editMode) {
+        const menu = el("div", "gallery-manage-menu");
+        menu.innerHTML =
+          `<button class="gm-edit-user" data-index="${i}"><span>✎</span> Edit</button>` +
+          `<button class="gm-delete-user" data-index="${i}"><span>🗑️</span> Delete</button>`;
+        card.appendChild(menu);
+      }
+    });
+    userSection.hidden = userDolls.length === 0;
+
+    if (!editMode) {
+      stagger(grid, 0.06, 0.5);
+      stagger(userGrid, 0.06, 0.4);
+    }
     initReveals();
   }
 
-  /* ----------------------------------------------------- interactions */
-  grid.addEventListener("click", (event) => {
-    const manageToggle = event.target.closest(".doll-manage-toggle");
-    if (manageToggle) {
-      const manage = manageToggle.closest(".doll-manage");
-      grid.querySelectorAll(".doll-manage.is-open").forEach((openManage) => {
-        if (openManage === manage) return;
-        openManage.classList.remove("is-open");
-        openManage.querySelector(".doll-manage-toggle")?.setAttribute("aria-expanded", "false");
+  function buildDollCard(doll, isUser, index) {
+    const name = doll.name || "Unnamed";
+    const tag = doll.tag || "little sweetheart";
+    const caption = doll.caption || "";
+    const photo = doll.photo || "";
+    const frame = doll.frame || "clean";
+    const color = doll.color || "#f6c8d6";
+
+    const item = el("div", "gallery-item doll-card-v2");
+    item.setAttribute("data-index", index);
+    item.setAttribute("data-source", isUser ? "user" : "builtin");
+
+    const photoHtml = photo
+      ? `<img src="${escapeHtml(photo)}" alt="${escapeHtml(name)}" loading="lazy" decoding="async" />`
+      : `<span style="display:grid;place-items:center;width:100%;height:200px;background:rgba(160,74,96,0.06);border-radius:12px;">🧸</span>`;
+
+    const frameClass = frame !== "clean" ? " fc-" + frame : "";
+    if (frameClass) {
+      item.className += frameClass;
+      if (frame === "tinted") item.style.background = color;
+    }
+
+    if (!editMode && activeLayout === "scrapbook") {
+      const rotation = (Math.random() - 0.5) * 4;
+      item.style.transform = `rotate(${rotation}deg)`;
+    }
+
+    item.innerHTML = `
+      <div class="doll-photo-v2">${photoHtml}</div>
+      <span class="gallery-caption">
+        <strong>${escapeHtml(name)}</strong>
+        ${tag ? `<em>${escapeHtml(tag)}</em>` : ""}
+        ${caption ? `<small>${escapeHtml(caption)}</small>` : ""}
+      </span>
+    `;
+
+    if (!editMode) {
+      item.style.cursor = "pointer";
+      item.addEventListener("click", () => {
+        if (photo) lightbox.open([{ src: photo, alt: name, caption: name + " — " + tag }], 0);
       });
-      const isOpen = manage.classList.toggle("is-open");
-      manageToggle.setAttribute("aria-expanded", String(isOpen));
-      return;
-    }
-    const editButton = event.target.closest(".edit-doll-button");
-    if (editButton) {
-      startEdit(editButton.dataset.source, Number(editButton.dataset.index));
-      return;
-    }
-    const deleteButton = event.target.closest(".delete-doll-button");
-    if (deleteButton) {
-      deleteDoll(deleteButton.dataset.source, Number(deleteButton.dataset.index));
-      return;
     }
 
-    const door = event.target.closest(".doll-door");
-    if (door) {
-      const card = door.closest(".doll-card");
-      card.classList.add("is-open");
-      door.setAttribute("aria-expanded", "true");
+    return item;
+  }
+
+  /* ===== Manage mode ===== */
+  manageToggleBtn.addEventListener("click", () => {
+    editMode = !editMode;
+    grid.classList.toggle("manage-mode", editMode);
+    userGrid.classList.toggle("manage-mode", editMode);
+    manageToggleBtn.classList.toggle("active", editMode);
+    manageLabel.textContent = editMode ? "Done managing" : "Manage dolls";
+    renderDolls();
+  });
+
+  /* ===== Click handler for manage menu ===== */
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+
+    const editBuilt = t.closest(".gm-edit-builtin");
+    if (editBuilt) {
+      e.preventDefault(); e.stopPropagation();
+      openEditPanel("builtin", Number(editBuilt.dataset.builtin));
       return;
     }
-    const closeBtn = event.target.closest(".doll-close");
-    if (closeBtn) {
-      const card = closeBtn.closest(".doll-card");
-      card.classList.remove("is-open");
-      card.querySelector(".doll-door").setAttribute("aria-expanded", "false");
+    const delBuilt = t.closest(".gm-delete-builtin");
+    if (delBuilt) {
+      e.preventDefault(); e.stopPropagation();
+      const i = Number(delBuilt.dataset.builtin);
+      if (!confirm(`Delete ${getEffectiveDoll(i).name}?`)) return;
+      deletedBuiltin.push(i);
+      saveAll();
+      renderDolls();
+      return;
+    }
+    const hideBtn = t.closest(".gm-hide");
+    if (hideBtn) {
+      e.preventDefault(); e.stopPropagation();
+      hiddenBuiltin.push(Number(hideBtn.dataset.builtin));
+      saveAll();
+      renderDolls();
+      return;
+    }
+    const unhideBtn = t.closest(".gm-unhide");
+    if (unhideBtn) {
+      e.preventDefault(); e.stopPropagation();
+      const idx = Number(unhideBtn.dataset.builtin);
+      hiddenBuiltin = hiddenBuiltin.filter((x) => x !== idx);
+      saveAll();
+      renderDolls();
+      return;
+    }
+    const restoreBtn = t.closest(".gm-restore");
+    if (restoreBtn) {
+      e.preventDefault(); e.stopPropagation();
+      const idx = Number(restoreBtn.dataset.builtin);
+      deletedBuiltin = deletedBuiltin.filter((x) => x !== idx);
+      saveAll();
+      renderDolls();
+      return;
+    }
+    const editUser = t.closest(".gm-edit-user");
+    if (editUser) {
+      e.preventDefault(); e.stopPropagation();
+      openEditPanel("user", Number(editUser.dataset.index));
+      return;
+    }
+    const delUser = t.closest(".gm-delete-user");
+    if (delUser) {
+      e.preventDefault(); e.stopPropagation();
+      const i = Number(delUser.dataset.index);
+      if (!confirm(`Delete ${userDolls[i]?.name || "this doll"}?`)) return;
+      userDolls.splice(i, 1);
+      saveAll();
+      renderDolls();
+      return;
     }
   });
 
-  document.addEventListener("click", (event) => {
-    if (event.target.closest(".doll-manage")) return;
-    grid.querySelectorAll(".doll-manage.is-open").forEach((manage) => {
-      manage.classList.remove("is-open");
-      manage.querySelector(".doll-manage-toggle")?.setAttribute("aria-expanded", "false");
-    });
+  /* ===== Add / Edit panel ===== */
+  $("#addDollBtn").addEventListener("click", () => openEditPanel("new", -1));
+  cancelBtn.addEventListener("click", closeEditPanel);
+
+  fileInput.addEventListener("change", () => {
+    const file = fileInput.files?.[0];
+    if (!file) return;
+    pendingPhoto = URL.createObjectURL(file);
+    previewImg.src = pendingPhoto;
+    previewImg.style.display = "block";
   });
 
-  /* -------------------------------------------------------- the drawer */
-  const drawerCover = $(".drawer-editor-cover");
-  const form = $("#previewDollForm");
-  const editingIndexInput = $("#editingIndexInput");
-  const photoInput = $("#dollPhotoInput");
-  const photoPathInput = $("#dollPhotoPathInput");
-  const nameInput = $("#dollNameInput");
-  const tagInput = $("#dollTagInput");
-  const colorInput = $("#dollColorInput");
-  const detailInput = $("#dollDetailInput");
-  const captionInput = $("#dollCaptionInput");
-  const generateButton = $("#generateCaptionButton");
-  const saveButton = $("#saveDollButton");
-  const cancelEditButton = $("#cancelEditButton");
+  function openEditPanel(source, index) {
+    editingUser = -1;
+    editingBuiltin = -1;
+    pendingPhoto = "";
+    selectedFrame = "clean";
+    selectedColor = "#f6c8d6";
 
-  let selectedPhoto = "";
-  let editingSource = "";
+    /* Reset frame chooser */
+    $("#dollFrameChooser")?.querySelectorAll(".frame-option").forEach((o) =>
+      o.classList.toggle("selected", o.dataset.frame === "clean"));
+    $("#dollTintChooser")?.querySelectorAll(".tint-option").forEach((o) =>
+      o.classList.toggle("selected", o.dataset.color === "#f6c8d6"));
 
-  function makeCaption({ name, tag, color, detail }) {
-    const dollName = name || "This little doll";
-    const softColor = color || "soft colors";
-    const cuteDetail = detail || "tiny sweet details";
-    const personality = tag || "gentle little sweetheart";
-    return `${dollName} feels like a ${personality}, dressed in ${softColor} with ${cuteDetail}. She looks ready to sit quietly in Nadia's collection and make the whole shelf feel a little cuter.`;
-  }
-
-  function openDrawer() {
-    drawerCover.setAttribute("aria-expanded", "true");
-    form.hidden = false;
-  }
-
-  function resetForm() {
-    form.reset();
-    editingIndexInput.value = "";
-    editingSource = "";
-    selectedPhoto = "";
-    saveButton.textContent = "Add Doll";
-    cancelEditButton.hidden = true;
-  }
-
-  function getEditableDoll(source, index) {
-    if (source === "local") return localDolls[index];
-    if (source === "permanent") {
-      return { ...dollsData.items[index], ...(permanentOverrides[index] || {}) };
-    }
-    return null;
-  }
-
-  function startEdit(source, index) {
-    const doll = getEditableDoll(source, index);
-    if (!doll) return;
-    openDrawer();
-    editingSource = source;
-    editingIndexInput.value = String(index);
-    photoPathInput.value = doll.photo || "";
-    nameInput.value = doll.name || "";
-    tagInput.value = doll.tag || "";
-    colorInput.value = doll.color || "";
-    detailInput.value = doll.detail || "";
-    captionInput.value = doll.caption || "";
-    selectedPhoto = "";
-    saveButton.textContent = "Save Changes";
-    cancelEditButton.hidden = false;
-    form.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
-
-  function deleteDoll(source, index) {
-    const doll = getEditableDoll(source, index);
-    if (!doll) return;
-    if (!confirm(`Delete ${doll.name || "this doll"}?`)) return;
-    if (source === "local") {
-      localDolls.splice(index, 1);
+    if (source === "builtin") {
+      const eff = getEffectiveDoll(index);
+      nameInput.value = eff.name;
+      tagInput.value = eff.tag;
+      captionInput.value = eff.caption;
+      previewImg.src = eff.photo;
+      previewImg.style.display = eff.photo ? "block" : "none";
+      selectedFrame = eff.frame;
+      selectedColor = eff.color;
+      editingBuiltin = index;
+      saveBtn.textContent = "Save changes ✨";
+    } else if (source === "user") {
+      const d = userDolls[index];
+      nameInput.value = d.name || "";
+      tagInput.value = d.tag || "";
+      captionInput.value = d.caption || "";
+      previewImg.src = d.photo || "";
+      previewImg.style.display = d.photo ? "block" : "none";
+      selectedFrame = d.frame || "clean";
+      selectedColor = d.color || "#f6c8d6";
+      editingUser = index;
+      saveBtn.textContent = "Save changes ✨";
     } else {
-      permanentOverrides[index] = { ...(permanentOverrides[index] || {}), deleted: true };
+      nameInput.value = "";
+      tagInput.value = "";
+      captionInput.value = "";
+      previewImg.src = "";
+      previewImg.style.display = "none";
+      saveBtn.textContent = "Add to cabinet ✨";
     }
-    saveLocal();
-    render();
-    resetForm();
+
+    /* Update frame selection UI */
+    $("#dollFrameChooser")?.querySelectorAll(".frame-option").forEach((o) =>
+      o.classList.toggle("selected", o.dataset.frame === selectedFrame));
+    $("#dollTintChooser")?.querySelectorAll(".tint-option").forEach((o) =>
+      o.classList.toggle("selected", o.dataset.color === selectedColor));
+
+    panel.classList.add("open");
+    nameInput.focus();
   }
 
-  photoInput.addEventListener("change", () => {
-    const file = photoInput.files?.[0];
-    selectedPhoto = file ? URL.createObjectURL(file) : "";
-    if (file) photoPathInput.value = `assets/uploads/${file.name}`;
-  });
+  function closeEditPanel() {
+    panel.classList.remove("open");
+    fileInput.value = "";
+    pendingPhoto = "";
+    editingUser = -1;
+    editingBuiltin = -1;
+  }
 
-  generateButton.addEventListener("click", () => {
-    captionInput.value = makeCaption({
-      name: nameInput.value.trim(),
-      tag: tagInput.value.trim(),
-      color: colorInput.value.trim(),
-      detail: detailInput.value.trim()
-    });
-  });
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const editingIndex = editingIndexInput.value === "" ? -1 : Number(editingIndexInput.value);
+  saveBtn.addEventListener("click", () => {
     const name = nameInput.value.trim() || "New little doll";
     const tag = tagInput.value.trim() || "soft sweetheart";
-    const color = colorInput.value.trim();
-    const detail = detailInput.value.trim();
-    const caption = captionInput.value.trim() || makeCaption({ name, tag, color, detail });
-    const existingPhoto = editingIndex >= 0
-      ? getEditableDoll(editingSource, editingIndex)?.photo
-      : "";
-    const photo = selectedPhoto || normalizePhotoPath(photoPathInput.value) || existingPhoto || "";
-    const nextDoll = { name, tag, color, detail, photo, caption };
+    const caption = captionInput.value.trim();
+    const photo = pendingPhoto || (editingBuiltin >= 0 ? getEffectiveDoll(editingBuiltin).photo : "") ||
+                  (editingUser >= 0 ? userDolls[editingUser]?.photo : "");
 
-    if (editingIndex >= 0 && editingSource === "local") {
-      localDolls[editingIndex] = nextDoll;
-    } else if (editingIndex >= 0 && editingSource === "permanent") {
-      permanentOverrides[editingIndex] = nextDoll;
+    const doll = { name, tag, caption, photo, frame: selectedFrame, color: selectedColor };
+
+    if (editingBuiltin >= 0) {
+      builtinOverrides[editingBuiltin] = doll;
+    } else if (editingUser >= 0) {
+      userDolls[editingUser] = doll;
     } else {
-      localDolls.unshift(nextDoll);
+      userDolls.push(doll);
     }
 
-    saveLocal();
-    resetForm();
-    render();
+    saveAll();
+    closeEditPanel();
+    renderDolls();
   });
 
-  drawerCover.addEventListener("click", () => {
-    const isOpen = drawerCover.getAttribute("aria-expanded") === "true";
-    drawerCover.setAttribute("aria-expanded", String(!isOpen));
-    form.hidden = isOpen;
+  /* ===== Category filter + Layout switcher ===== */
+  $("#dollFilters")?.addEventListener("click", (e) => {
+    const btn = e.target.closest(".gallery-filter");
+    if (!btn) return;
+    activeFilter = btn.dataset.filter;
+    $("#dollFilters").querySelectorAll(".gallery-filter").forEach((b) =>
+      b.classList.toggle("active", b === btn));
+    renderDolls();
   });
 
-  cancelEditButton.addEventListener("click", resetForm);
+  $("#dollLayouts")?.addEventListener("click", (e) => {
+    const btn = e.target.closest(".layout-btn");
+    if (!btn) return;
+    activeLayout = btn.dataset.layout;
+    $("#dollLayouts").querySelectorAll(".layout-btn").forEach((b) =>
+      b.classList.toggle("active", b === btn));
+    renderDolls();
+  });
 
-  render();
+  /* ===== Init ===== */
+  renderDolls();
 })();
