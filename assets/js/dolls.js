@@ -128,7 +128,6 @@
           btns = `<button class="gm-restore" data-builtin="${i}"><span>♻️</span> Restore</button>`;
         } else {
           btns = `<button class="gm-edit-builtin" data-builtin="${i}"><span>✎</span> Edit</button>`;
-          btn += btns;
           if (isHidden) {
             btns += `<button class="gm-unhide" data-builtin="${i}"><span>👁️</span> Show</button>`;
           } else {
