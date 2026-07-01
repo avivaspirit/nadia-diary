@@ -294,9 +294,35 @@ window.NADIA_DATA = {
   },
 
   /* ------------------------------ MUSIC ------------------------------- */
-  /* Spotify track ID — leave empty to disable music feature entirely */
+  /* Spotify playlist — songs show in a mini player, user can pick any track */
   music: {
-    spotifyId: "6gkbtMtioHgtyGjrMel6ei",
-    emoji: "🎵"
+    playlistId: "4B8CTHWuqeqJ68ZqqvEqNV",
+    playlistName: "LinoLarny:) 🎵",
+    defaultTrack: "6gkbtMtioHgtyGjrMel6ei",
+    emoji: "🎵",
+    tracks: [
+      { id: "74nEGIzIefJhJ5qX7NeIAz", title: "Beggin'",            artist: "Chris Lake, Aluna" },
+      { id: "4MpketOLD5KhtgWWOBuk9w", title: "SexOnTheBeat",       artist: "Lino" },
+      { id: "6AC9alC8qJ7cXuYifgAfQn", title: "DUVET",              artist: "bôa" },
+      { id: "4A56h4B9xUuMMXoKuj18HT", title: "Edge of Desire",     artist: "The National" },
+      { id: "1eDI5oU04SLsXl0TfxfwYf", title: "Love Me JeJe",       artist: "King Promise" },
+      { id: "6w2rL0ut3mK7TBZmYx4oZK", title: "Kate Spade",         artist: "Lil Yachty" },
+      { id: "7904wbV03rb4S0gGliqBk4", title: "HOMEWRECKED",        artist: "Lil Yachty" },
+      { id: "1ZXGXdoQLz4GOnWMyipRjj", title: "BIRDS OF A FEATHER", artist: "Billie Eilish" },
+      { id: "6gkbtMtioHgtyGjrMel6ei", title: "drop dead",          artist: "Olivia Rodrigo" },
+      { id: "1U5Le5U3S1qUVOvO1orCtu", title: "Simple Things",      artist: "Lil Yachty" },
+      { id: "2ZV2rFSeDr16cKMuSuXlGA", title: "UNDERDOGS",          artist: "Lil Yachty" },
+      { id: "7tICCrK3CcyRFKza7yrR0z", title: "Homewrecker",        artist: "Olivia Rodrigo" },
+      { id: "1UNEuG9DYOWiikf00ayr52", title: "Love Me Not",        artist: "Flo Milli" },
+      { id: "7ogpGbKc4Io6NCU6ydxXwZ", title: "FEVER DREAM",        artist: "Lil Yachty" },
+      { id: "17LuVd2gBc7UvcgZbm1cFV", title: "To Love Somebody",   artist: "Bee Gees" },
+      { id: "4blARE63d5cQU3cdxCbrBa", title: "Turn The Page",      artist: "Metallica" },
+      { id: "6XcyAXAYKQD7FqCG2F2xOu", title: "Hot & Sexy",         artist: "Lino" },
+      { id: "7jXYuDIoG3mR4JEOzB9sXX", title: "DRENCH",             artist: "Lino" },
+      { id: "0IoD88QDxy5GPip9IzlzyI", title: "Certified",          artist: "Lil Yachty" },
+      { id: "3PkvYP6223QO3xlW2THd1x", title: "Would I Lie To You?",artist: "Eurythmics" },
+      { id: "4nZi6XNe36Ut4Nij3IQ1yC", title: "Silver Springs",     artist: "Fleetwood Mac" },
+      { id: "6ee04RfJraeyLWpKB4cgCZ", title: "No Gravity",         artist: "Lil Yachty" }
+    ]
   }
 };
