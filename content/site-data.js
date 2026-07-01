@@ -170,13 +170,12 @@ window.NADIA_DATA = {
       { src: "./assets/uploads/nadia-note-couple.jpg",     alt: "Nadia and Mac together",    caption: "little us moment" },
       { src: "./assets/uploads/nadia-cabinet-hero.jpg",    alt: "Nadia with flowers",        caption: "keeper of the cabinet" },
       { src: "./assets/uploads/nadia-date-night.jpg",      alt: "Nadia in a red dress",      caption: "date night energy" },
+      { src: "./assets/uploads/nadia-with-friends.jpg",    alt: "Nadia with friends",        caption: "good company" },
+      { src: "./assets/uploads/nadia-marble-showroom.jpg", alt: "Nadia at marble showroom",  caption: "business energy" },
       { src: "./assets/uploads/birthday-solo-1.jpg",       alt: "A sweet memory",            caption: "birthday sparkle" },
       { src: "./assets/uploads/birthday-solo-2-web.jpg",   alt: "A sweet memory",            caption: "birthday glow" },
       { src: "./assets/uploads/birthday-couple-1.jpg",     alt: "Together",                  caption: "us, always" },
-      { src: "./assets/uploads/birthday-couple-2.jpg",     alt: "Together",                  caption: "forever vibes" },
-      { src: "./assets/uploads/birthday-wedding-left.jpg",  alt: "A sweet photo memory",      caption: "pretty in pink" },
-      { src: "./assets/uploads/birthday-wedding-right.jpg", alt: "A sweet photo memory",      caption: "golden night" },
-      { src: "./assets/uploads/doll-mimi.jpg",              alt: "Mimi the doll",             caption: "first little resident" }
+      { src: "./assets/uploads/birthday-couple-2.jpg",     alt: "Together",                  caption: "forever vibes" }
     ]
   },
 
