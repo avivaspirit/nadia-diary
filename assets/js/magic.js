@@ -403,6 +403,8 @@
         '?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" ' +
         'loading="lazy"></iframe>' +
       '</div>' +
+      '<a class="mp-open-spotify" id="mpOpenSpotify" href="https://open.spotify.com/track/' + currentTrack +
+        '" target="_blank" rel="noopener">Open in Spotify app ♡</a>' +
       trackListHtml;
     document.body.appendChild(player);
 
@@ -449,6 +451,9 @@
           /* Reload iframe with new track */
           iframe.src = "https://open.spotify.com/embed/track/" + id +
             "?utm_source=generator&theme=0";
+          /* Update open-in-spotify link */
+          var openLink = player.querySelector("#mpOpenSpotify");
+          if (openLink) openLink.href = "https://open.spotify.com/track/" + id;
         });
       }
     }
