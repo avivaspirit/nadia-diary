@@ -172,10 +172,10 @@ window.NADIA_DATA = {
       { src: "./assets/uploads/nadia-date-night.jpg",      alt: "Nadia in a red dress",      caption: "date night energy", tags: ["me"] },
       { src: "./assets/uploads/nadia-with-friends.jpg",    alt: "Nadia with friends",        caption: "good company", tags: ["me"] },
       { src: "./assets/uploads/nadia-marble-showroom.jpg", alt: "Nadia at marble showroom",  caption: "business energy", tags: ["me"] },
-      { src: "./assets/uploads/birthday-solo-1.jpg",       alt: "A sweet memory",            caption: "birthday sparkle", tags: ["birthday"] },
-      { src: "./assets/uploads/birthday-solo-2-web.jpg",   alt: "A sweet memory",            caption: "birthday glow", tags: ["birthday"] },
-      { src: "./assets/uploads/birthday-couple-1.jpg",     alt: "Together",                  caption: "us, always", tags: ["birthday","us"] },
-      { src: "./assets/uploads/birthday-couple-2.jpg",     alt: "Together",                  caption: "forever vibes", tags: ["birthday","us"] }
+      { src: "./assets/uploads/birthday-solo-1.jpg",       alt: "A sweet memory",            caption: "your moments", tags: ["moments"] },
+      { src: "./assets/uploads/birthday-solo-2-web.jpg",   alt: "A sweet memory",            caption: "your moments", tags: ["moments"] },
+      { src: "./assets/uploads/birthday-couple-1.jpg",     alt: "Together",                  caption: "your moments", tags: ["moments","us"] },
+      { src: "./assets/uploads/birthday-couple-2.jpg",     alt: "Together",                  caption: "your moments", tags: ["moments","us"] }
     ]
   },
 
