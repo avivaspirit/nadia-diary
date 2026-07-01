@@ -162,20 +162,20 @@ window.NADIA_DATA = {
     intro: "A scrapbook wall of our favorite memories. Tap any photo to look closer ✨",
     /* Uses all photos from uploads folder. Add more here as they come. */
     photos: [
-      { src: "./assets/uploads/nadia-mac-pov-collage.jpg", alt: "His and her POV collage", caption: "same moment, two views" },
-      { src: "./assets/uploads/nadia-note-1.jpg",          alt: "Photo of Nadia",            caption: "the diary girl" },
-      { src: "./assets/uploads/nadia-note-2.jpg",          alt: "Nadia by a blue door",      caption: "soft and bright" },
-      { src: "./assets/uploads/nadia-note-3.jpg",          alt: "Nadia with dessert",        caption: "night sparkle" },
-      { src: "./assets/uploads/nadia-note-4.jpg",          alt: "Nadia at dinner",           caption: "little bunny" },
-      { src: "./assets/uploads/nadia-note-couple.jpg",     alt: "Nadia and Mac together",    caption: "little us moment" },
-      { src: "./assets/uploads/nadia-cabinet-hero.jpg",    alt: "Nadia with flowers",        caption: "keeper of the cabinet" },
-      { src: "./assets/uploads/nadia-date-night.jpg",      alt: "Nadia in a red dress",      caption: "date night energy" },
-      { src: "./assets/uploads/nadia-with-friends.jpg",    alt: "Nadia with friends",        caption: "good company" },
-      { src: "./assets/uploads/nadia-marble-showroom.jpg", alt: "Nadia at marble showroom",  caption: "business energy" },
-      { src: "./assets/uploads/birthday-solo-1.jpg",       alt: "A sweet memory",            caption: "birthday sparkle" },
-      { src: "./assets/uploads/birthday-solo-2-web.jpg",   alt: "A sweet memory",            caption: "birthday glow" },
-      { src: "./assets/uploads/birthday-couple-1.jpg",     alt: "Together",                  caption: "us, always" },
-      { src: "./assets/uploads/birthday-couple-2.jpg",     alt: "Together",                  caption: "forever vibes" }
+      { src: "./assets/uploads/nadia-mac-pov-collage.jpg", alt: "His and her POV collage", caption: "same moment, two views", tags: ["us"] },
+      { src: "./assets/uploads/nadia-note-1.jpg",          alt: "Photo of Nadia",            caption: "the diary girl", tags: ["me"] },
+      { src: "./assets/uploads/nadia-note-2.jpg",          alt: "Nadia by a blue door",      caption: "soft and bright", tags: ["me"] },
+      { src: "./assets/uploads/nadia-note-3.jpg",          alt: "Nadia with dessert",        caption: "night sparkle", tags: ["me"] },
+      { src: "./assets/uploads/nadia-note-4.jpg",          alt: "Nadia at dinner",           caption: "little bunny", tags: ["me"] },
+      { src: "./assets/uploads/nadia-note-couple.jpg",     alt: "Nadia and Mac together",    caption: "little us moment", tags: ["us"] },
+      { src: "./assets/uploads/nadia-cabinet-hero.jpg",    alt: "Nadia with flowers",        caption: "keeper of the cabinet", tags: ["me"] },
+      { src: "./assets/uploads/nadia-date-night.jpg",      alt: "Nadia in a red dress",      caption: "date night energy", tags: ["me"] },
+      { src: "./assets/uploads/nadia-with-friends.jpg",    alt: "Nadia with friends",        caption: "good company", tags: ["me"] },
+      { src: "./assets/uploads/nadia-marble-showroom.jpg", alt: "Nadia at marble showroom",  caption: "business energy", tags: ["me"] },
+      { src: "./assets/uploads/birthday-solo-1.jpg",       alt: "A sweet memory",            caption: "birthday sparkle", tags: ["birthday"] },
+      { src: "./assets/uploads/birthday-solo-2-web.jpg",   alt: "A sweet memory",            caption: "birthday glow", tags: ["birthday"] },
+      { src: "./assets/uploads/birthday-couple-1.jpg",     alt: "Together",                  caption: "us, always", tags: ["birthday","us"] },
+      { src: "./assets/uploads/birthday-couple-2.jpg",     alt: "Together",                  caption: "forever vibes", tags: ["birthday","us"] }
     ]
   },
 

@@ -31,6 +31,8 @@
   let editMode = false;
   let editingIndex = -1;
   let editingBuiltin = -1;
+  let activeFilter = "all";
+  let activeLayout = "scrapbook";
 
   const grid = $("#galleryGrid");
   const myPhotosGrid = $("#myPhotosGrid");
@@ -204,9 +206,17 @@
 
   function renderBuiltinGallery() {
     grid.innerHTML = "";
+    grid.className = "gallery-grid layout-" + activeLayout;
+
     gallery.photos.forEach((photo, i) => {
       const isDeleted = builtinOverrides[i]?.deleted;
       if (isDeleted && !editMode) return;
+
+      /* Category filter */
+      if (activeFilter !== "all") {
+        const tags = photo.tags || [];
+        if (!tags.includes(activeFilter)) return;
+      }
 
       const eff = getEffectivePhoto(i);
       const isHidden = hiddenBuiltin.includes(i);
@@ -216,7 +226,7 @@
       if (eff.frame && eff.frame !== "clean") {
         const card = el("div", "gallery-card fc-" + eff.frame);
         if (eff.frame === "tinted") card.style.background = eff.color;
-        if (!editMode) {
+        if (!editMode && activeLayout === "scrapbook") {
           const rotation = (Math.random() - 0.5) * 4;
           card.style.transform = `rotate(${rotation}deg)`;
         }
@@ -226,7 +236,6 @@
         cap.textContent = eff.caption || "";
         card.appendChild(imgWrap);
         card.appendChild(cap);
-
         if (!editMode) {
           card.addEventListener("click", () => lightbox.open(gallery.photos, i));
         }
@@ -247,21 +256,23 @@
       /* Add manage menu in edit mode */
       if (editMode) {
         const lastEl = grid.lastElementChild;
-        const menu = el("div", "gallery-manage-menu");
-        let btns = "";
-        if (isDeleted) {
-          btns = `<button class="gm-restore" data-builtin="${i}"><span>♻️</span> Restore</button>`;
-        } else {
-          btns = `<button class="gm-edit-builtin" data-builtin="${i}"><span>✎</span> Edit</button>`;
-          if (isHidden) {
-            btns += `<button class="gm-unhide" data-builtin="${i}"><span>👁️</span> Show</button>`;
+        if (lastEl) {
+          const menu = el("div", "gallery-manage-menu");
+          let btns = "";
+          if (isDeleted) {
+            btns = `<button class="gm-restore" data-builtin="${i}"><span>♻️</span> Restore</button>`;
           } else {
-            btns += `<button class="gm-hide" data-builtin="${i}"><span>🙈</span> Hide</button>`;
+            btns = `<button class="gm-edit-builtin" data-builtin="${i}"><span>✎</span> Edit</button>`;
+            if (isHidden) {
+              btns += `<button class="gm-unhide" data-builtin="${i}"><span>👁️</span> Show</button>`;
+            } else {
+              btns += `<button class="gm-hide" data-builtin="${i}"><span>🙈</span> Hide</button>`;
+            }
+            btns += `<button class="gm-delete-builtin" data-builtin="${i}"><span>🗑️</span> Delete</button>`;
           }
-          btns += `<button class="gm-delete-builtin" data-builtin="${i}"><span>🗑️</span> Delete</button>`;
+          menu.innerHTML = btns;
+          lastEl.appendChild(menu);
         }
-        menu.innerHTML = btns;
-        lastEl.appendChild(menu);
       }
     });
     if (!editMode) stagger(grid, 0.06, 0.5);
@@ -427,6 +438,32 @@
       myPhotosGrid.appendChild(buildCard(photo, i));
     });
     if (!editMode) stagger(myPhotosGrid, 0.06, 0.4);
+  }
+
+  /* ===== Category filter + Layout switcher ===== */
+  const galleryFilters = $("#galleryFilters");
+  const galleryLayouts = $("#galleryLayouts");
+
+  if (galleryFilters) {
+    galleryFilters.addEventListener("click", (e) => {
+      const btn = e.target.closest(".gallery-filter");
+      if (!btn) return;
+      activeFilter = btn.dataset.filter;
+      galleryFilters.querySelectorAll(".gallery-filter").forEach((b) =>
+        b.classList.toggle("active", b === btn));
+      renderBuiltinGallery();
+    });
+  }
+
+  if (galleryLayouts) {
+    galleryLayouts.addEventListener("click", (e) => {
+      const btn = e.target.closest(".layout-btn");
+      if (!btn) return;
+      activeLayout = btn.dataset.layout;
+      galleryLayouts.querySelectorAll(".layout-btn").forEach((b) =>
+        b.classList.toggle("active", b === btn));
+      renderBuiltinGallery();
+    });
   }
 
   /* ===== Init ===== */
