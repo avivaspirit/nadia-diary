@@ -2021,6 +2021,141 @@ body.season-winter { }
   .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
 }
 
+/* ================================================================ STORY GIMMICKS */
+
+/* ---- ⏳ Hourglass ---- */
+.hourglass-section {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 18px; padding: 60px 20px; text-align: center;
+}
+.hourglass-wrap { position: relative; width: 140px; height: 200px; }
+.hourglass-svg { width: 100%; height: 100%; filter: drop-shadow(0 8px 20px rgba(160,74,96,0.15)); }
+.hourglass-svg .glass { fill: none; stroke: var(--rose); stroke-width: 2.5; stroke-linejoin: round; }
+.hourglass-svg .glass-inner { fill: rgba(255,238,242,0.45); }
+.hourglass-svg .frame { fill: var(--gold); }
+.hourglass-svg .sand-top { fill: var(--gold-soft); }
+.hourglass-svg .sand-bottom { fill: var(--gold-soft); }
+.hourglass-svg .sand-stream {
+  stroke: var(--gold); stroke-width: 2; stroke-dasharray: 60; stroke-dashoffset: 60;
+  animation: sandStream 2.5s ease-in-out infinite;
+}
+@keyframes sandStream {
+  0% { stroke-dashoffset: 60; }
+  100% { stroke-dashoffset: 0; }
+}
+.hourglass-wrap.active .hourglass-svg { animation: hourglassTilt 8s ease-in-out infinite; }
+@keyframes hourglassTilt {
+  0%, 40% { transform: rotate(0deg); }
+  50%, 90% { transform: rotate(180deg); }
+  100% { transform: rotate(360deg); }
+}
+.hourglass-label {
+  font-family: var(--font-hand); font-size: 26px; color: var(--rose-deep);
+}
+.hourglass-days {
+  font-family: var(--font-display); font-size: 42px; font-weight: 700;
+  color: var(--rose-darker); line-height: 1;
+}
+.hourglass-sub { font-size: 14px; color: var(--muted); }
+
+/* ---- 🌙 Moon Phase ---- */
+.moon-section {
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  padding: 50px 20px; text-align: center;
+}
+.moon-display { display: flex; align-items: center; gap: 30px; flex-wrap: wrap; justify-content: center; }
+.moon-card { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.moon-emoji { font-size: 52px; filter: drop-shadow(0 4px 12px rgba(217,168,102,0.3)); }
+.moon-label { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.moon-date { font-family: var(--font-hand); font-size: 22px; color: var(--rose-deep); }
+.moon-arrow { font-size: 28px; color: var(--rose); }
+.moon-caption { font-family: var(--font-hand); font-size: 24px; color: var(--rose-deep); max-width: 400px; }
+
+/* ---- 🕯️ Wish Candle ---- */
+.candle-section {
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  padding: 50px 20px; text-align: center;
+}
+.candle-stage { position: relative; width: 80px; height: 140px; cursor: pointer; }
+.candle-body {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 36px; height: 90px; border-radius: 6px 6px 3px 3px;
+  background: linear-gradient(to right, #f3ddb9, #fff9f3 40%, #f3ddb9);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.candle-wick { position: absolute; bottom: 88px; left: 50%; transform: translateX(-50%); width: 2px; height: 8px; background: #999; }
+.candle-flame {
+  position: absolute; bottom: 92px; left: 50%; transform: translateX(-50%);
+  width: 14px; height: 24px; opacity: 0; transition: opacity 0.4s ease;
+}
+.candle-flame::before {
+  content: ''; position: absolute; width: 100%; height: 100%;
+  background: radial-gradient(ellipse at 50% 70%, #fff5b0 20%, #ffc857 40%, #ff8c42 65%, transparent 80%);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: flicker 0.6s ease-in-out infinite alternate;
+}
+@keyframes flicker {
+  0% { transform: scale(1, 1) rotate(-1deg); }
+  100% { transform: scale(1.08, 0.95) rotate(2deg); }
+}
+.candle-stage.lit .candle-flame { opacity: 1; }
+.candle-stage .glow {
+  position: absolute; inset: -30px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,200,87,0.25), transparent 70%);
+  opacity: 0; transition: opacity 0.6s ease;
+}
+.candle-stage.lit .glow { opacity: 1; }
+.candle-hint { font-family: var(--font-hand); font-size: 22px; color: var(--muted); }
+.candle-wish {
+  font-family: var(--font-hand); font-size: 24px; color: var(--rose-deep);
+  max-width: 350px; min-height: 28px; opacity: 0; transition: opacity 0.5s ease;
+}
+.candle-wish.show { opacity: 1; }
+
+/* ---- ✨ Starry Night ---- */
+.starry-section {
+  position: relative; min-height: 320px; padding: 60px 20px; text-align: center;
+  overflow: hidden; border-radius: var(--radius);
+  background: linear-gradient(180deg, #1a1129 0%, #2d1b3d 60%, #3d2347 100%);
+  margin: 0 auto; max-width: 900px;
+}
+.starry-section .star {
+  position: absolute; width: 2px; height: 2px; background: #fff; border-radius: 50%;
+  animation: twinkle var(--dur, 3s) ease-in-out infinite alternate;
+  cursor: pointer; transition: transform 0.15s ease;
+}
+.starry-section .star:hover { transform: scale(2.5); }
+.starry-section .star.big { width: 3px; height: 3px; }
+@keyframes twinkle { 0% { opacity: 0.3; } 100% { opacity: 1; } }
+.starry-section .shooting-star {
+  position: absolute; width: 100px; height: 1.5px;
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+  border-radius: 50%; pointer-events: none; opacity: 0;
+}
+.starry-caption {
+  position: relative; z-index: 2; font-family: var(--font-hand); font-size: 26px;
+  color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); margin-top: 20px;
+}
+.starry-hint { position: relative; z-index: 2; font-size: 14px; color: rgba(255,255,255,0.6); margin-top: 8px; }
+
+/* ---- 💌 Floating Love Notes ---- */
+.love-float-section { position: relative; min-height: 280px; padding: 50px 20px; text-align: center; overflow: hidden; }
+.love-float-area { position: relative; max-width: 700px; margin: 0 auto; height: 220px; }
+.love-note-float {
+  position: absolute; padding: 10px 20px; border-radius: 20px;
+  background: rgba(255,255,255,0.85); backdrop-filter: blur(6px);
+  box-shadow: var(--shadow-soft); font-family: var(--font-hand); font-size: 20px;
+  color: var(--rose-deep); white-space: nowrap;
+  animation: floatUp 8s ease-out forwards; pointer-events: none;
+}
+@keyframes floatUp {
+  0% { opacity: 0; transform: translateY(40px) scale(0.8); }
+  15% { opacity: 1; transform: translateY(20px) scale(1); }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-120px) scale(0.95); }
+}
+.love-float-label { font-family: var(--font-hand); font-size: 24px; color: var(--rose-deep); margin-bottom: 10px; }
+
 /* ---------------------------------------------------------------- motion safety */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
