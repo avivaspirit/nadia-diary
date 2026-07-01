@@ -169,6 +169,7 @@ window.NADIA_DATA = {
       { src: "./assets/uploads/nadia-note-4.jpg",          alt: "Nadia at dinner",           caption: "little bunny" },
       { src: "./assets/uploads/nadia-note-couple.jpg",     alt: "Nadia and Mac together",    caption: "little us moment" },
       { src: "./assets/uploads/nadia-cabinet-hero.jpg",    alt: "Nadia with flowers",        caption: "keeper of the cabinet" },
+      { src: "./assets/uploads/nadia-date-night.jpg",      alt: "Nadia in a red dress",      caption: "date night energy" },
       { src: "./assets/uploads/birthday-solo-1.jpg",       alt: "A sweet memory",            caption: "birthday sparkle" },
       { src: "./assets/uploads/birthday-solo-2-web.jpg",   alt: "A sweet memory",            caption: "birthday glow" },
       { src: "./assets/uploads/birthday-couple-1.jpg",     alt: "Together",                  caption: "us, always" },
@@ -198,6 +199,12 @@ window.NADIA_DATA = {
         tag: "first little resident",
         photo: "./assets/uploads/doll-mimi.jpg",
         caption: "Mimi sits in the middle of a soft birthday shelf, surrounded by tiny keepsakes and warm pink light. She looks like the first page of a very loved collection."
+      },
+      {
+        name: "Bunny 🎀",
+        tag: "เด็กหญิงบันนี่",
+        photo: "./assets/uploads/doll-bunny.png",
+        caption: "Bunny 🎀 (บันนี่) — เด็กหญิงบันนี่"
       }
     ],
     footerLine: "Made for her favorite little friends."
