@@ -2558,6 +2558,15 @@ body.season-winter { }
 .gallery-manage-menu .gm-delete {
   background: var(--rose-darker); color: #fff;
 }
+.gallery-manage-menu .gm-delete-builtin {
+  background: var(--rose-darker); color: #fff;
+}
+.gallery-manage-menu .gm-edit-builtin {
+  background: var(--rose); color: #fff;
+}
+.gallery-manage-menu .gm-restore {
+  background: #7ec8a0; color: #fff;
+}
 .gallery-manage-menu .gm-hide {
   background: rgba(0,0,0,0.5); color: #fff;
 }

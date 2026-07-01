@@ -26,8 +26,11 @@
   try { userPhotos = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); } catch { userPhotos = []; }
   let hiddenBuiltin = [];
   try { hiddenBuiltin = JSON.parse(localStorage.getItem(HIDDEN_KEY) || "[]"); } catch { hiddenBuiltin = []; }
+  let builtinOverrides = {};
+  try { builtinOverrides = JSON.parse(localStorage.getItem("nadia-gallery-overrides") || "{}"); } catch { builtinOverrides = {}; }
   let editMode = false;
   let editingIndex = -1;
+  let editingBuiltin = -1;
 
   const grid = $("#galleryGrid");
   const myPhotosGrid = $("#myPhotosGrid");
@@ -56,6 +59,7 @@
   function saveAll() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(userPhotos));
     localStorage.setItem(HIDDEN_KEY, JSON.stringify(hiddenBuiltin));
+    localStorage.setItem("nadia-gallery-overrides", JSON.stringify(builtinOverrides));
   }
 
   /* ===== File picker ===== */
@@ -123,13 +127,31 @@
     }
   }
 
-  /* ===== Save (add or edit) ===== */
+  /* ===== Save (add, edit user, or edit builtin) ===== */
   savePhotoBtn.addEventListener("click", () => {
+    const caption = captionInput.value.trim() || "a little memory";
+
+    /* Editing a builtin photo (frame/caption override) */
+    if (editingBuiltin >= 0) {
+      builtinOverrides[editingBuiltin] = {
+        ...(builtinOverrides[editingBuiltin] || {}),
+        caption,
+        frame: selectedFrame,
+        color: selectedColor
+      };
+      saveAll();
+      editingBuiltin = -1;
+      uploadPanel.classList.remove("open");
+      renderBuiltinGallery();
+      return;
+    }
+
+    /* Editing or adding user photo */
     if (!pendingPhoto && editingIndex < 0) return;
     const photo = {
       id: editingIndex >= 0 ? userPhotos[editingIndex].id : Date.now(),
       src: pendingPhoto ? pendingPhoto.dataUrl : (editingIndex >= 0 ? userPhotos[editingIndex].src : ""),
-      caption: captionInput.value.trim() || "a little memory",
+      caption,
       frame: selectedFrame,
       color: selectedColor,
       date: editingIndex >= 0 ? userPhotos[editingIndex].date : new Date().toISOString(),
@@ -167,81 +189,141 @@
   });
 
   /* ===== Render: built-in gallery ===== */
+  function getEffectivePhoto(i) {
+    const original = gallery.photos[i];
+    const ov = builtinOverrides[i];
+    if (!ov) return { ...original, frame: "clean", color: "#e58aa0" };
+    return {
+      src: original.src,
+      alt: ov.alt || original.alt,
+      caption: ov.caption !== undefined ? ov.caption : original.caption,
+      frame: ov.frame || "clean",
+      color: ov.color || "#e58aa0"
+    };
+  }
+
   function renderBuiltinGallery() {
     grid.innerHTML = "";
     gallery.photos.forEach((photo, i) => {
+      const isDeleted = builtinOverrides[i]?.deleted;
+      if (isDeleted && !editMode) return;
+
+      const eff = getEffectivePhoto(i);
       const isHidden = hiddenBuiltin.includes(i);
-      if (isHidden && !editMode) return;
+      if (isHidden && !editMode && !isDeleted) return;
 
-      const item = el("div", "gallery-item");
-      if (isHidden) item.classList.add("is-hidden-photo");
-      item.setAttribute("role", "button");
-      item.setAttribute("tabindex", "0");
-      item.setAttribute("aria-label", `Photo: ${photo.caption || photo.alt || "memory"}`);
-      item.innerHTML = `
-        <img src="${escapeHtml(photo.src)}" alt="${escapeHtml(photo.alt || "")}" loading="lazy" decoding="async" />
-        <span class="gallery-caption">${escapeHtml(photo.caption || "")}</span>`;
+      /* Use frame wrapper if frame is set */
+      if (eff.frame && eff.frame !== "clean") {
+        const card = el("div", "gallery-card fc-" + eff.frame);
+        if (eff.frame === "tinted") card.style.background = eff.color;
+        if (!editMode) {
+          const rotation = (Math.random() - 0.5) * 4;
+          card.style.transform = `rotate(${rotation}deg)`;
+        }
+        const imgWrap = el("div", "fc-img-wrap");
+        imgWrap.innerHTML = `<img src="${escapeHtml(eff.src)}" alt="${escapeHtml(eff.alt || "")}" loading="lazy" decoding="async" />`;
+        const cap = el("div", "fc-caption");
+        cap.textContent = eff.caption || "";
+        card.appendChild(imgWrap);
+        card.appendChild(cap);
 
-      if (editMode) {
-        const menu = el("div", "gallery-manage-menu");
-        menu.innerHTML = isHidden
-          ? `<button class="gm-unhide" data-builtin="${i}"><span>👁️</span> Show</button>`
-          : `<button class="gm-hide" data-builtin="${i}"><span>🙈</span> Hide</button>`;
-        item.appendChild(menu);
+        if (!editMode) {
+          card.addEventListener("click", () => lightbox.open(gallery.photos, i));
+        }
+        grid.appendChild(card);
       } else {
-        item.addEventListener("click", () => {
-          const visible = gallery.photos
-            .map((p, idx) => ({ ...p, idx }))
-            .filter((p) => !hiddenBuiltin.includes(p.idx));
-          const visIdx = visible.findIndex((p) => p.idx === i);
-          if (visIdx >= 0) lightbox.open(visible, visIdx);
-        });
+        const item = el("div", "gallery-item");
+        if (isHidden || isDeleted) item.classList.add("is-hidden-photo");
+        item.setAttribute("role", "button");
+        item.setAttribute("tabindex", "0");
+        item.setAttribute("aria-label", `Photo: ${eff.caption || eff.alt || "memory"}`);
+        item.innerHTML = `<img src="${escapeHtml(eff.src)}" alt="${escapeHtml(eff.alt || "")}" loading="lazy" decoding="async" /><span class="gallery-caption">${escapeHtml(eff.caption || "")}</span>`;
+        if (!editMode) {
+          item.addEventListener("click", () => lightbox.open(gallery.photos, i));
+        }
+        grid.appendChild(item);
       }
-      grid.appendChild(item);
+
+      /* Add manage menu in edit mode */
+      if (editMode) {
+        const lastEl = grid.lastElementChild;
+        const menu = el("div", "gallery-manage-menu");
+        let btns = "";
+        if (isDeleted) {
+          btns = `<button class="gm-restore" data-builtin="${i}"><span>♻️</span> Restore</button>`;
+        } else {
+          btns = `<button class="gm-edit-builtin" data-builtin="${i}"><span>✎</span> Edit</button>`;
+          if (isHidden) {
+            btns += `<button class="gm-unhide" data-builtin="${i}"><span>👁️</span> Show</button>`;
+          } else {
+            btns += `<button class="gm-hide" data-builtin="${i}"><span>🙈</span> Hide</button>`;
+          }
+          btns += `<button class="gm-delete-builtin" data-builtin="${i}"><span>🗑️</span> Delete</button>`;
+        }
+        menu.innerHTML = btns;
+        lastEl.appendChild(menu);
+      }
     });
     if (!editMode) stagger(grid, 0.06, 0.5);
   }
 
   /* ===== Manage menu clicks (builtin) ===== */
   grid.addEventListener("click", (e) => {
-    const hideBtn = e.target.closest(".gm-hide");
-    if (hideBtn) {
-      e.stopPropagation();
-      e.preventDefault();
-      const idx = Number(hideBtn.dataset.builtin);
-      if (!hiddenBuiltin.includes(idx)) hiddenBuiltin.push(idx);
-      saveAll();
-      renderBuiltinGallery();
-      return;
-    }
-    const unhideBtn = e.target.closest(".gm-unhide");
-    if (unhideBtn) {
-      e.stopPropagation();
-      e.preventDefault();
-      const idx = Number(unhideBtn.dataset.builtin);
-      hiddenBuiltin = hiddenBuiltin.filter((i) => i !== idx);
-      saveAll();
-      renderBuiltinGallery();
-      return;
-    }
-  });
+    const t = e.target;
 
-  /* Also catch clicks directly on gm-hide/gm-unhide buttons */
-  document.addEventListener("click", (e) => {
-    const hideBtn = e.target.closest && e.target.closest(".gm-hide");
-    if (hideBtn && grid.contains(hideBtn)) {
-      e.stopPropagation();
-      e.preventDefault();
+    const editBuilt = t.closest(".gm-edit-builtin");
+    if (editBuilt) {
+      e.stopPropagation(); e.preventDefault();
+      const idx = Number(editBuilt.dataset.builtin);
+      const eff = getEffectivePhoto(idx);
+      editingBuiltin = idx;
+      editingIndex = -1;
+      pendingPhoto = null;
+      previewImg.src = eff.src;
+      captionInput.value = eff.caption || "";
+      selectedFrame = eff.frame || "clean";
+      selectedColor = eff.color || "#e58aa0";
+      updateFrameUI();
+      tintRow.style.display = selectedFrame === "tinted" ? "" : "none";
+      uploadPanel.classList.add("open");
+      applyPreviewFrame();
+      savePhotoBtn.textContent = "Save frame ♡";
+      uploadPanel.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+
+    const delBuilt = t.closest(".gm-delete-builtin");
+    if (delBuilt) {
+      e.stopPropagation(); e.preventDefault();
+      const idx = Number(delBuilt.dataset.builtin);
+      builtinOverrides[idx] = { ...(builtinOverrides[idx] || {}), deleted: true };
+      saveAll();
+      renderBuiltinGallery();
+      return;
+    }
+
+    const restoreBuilt = t.closest(".gm-restore");
+    if (restoreBuilt) {
+      e.stopPropagation(); e.preventDefault();
+      const idx = Number(restoreBuilt.dataset.builtin);
+      if (builtinOverrides[idx]) delete builtinOverrides[idx].deleted;
+      saveAll();
+      renderBuiltinGallery();
+      return;
+    }
+
+    const hideBtn = t.closest(".gm-hide");
+    if (hideBtn) {
+      e.stopPropagation(); e.preventDefault();
       const idx = Number(hideBtn.dataset.builtin);
       if (!hiddenBuiltin.includes(idx)) hiddenBuiltin.push(idx);
       saveAll();
       renderBuiltinGallery();
       return;
     }
-    const unhideBtn = e.target.closest && e.target.closest(".gm-unhide");
-    if (unhideBtn && grid.contains(unhideBtn)) {
-      e.stopPropagation();
-      e.preventDefault();
+    const unhideBtn = t.closest(".gm-unhide");
+    if (unhideBtn) {
+      e.stopPropagation(); e.preventDefault();
       const idx = Number(unhideBtn.dataset.builtin);
       hiddenBuiltin = hiddenBuiltin.filter((i) => i !== idx);
       saveAll();
