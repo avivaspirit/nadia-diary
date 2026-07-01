@@ -275,7 +275,15 @@
         }
       }
     });
-    if (!editMode) stagger(grid, 0.06, 0.5);
+    if (!editMode) {
+      stagger(grid, 0.06, 0.5);
+      /* Make sure items are visible after re-render */
+      grid.querySelectorAll(".reveal").forEach((el) => {
+        if (el.getBoundingClientRect().top < window.innerHeight) {
+          el.classList.add("is-visible");
+        }
+      });
+    }
   }
 
   /* ===== Manage menu clicks (builtin) ===== */

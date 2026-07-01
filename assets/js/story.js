@@ -19,11 +19,17 @@
   setText("#storyIntro", story.intro);
 
   /* days counter + hourglass */
-  const startDate = data.site.firstDay ? new Date(data.site.firstDay) : null;
+  /* Parse as local date to avoid timezone off-by-one */
+  const startDate = data.site.firstDay
+    ? new Date(data.site.firstDay + "T00:00:00")
+    : null;
   const now = new Date();
   let days = 1;
   if (startDate) {
-    days = Math.max(1, Math.floor((now - startDate) / 86400000));
+    /* Use local-midnight to local-midnight for accurate day count */
+    const s = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+    const n = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    days = Math.max(1, Math.round((n - s) / 86400000));
   }
 
   const daysHost = $("#daysCounter");

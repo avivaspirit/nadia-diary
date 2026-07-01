@@ -454,6 +454,63 @@
     }
   }
 
+  /* ------------------------------------------------------- passcode gate */
+  function initPasscode() {
+    var PASSCODE = "larny";
+    var STORAGE_KEY = "nadia-diary-unlocked";
+    /* Already unlocked this browser */
+    if (sessionStorage.getItem(STORAGE_KEY) === "yes") return;
+
+    /* Create overlay */
+    var gate = el("div", "passcode-gate");
+    gate.innerHTML =
+      '<div class="passcode-card">' +
+        '<div class="passcode-icon">🎀</div>' +
+        '<h2 class="passcode-title">Nadia\'s Diary</h2>' +
+        '<p class="passcode-subtitle">type the secret word to come in ♡</p>' +
+        '<input type="text" class="passcode-input" id="passcodeInput" ' +
+          'placeholder="• • • • •" autocomplete="off" autocapitalize="off" ' +
+          'spellcheck="false" maxlength="20" />' +
+        '<button class="passcode-btn" id="passcodeBtn" type="button">Enter ✨</button>' +
+        '<p class="passcode-hint" id="passcodeHint"></p>' +
+        '<p class="passcode-hint2">psst… it starts with an L</p>' +
+      '</div>';
+    document.body.appendChild(gate);
+
+    /* Lock body scroll */
+    document.body.style.overflow = "hidden";
+
+    var input = gate.querySelector("#passcodeInput");
+    var btn = gate.querySelector("#passcodeBtn");
+    var hint = gate.querySelector("#passcodeHint");
+
+    function tryUnlock() {
+      var val = input.value.trim().toLowerCase();
+      if (val === PASSCODE) {
+        gate.classList.add("unlocked");
+        sessionStorage.setItem(STORAGE_KEY, "yes");
+        document.body.style.overflow = "";
+        setTimeout(function() { gate.remove(); }, 700);
+        /* Trigger sparkles celebration */
+        burstConfetti(2000);
+      } else {
+        hint.textContent = "hmm, that\'s not it… try again? ♡";
+        input.classList.add("shake");
+        setTimeout(function() { input.classList.remove("shake"); }, 400);
+        input.value = "";
+        input.focus();
+      }
+    }
+
+    btn.addEventListener("click", tryUnlock);
+    input.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") tryUnlock();
+    });
+
+    /* Focus input on load */
+    setTimeout(function() { input.focus(); }, 200);
+  }
+
   /* ------------------------------------------------------------- expose */
   window.DiaryMagic = {
     $, $$, el, escapeHtml,
@@ -465,6 +522,7 @@
   };
 
   document.addEventListener("DOMContentLoaded", () => {
+    initPasscode();
     initSeasonal();
     initPageTransitions();
     initSparkles();

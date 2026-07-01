@@ -1799,11 +1799,17 @@ footer::before {
   bottom: 80px;
   right: 20px;
   z-index: 59;
-  width: 300px;
+  width: 320px;
   max-width: calc(100vw - 40px);
-  border-radius: 14px;
+  max-height: 70vh;
+  border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
   transform: translateY(20px) scale(0.95);
   opacity: 0;
   pointer-events: none;
@@ -1819,6 +1825,9 @@ footer::before {
   border: 0;
   width: 100%;
   height: 152px;
+}
+.music-player .mp-embed-wrap {
+  padding: 10px 10px 0;
 }
 .music-player-close {
   position: absolute;
@@ -2124,7 +2133,14 @@ body.season-winter { }
   animation: twinkle var(--dur, 3s) ease-in-out infinite alternate;
   cursor: pointer; transition: transform 0.15s ease;
 }
+/* Bigger invisible tap target around each star */
+.starry-section .star::before {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px; height: 24px; border-radius: 50%;
+}
 .starry-section .star:hover { transform: scale(2.5); }
+.starry-section .star:active { transform: scale(3.5); }
 .starry-section .star.big { width: 3px; height: 3px; }
 @keyframes twinkle { 0% { opacity: 0.3; } 100% { opacity: 1; } }
 .starry-section .shooting-star {
@@ -2727,14 +2743,9 @@ body.season-winter { }
   /* default existing layout — no overrides needed */
 }
 
-.music-player .mp-embed-wrap {
-  flex-shrink: 0;
-}
-.music-player .mp-embed-wrap iframe {
-  border: 0; border-radius: 12px;
-  width: 100%; min-height: 152px; max-height: 352px;
-}
-.music-player .mp-playlist-header {
+/* Player inner spacing (moved above) */
+
+.mp-playlist-header {
   display: flex; align-items: center; gap: 8px;
   padding: 10px 14px 6px;
   font-family: var(--font-ui);
@@ -2799,6 +2810,105 @@ body.season-winter { }
 @keyframes mpPulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
+}
+
+/* ---------------------------------------------------------------- motion safety */
+/* ================================================================ PASSCODE GATE */
+.passcode-gate {
+  position: fixed; inset: 0; z-index: 99999;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #1a0e14 0%, #2d1620 50%, #1a1228 100%);
+  transition: opacity 0.7s ease;
+}
+.passcode-gate.unlocked {
+  opacity: 0; pointer-events: none;
+}
+.passcode-card {
+  text-align: center;
+  padding: 48px 36px;
+  max-width: 360px;
+  width: 90%;
+}
+.passcode-icon {
+  font-size: 52px;
+  margin-bottom: 16px;
+  animation: passcodeFloat 3s ease-in-out infinite;
+}
+@keyframes passcodeFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.passcode-title {
+  font-family: var(--font-display);
+  font-size: 28px; font-weight: 700;
+  color: #f6c8d6;
+  margin: 0 0 8px;
+  letter-spacing: 0.5px;
+}
+.passcode-subtitle {
+  font-family: var(--font-ui);
+  font-size: 14px; color: rgba(246,200,214,0.6);
+  margin: 0 0 28px;
+}
+.passcode-input {
+  width: 100%; box-sizing: border-box;
+  padding: 14px 18px;
+  border: 2px solid rgba(246,200,214,0.2);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  font-family: var(--font-ui);
+  font-size: 18px; font-weight: 600;
+  text-align: center;
+  letter-spacing: 4px;
+  outline: none;
+  transition: border-color 0.25s, background 0.25s;
+}
+.passcode-input::placeholder {
+  color: rgba(246,200,214,0.25);
+  letter-spacing: 6px;
+}
+.passcode-input:focus {
+  border-color: rgba(246,200,214,0.5);
+  background: rgba(255,255,255,0.1);
+}
+.passcode-input.shake {
+  animation: passcodeShake 0.4s ease;
+  border-color: #e58aa0;
+}
+@keyframes passcodeShake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+.passcode-btn {
+  margin-top: 16px;
+  padding: 12px 36px;
+  border: none; border-radius: 14px;
+  background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+  color: #fff;
+  font-family: var(--font-ui);
+  font-size: 15px; font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.passcode-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(160,74,96,0.3);
+}
+.passcode-btn:active {
+  transform: translateY(0);
+}
+.passcode-hint {
+  margin-top: 14px; min-height: 20px;
+  font-family: var(--font-ui);
+  font-size: 13px; color: #e58aa0;
+}
+.passcode-hint2 {
+  margin-top: 24px;
+  font-family: var(--font-hand);
+  font-size: 16px; color: rgba(246,200,214,0.3);
 }
 
 /* ---------------------------------------------------------------- motion safety */

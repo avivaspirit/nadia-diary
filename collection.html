@@ -24,83 +24,101 @@
     </header>
 
     <main>
-      <!-- ========================= cabinet hero =========================== -->
-      <section class="cabinet-hero">
-        <div>
+      <section class="gallery-page">
+        <!-- Hero -->
+        <div class="gallery-hero reveal">
           <p class="eyebrow" id="dollsEyebrow"></p>
           <h1 id="dollsTitle"></h1>
           <p class="lede" id="dollsIntro"></p>
         </div>
-        <div data-parallax="0.05">
-          <figure class="washi-frame" style="margin:0;">
-            <img id="dollsHeroPhoto" alt="" />
-            <figcaption class="washi-caption" id="dollsHeroCaption"></figcaption>
-          </figure>
-        </div>
-      </section>
 
-      <!-- ========================= the cabinet ============================ -->
-      <section>
-        <div class="section-heading reveal">
-          <p class="eyebrow" id="shelfEyebrow"></p>
-          <h2 id="shelfTitle"></h2>
+        <!-- Upload bar -->
+        <div class="upload-bar reveal">
+          <button class="upload-btn" id="addDollBtn" type="button">
+            <span class="upload-icon">🧸</span> Add a doll
+          </button>
+          <button class="upload-btn upload-btn-manage" id="manageToggleBtn" type="button">
+            <span class="upload-icon">🗝️</span> <span id="manageLabel">Manage dolls</span>
+          </button>
+          <span class="upload-hint">pick a frame, name your doll, make it yours ♡</span>
         </div>
-        <div class="cabinet-shelf">
-          <div id="dollGrid" class="doll-grid"></div>
-        </div>
-      </section>
+        <input type="file" id="dollFileInput" accept="image/*" style="position:absolute;width:0;height:0;opacity:0;overflow:hidden;border:0;" />
 
-      <!-- ====================== add / edit drawer ========================= -->
-      <section class="drawer-editor" aria-label="Add or edit a doll">
-        <button class="drawer-editor-cover" type="button" aria-expanded="false" aria-controls="previewDollForm">
-          <span aria-hidden="true">🗝️</span>
-          <span>
-            <strong>Add a tiny treasure</strong>
-            <small>Open this drawer to add a new doll or save an edit.</small>
-          </span>
-          <span class="drawer-arrow" aria-hidden="true">⌄</span>
-        </button>
-        <form id="previewDollForm" class="preview-doll-form" hidden>
-          <input id="editingIndexInput" type="hidden" value="" />
-          <label>
-            Doll photo file name
-            <input id="dollPhotoPathInput" type="text" placeholder="assets/uploads/photo-name.jpg" />
-            <small class="field-help">Use only assets/uploads/photo-name.jpg for live photos.</small>
-          </label>
-          <label>
-            Or choose a preview photo
-            <input id="dollPhotoInput" type="file" accept="image/*" />
-          </label>
-          <div class="field-row">
-            <label>
-              Name
-              <input id="dollNameInput" type="text" placeholder="Mimi, Lala, Bunny..." />
-            </label>
-            <label>
-              Personality tag
-              <input id="dollTagInput" type="text" placeholder="sleepy princess" />
-            </label>
+        <!-- Category filter + Layout switcher -->
+        <div class="gallery-controls reveal">
+          <div class="gallery-filters" id="dollFilters">
+            <button class="gallery-filter active" data-filter="all">All ♡</button>
+            <button class="gallery-filter" data-filter="plushie">Plushies 🧸</button>
+            <button class="gallery-filter" data-filter="friend">Friends 👫</button>
+            <button class="gallery-filter" data-filter="new">New ✨</button>
           </div>
-          <div class="field-row">
-            <label>
-              Main color
-              <input id="dollColorInput" type="text" placeholder="pink, cream, blue" />
-            </label>
-            <label>
-              Cute detail
-              <input id="dollDetailInput" type="text" placeholder="ribbon, tiny dress, shy smile" />
-            </label>
+          <div class="gallery-layouts" id="dollLayouts">
+            <button class="layout-btn active" data-layout="scrapbook" title="Scattered scrapbook"><span> Scrapbook</span></button>
+            <button class="layout-btn" data-layout="grid" title="Neat grid"><span> Grid</button>
+            <button class="layout-btn" data-layout="mosaic" title="Mosaic mix"><span> Mosaic</button>
+            <button class="layout-btn" data-layout="postcards" title="Postcard stack"><span> Postcards</button>
           </div>
-          <label>
-            Caption
-            <textarea id="dollCaptionInput" rows="4" placeholder="Generate one or write your own."></textarea>
-          </label>
-          <div class="studio-actions">
-            <button class="ghost" id="generateCaptionButton" type="button">Generate Caption</button>
-            <button class="primary" id="saveDollButton" type="submit">Add Doll</button>
-            <button class="ghost" id="cancelEditButton" type="button" hidden>Cancel Edit</button>
+        </div>
+
+        <!-- Edit panel (slides open) -->
+        <div class="upload-panel" id="dollPanel">
+          <div class="upload-panel-inner">
+            <div class="upload-preview">
+              <div class="upload-preview-img" id="dollPreviewImg">
+                <img id="dollPreviewPhoto" alt="" />
+              </div>
+            </div>
+            <div class="upload-controls">
+              <input type="hidden" id="editingSource" value="" />
+              <input type="hidden" id="editingIndex" value="" />
+              <div>
+                <label>Name</label>
+                <input type="text" id="dollNameInput" placeholder="Mimi, Bunny, Lala..." maxlength="30" />
+              </div>
+              <div>
+                <label>Personality tag</label>
+                <input type="text" id="dollTagInput" placeholder="sleepy princess" maxlength="40" />
+              </div>
+              <div>
+                <label>Frame style</label>
+                <div class="frame-chooser" id="dollFrameChooser">
+                  <div class="frame-option fo-clean selected" data-frame="clean" title="Clean"><div class="frame-option-inner">clean</div></div>
+                  <div class="frame-option fo-polaroid" data-frame="polaroid" title="Polaroid"><div class="frame-option-inner">polaroid</div></div>
+                  <div class="frame-option fo-film" data-frame="film" title="Film"><div class="frame-option-inner">film</div></div>
+                  <div class="frame-option fo-white" data-frame="white" title="White"><div class="frame-option-inner">white</div></div>
+                  <div class="frame-option fo-tinted" data-frame="tinted" title="Tinted"><div class="frame-option-inner">tinted</div></div>
+                </div>
+              </div>
+              <div>
+                <label>Tint color</label>
+                <div class="tint-chooser" id="dollTintChooser">
+                  <div class="tint-option selected" data-color="#f6c8d6" style="background:#f6c8d6"></div>
+                  <div class="tint-option" data-color="#cdeadd" style="background:#cdeadd"></div>
+                  <div class="tint-option" data-color="#e8ddf5" style="background:#e8ddf5"></div>
+                  <div class="tint-option" data-color="#f7e3c8" style="background:#f7e3c8"></div>
+                  <div class="tint-option" data-color="#f3ddb9" style="background:#f3ddb9"></div>
+                  <div class="tint-option" data-color="#dde6f0" style="background:#dde6f0"></div>
+                </div>
+              </div>
+              <div>
+                <label>Caption</label>
+                <input type="text" id="dollCaptionInput" placeholder="a little story about this doll..." maxlength="120" />
+              </div>
+              <div class="upload-panel-actions">
+                <button class="save-photo-btn" id="saveDollBtn" type="button">Add to cabinet ✨</button>
+                <button class="cancel-btn" id="cancelDollBtn" type="button">Cancel</button>
+              </div>
+            </div>
           </div>
-        </form>
+        </div>
+
+        <!-- Doll grid -->
+        <div class="gallery-grid layout-scrapbook" id="dollGrid"></div>
+        <!-- User-added dolls (hidden by default, shown in manage mode) -->
+        <div id="userDollsSection" hidden>
+          <p class="hand" style="text-align:center;margin:40px 0 12px;font-size:21px;">your added dolls ♡</p>
+          <div class="gallery-grid layout-scrapbook" id="userDollGrid"></div>
+        </div>
       </section>
     </main>
 
