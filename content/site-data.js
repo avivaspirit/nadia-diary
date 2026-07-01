@@ -89,7 +89,7 @@ window.NADIA_DATA = {
         href: "./birthday.html"
       },
       {
-        num: "04", emoji: "📖", title: "Our Story",
+        num: "04", emoji: "💑", title: "Our Story",
         text: "A little timeline of the moments that brought us here, one chapter at a time.",
         href: "./story.html"
       },
@@ -141,7 +141,7 @@ window.NADIA_DATA = {
 
   /* ------------------------------ OUR STORY ---------------------------- */
   story: {
-    eyebrow: "Our Story 📖",
+    eyebrow: "Our Story 💑",
     title: "Every little chapter that led us here.",
     intro: "A growing timeline of the moments that made us, us. From day one to forever.",
     milestones: [
