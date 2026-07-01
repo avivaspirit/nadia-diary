@@ -353,44 +353,105 @@
     }
   }
 
-  /* ------------------------------------------------------- music toggle */
+  /* ------------------------------------------------------- music player (playlist) */
   function initMusic() {
-    const trackId = window.NADIA_DATA?.music?.spotifyId;
-    if (!trackId) return;
+    const music = window.NADIA_DATA?.music;
+    if (!music) return;
+
+    /* Support both old single-track and new playlist format */
+    const tracks = music.tracks || [];
+    if (!tracks.length && !music.spotifyId) return;
+    const defaultId = music.defaultTrack || music.spotifyId || (tracks[0]?.id ?? "");
+    let currentTrack = defaultId;
 
     /* floating button */
     const btn = el("button", "music-toggle");
     btn.type = "button";
     btn.setAttribute("aria-label", "Open music player");
-    btn.textContent = "🎵";
+    btn.textContent = music.emoji || "🎵";
     document.body.appendChild(btn);
 
-    /* floating player with Spotify embed */
+    /* floating player */
     const player = el("div", "music-player");
     player.id = "musicPlayer";
+
+    /* Build track list HTML */
+    let trackListHtml = "";
+    if (tracks.length) {
+      trackListHtml = '<div class="mp-playlist-header">' +
+        '<span class="mp-playlist-icon">playlist ♡</span>' +
+        '<span class="mp-playlist-name">' + escapeHtml(music.playlistName || "Our Songs") + '</span>' +
+      '</div>' +
+      '<div class="mp-track-list" id="mpTrackList">' +
+        tracks.map((t, i) =>
+          '<div class="mp-track' + (t.id === currentTrack ? ' active' : '') + '" data-id="' + t.id + '" data-idx="' + i + '">' +
+            '<span class="mp-track-num">' + (i + 1) + '</span>' +
+            '<span class="mp-track-info">' +
+              '<span class="mp-track-title">' + escapeHtml(t.title) + '</span>' +
+              '<span class="mp-track-artist">' + escapeHtml(t.artist) + '</span>' +
+            '</span>' +
+            '<span class="mp-track-playing">' + (t.id === currentTrack ? '♪' : '') + '</span>' +
+          '</div>'
+        ).join("") +
+      '</div>';
+    }
+
     player.innerHTML =
       '<button class="music-player-close" aria-label="Close player">✕</button>' +
-      '<iframe src="https://open.spotify.com/embed/track/' + trackId +
-      '?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" ' +
-      'loading="lazy"></iframe>';
+      '<div class="mp-embed-wrap">' +
+        '<iframe id="mpIframe" src="https://open.spotify.com/embed/track/' + currentTrack +
+        '?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" ' +
+        'loading="lazy"></iframe>' +
+      '</div>' +
+      trackListHtml;
     document.body.appendChild(player);
 
     const closeBtn = player.querySelector(".music-player-close");
+    const iframe = player.querySelector("#mpIframe");
 
-    let open = false;
-    btn.addEventListener("click", () => {
-      open = !open;
-      player.classList.toggle("open", open);
-      btn.classList.toggle("playing", open);
-      btn.textContent = open ? "🎶" : "🎵";
-    });
-    closeBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      open = false;
+    let isOpen = false;
+    function openPlayer() {
+      isOpen = true;
+      player.classList.add("open");
+      btn.classList.add("playing");
+      btn.textContent = "🎶";
+    }
+    function closePlayer() {
+      isOpen = false;
       player.classList.remove("open");
       btn.classList.remove("playing");
-      btn.textContent = "🎵";
+      btn.textContent = music.emoji || "🎵";
+    }
+
+    btn.addEventListener("click", () => {
+      if (isOpen) closePlayer(); else openPlayer();
     });
+    closeBtn.addEventListener("click", closePlayer);
+
+    /* Track selection */
+    if (tracks.length) {
+      const trackList = player.querySelector("#mpTrackList");
+      if (trackList) {
+        trackList.addEventListener("click", (e) => {
+          const row = e.target.closest(".mp-track");
+          if (!row) return;
+          const id = row.dataset.id;
+          if (id === currentTrack) return; /* already playing */
+
+          /* Update active states */
+          trackList.querySelectorAll(".mp-track").forEach((r) => {
+            r.classList.toggle("active", r.dataset.id === id);
+            const playing = r.querySelector(".mp-track-playing");
+            if (playing) playing.textContent = r.dataset.id === id ? "♪" : "";
+          });
+
+          currentTrack = id;
+          /* Reload iframe with new track */
+          iframe.src = "https://open.spotify.com/embed/track/" + id +
+            "?utm_source=generator&theme=0";
+        });
+      }
+    }
   }
 
   /* ------------------------------------------------------------- expose */
