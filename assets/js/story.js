@@ -153,63 +153,62 @@
     });
   }
 
-  /* ===== ✨ Starry Night ===== */
-  const starrySection = $("#starrySection");
-  if (starrySection) {
-    // generate stars
-    const numStars = 40;
-    const starFrag = document.createDocumentFragment();
-    for (let i = 0; i < numStars; i++) {
-      const s = document.createElement("div");
-      s.className = "star" + (Math.random() > 0.7 ? " big" : "");
-      s.style.left = Math.random() * 100 + "%";
-      s.style.top = Math.random() * 80 + "%";
-      s.style.setProperty("--dur", (2 + Math.random() * 3) + "s");
-      s.style.animationDelay = Math.random() * 3 + "s";
-      starFrag.appendChild(s);
-    }
-    starrySection.appendChild(starFrag);
-
-    // shooting star on star click
-    const starWishes = [
-      "a wish for more days with you ✨",
-      "a wish for your smile, always ✨",
-      "a wish that time slows down when we're together ✨",
-      "a wish for forever, one day at a time ✨",
-      "a wish for all the little moments yet to come ✨",
-    ];
-
-    starrySection.querySelectorAll(".star").forEach((star) => {
-      star.addEventListener("click", () => {
-        // create shooting star
-        const shoot = document.createElement("div");
-        shoot.className = "shooting-star";
-        const startX = Math.random() * 60;
-        const startY = Math.random() * 40;
-        shoot.style.left = startX + "%";
-        shoot.style.top = startY + "%";
-        shoot.style.transform = "rotate(35deg)";
-        starrySection.appendChild(shoot);
-
-        shoot.animate([
-          { opacity: 0, transform: "rotate(35deg) translateX(0)" },
-          { opacity: 1, offset: 0.2 },
-          { opacity: 1, offset: 0.8 },
-          { opacity: 0, transform: "rotate(35deg) translateX(200px)" },
-        ], { duration: 800, easing: "ease-out" });
-
-        setTimeout(() => shoot.remove(), 900);
-
-        // show wish briefly
-        const caption = starrySection.querySelector(".starry-caption");
-        if (caption) {
-          const original = caption.textContent;
-          caption.textContent = starWishes[Math.floor(Math.random() * starWishes.length)];
-          setTimeout(() => { caption.textContent = original; }, 2500);
-        }
-      });
-    });
+  /* ===== ✨ Starry Night (full page) ===== */
+  /* Move stars to body, not just starrySection */
+  // generate stars
+  const numStars = 40;
+  const starFrag = document.createDocumentFragment();
+  for (let i = 0; i < numStars; i++) {
+    const s = document.createElement("div");
+    s.className = "star" + (Math.random() > 0.7 ? " big" : "");
+    s.style.left = Math.random() * 100 + "%";
+    s.style.top = Math.random() * 100 + "%"; /* Use 100% height */
+    s.style.setProperty("--dur", (2 + Math.random() * 3) + "s");
+    s.style.animationDelay = Math.random() * 3 + "s";
+    starFrag.appendChild(s);
   }
+  document.body.appendChild(starFrag); /* Append to body */
+
+  // shooting star on star click
+  const starWishes = [
+    "a wish for more days with you ✨",
+    "a wish for your smile, always ✨",
+    "a wish that time slows down when we're together ✨",
+    "a wish for forever, one day at a time ✨",
+    "a wish for all the little moments yet to come ✨",
+  ];
+
+  const starryCaptionEl = el("div", "starry-caption"); /* New caption element */
+  starryCaptionEl.textContent = "tap a star to make a wish ✨";
+  document.body.appendChild(starryCaptionEl);
+
+  document.body.querySelectorAll(".star").forEach((star) => { /* Listen on body stars */
+    star.addEventListener("click", () => {
+      // create shooting star
+      const shoot = document.createElement("div");
+      shoot.className = "shooting-star";
+      const startX = Math.random() * 60;
+      const startY = Math.random() * 40;
+      shoot.style.left = startX + "%";
+      shoot.style.top = startY + "%";
+      shoot.style.transform = "rotate(35deg)";
+      document.body.appendChild(shoot); /* Append to body */
+
+      shoot.animate([
+        { opacity: 0, transform: "rotate(35deg) translateX(0)" },
+        { opacity: 1, offset: 0.2 },
+        { opacity: 1, offset: 0.8 },
+        { opacity: 0, transform: "rotate(35deg) translateX(200px)" },
+      ], { duration: 800, easing: "ease-out" });
+
+      setTimeout(() => shoot.remove(), 900);
+
+      // show wish briefly
+      const original = starryCaptionEl.textContent;
+      starryCaptionEl.textContent = starWishes[Math.floor(Math.random() * starWishes.length)];
+      setTimeout(() => { starryCaptionEl.textContent = original; }, 2500);
+    });
+  });
 
   /* ===== 💌 Floating Love Notes ===== */
   const loveFloatArea = $("#loveFloatArea");
@@ -253,3 +252,5 @@
   stagger(timeline, 0.15, 0.6);
   initReveals();
 })();
+
+/* Move initStars to run after DOMContentLoaded in magic.js */

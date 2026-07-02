@@ -2172,12 +2172,57 @@ body.page-story .moon-section { background: rgba(255,255,255,0.04); }
 body.page-story .candle-section { background: rgba(255,255,255,0.04); }
 body.page-story .love-float-section { background: rgba(255,255,255,0.04); }
 
-.starry-section {
-  position: relative; min-height: 320px; padding: 60px 20px; text-align: center;
-  overflow: hidden; border-radius: var(--radius);
-  background: linear-gradient(180deg, #1a1129 0%, #2d1b3d 60%, #3d2347 100%);
-  margin: 0 auto; max-width: 900px;
+/* ---- ✨ Starry Night ---- */
+/* Night sky background for story page only */
+body.page-story {
+  background-color: #0d0a1a;
+  background-image:
+    radial-gradient(1000px 700px at 50% -10%, rgba(61, 35, 71, 0.6), transparent 60%),
+    radial-gradient(800px 500px at 10% 50%, rgba(30, 17, 41, 0.8), transparent 60%),
+    radial-gradient(600px 400px at 90% 80%, rgba(45, 27, 61, 0.5), transparent 60%),
+    linear-gradient(180deg, #0d0a1a 0%, #1a1129 40%, #0d0a1a 100%);
+  background-attachment: fixed;
+  color: #e8e0f0;
+  min-height: 100vh; /* Ensure body takes full height */
+  overflow-x: hidden;
 }
+body.page-story .site-header,
+body.page-story .site-header a {
+  color: #f0e6f6;
+}
+body.page-story .site-header {
+  border-bottom-color: rgba(246, 200, 214, 0.1);
+  background: rgba(13, 10, 26, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+body.page-story .eyebrow { color: rgba(246, 200, 214, 0.7); }
+body.page-story h1,
+body.page-story h2,
+body.page-story h3 { color: #f6c8d6; }
+body.page-story .lede { color: rgba(232, 224, 240, 0.7); }
+body.page-story .section-heading h2 { color: #f6c8d6; }
+body.page-story .timeline-content { background: rgba(255,255,255,0.06); border-color: rgba(246,200,214,0.15); }
+body.page-story .timeline-content p { color: rgba(232, 224, 240, 0.8); }
+body.page-story .timeline-dot { background: var(--rose); }
+body.page-story footer { color: rgba(232, 224, 240, 0.5); }
+body.page-story .hourglass-section { background: rgba(255,255,255,0.04); }
+body.page-story .moon-section { background: rgba(255,255,255,0.04); }
+body.page-story .candle-section { background: rgba(255,255,255,0.04); }
+body.page-story .love-float-section { background: rgba(255,255,255,0.04); }
+
+.starry-section-placeholder { display: none; } /* Hide the old section */
+
+.starry-caption {
+  position: fixed; top: 12%; left: 50%; transform: translateX(-50%);
+  z-index: 100; font-family: var(--font-hand); font-size: 26px;
+  color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); text-align: center;
+  pointer-events: none; /* Make caption unclickable */
+  max-width: 90%;
+}
+
+.starry-hint { display: none; } /* Hint is now part of caption */
+
 .starry-section .star {
   position: absolute; width: 8px; height: 8px;
   background: #fff; border-radius: 50%;
