@@ -11,6 +11,7 @@
   }
 
   document.title = `Our Story | ${data.site.title}`;
+  document.body.classList.add("page-story");
   setText("#siteTitle", data.site.title);
   setText("#siteFooter", data.site.footerLine);
 
