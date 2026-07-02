@@ -253,5 +253,3 @@
   stagger(timeline, 0.15, 0.6);
   initReveals();
 })();
-
-/* Move initStars to run after DOMContentLoaded in magic.js */
