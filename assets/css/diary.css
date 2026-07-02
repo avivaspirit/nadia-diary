@@ -2184,8 +2184,6 @@ body.page-story .moon-section { background: rgba(255,255,255,0.04); }
 body.page-story .candle-section { background: rgba(255,255,255,0.04); }
 body.page-story .love-float-section { background: rgba(255,255,255,0.04); }
 
-.starry-section-placeholder { display: none; } /* Hide the old section */
-
 .starry-caption {
   position: fixed; top: 12%; left: 50%; transform: translateX(-50%);
   z-index: 100; font-family: var(--font-hand); font-size: 26px;
@@ -2194,38 +2192,31 @@ body.page-story .love-float-section { background: rgba(255,255,255,0.04); }
   max-width: 90%;
 }
 
-.starry-hint { display: none; } /* Hint is now part of caption */
-
-.starry-section .star {
+body.page-story .star {
   position: absolute; width: 8px; height: 8px;
   background: #fff; border-radius: 50%;
   box-shadow: 0 0 6px 2px rgba(255,255,255,0.6);
   animation: twinkle var(--dur, 3s) ease-in-out infinite alternate;
   cursor: pointer; transition: transform 0.15s ease;
+  z-index: 1;
 }
-/* Bigger invisible tap target around each star */
-.starry-section .star::before {
+body.page-story .star::before {
   content: ""; position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   width: 36px; height: 36px; border-radius: 50%;
 }
-.starry-section .star:hover { transform: scale(2); }
-.starry-section .star:active { transform: scale(3); }
-.starry-section .star.big {
+body.page-story .star:hover { transform: scale(2); }
+body.page-story .star:active { transform: scale(3); }
+body.page-story .star.big {
   width: 12px; height: 12px;
   box-shadow: 0 0 10px 3px rgba(255,255,255,0.7);
 }
 @keyframes twinkle { 0% { opacity: 0.3; } 100% { opacity: 1; } }
-.starry-section .shooting-star {
+body.page-story .shooting-star {
   position: absolute; width: 100px; height: 1.5px;
   background: linear-gradient(90deg, transparent, #fff, transparent);
   border-radius: 50%; pointer-events: none; opacity: 0;
 }
-.starry-caption {
-  position: relative; z-index: 2; font-family: var(--font-hand); font-size: 26px;
-  color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); margin-top: 20px;
-}
-.starry-hint { position: relative; z-index: 2; font-size: 14px; color: rgba(255,255,255,0.6); margin-top: 8px; }
 
 /* ---- 💌 Floating Love Notes ---- */
 .love-float-section { position: relative; min-height: 280px; padding: 50px 20px; text-align: center; overflow: hidden; }
