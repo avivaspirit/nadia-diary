@@ -403,7 +403,7 @@
         '?utm_source=generator&theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" ' +
         'loading="lazy"></iframe>' +
       '</div>' +
-      '<a class="mp-open-spotify" id="mpOpenSpotify" href="https://open.spotify.com/track/' + currentTrack +
+      '<a class="mp-open-spotify" id="mpOpenSpotify" href="https://open.spotify.com/playlist/' + (music.playlistId || "") +
         '" target="_blank" rel="noopener">Open in Spotify app ♡</a>' +
       trackListHtml;
     document.body.appendChild(player);
