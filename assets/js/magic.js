@@ -516,6 +516,43 @@
     setTimeout(function() { input.focus(); }, 200);
   }
 
+  /* ------------------------------------------------------------- balloons */
+  function initBalloons() {
+    if (reducedMotion) return;
+    // Only on home and gallery pages
+    const isHome = document.body.classList.contains("page-home") || /index\.html/.test(location.pathname) || location.pathname.endsWith("/") || /index\.html/.test(location.hash);
+    const isGallery = document.body.classList.contains("page-gallery") || /gallery\.html/.test(location.pathname);
+    if (!isHome && !isGallery) return;
+
+    const colors = [
+      "linear-gradient(135deg,#ffd6e0,#ff8fa3)",
+      "linear-gradient(135deg,#d4eaff,#8ecaff)",
+      "linear-gradient(135deg,#fff0d4,#ffd56b)",
+      "linear-gradient(135deg,#e8d4ff,#c08aff)",
+      "linear-gradient(135deg,#d4ffe8,#6bd4a0)",
+      "linear-gradient(135deg,#ffe0e0,#ff9b9b)"
+    ];
+    const layer = el("div", "balloon-layer");
+    document.body.prepend(layer);
+
+    const COUNT = 10;
+    for (let i = 0; i < COUNT; i++) {
+      const b = el("div", "balloon");
+      const size = 32 + Math.random() * 36;
+      const dur = 12 + Math.random() * 14;
+      const delay = Math.random() * dur;
+      const left = Math.random() * 100;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      b.style.left = left + "%";
+      b.style.width = size + "px";
+      b.style.height = (size * 1.25) + "px";
+      b.style.background = color;
+      b.style.animationDuration = dur + "s";
+      b.style.animationDelay = -delay + "s";
+      layer.appendChild(b);
+    }
+  }
+
   /* ------------------------------------------------------------- expose */
   window.DiaryMagic = {
     $, $$, el, escapeHtml,
@@ -534,6 +571,7 @@
     initCardGlow();
     initParallax();
     initMusic();
+    initBalloons();
     // initReveals is called by each page AFTER it renders dynamic content
   });
 })();

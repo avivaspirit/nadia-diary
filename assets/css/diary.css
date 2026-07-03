@@ -2975,6 +2975,53 @@ body.page-story .shooting-star {
   font-size: 16px; color: rgba(246,200,214,0.3);
 }
 
+/* ----------------------------------------------------------- floating balloons */
+.balloon-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.balloon {
+  position: absolute;
+  bottom: -160px;
+  width: 48px;
+  height: 60px;
+  border-radius: 50% 50% 48% 48%;
+  opacity: 0.55;
+  animation: balloon-float linear infinite;
+}
+.balloon::after {
+  content: '';
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  width: 1px;
+  height: 22px;
+  background: rgba(0,0,0,0.12);
+  transform: translateX(-50%);
+}
+.balloon::before {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 8px;
+  height: 6px;
+  background: inherit;
+  filter: brightness(0.85);
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+  transform: translateX(-50%);
+}
+@keyframes balloon-float {
+  0%   { transform: translateY(0) translateX(0) rotate(-4deg); }
+  25%  { transform: translateY(-30vh) translateX(20px) rotate(3deg); }
+  50%  { transform: translateY(-55vh) translateX(-15px) rotate(-2deg); }
+  75%  { transform: translateY(-80vh) translateX(12px) rotate(4deg); }
+  100% { transform: translateY(-115vh) translateX(0) rotate(-3deg); opacity: 0; }
+}
+
 /* ---------------------------------------------------------------- motion safety */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
