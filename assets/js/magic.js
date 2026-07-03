@@ -519,10 +519,8 @@
   /* ------------------------------------------------------------- balloons */
   function initBalloons() {
     if (reducedMotion) return;
-    // Only on home and gallery pages
-    const isHome = document.body.classList.contains("page-home") || /index\.html/.test(location.pathname) || location.pathname.endsWith("/") || /index\.html/.test(location.hash);
-    const isGallery = document.body.classList.contains("page-gallery") || /gallery\.html/.test(location.pathname);
-    if (!isHome && !isGallery) return;
+    // All pages EXCEPT Our Story
+    if (/story\.html/.test(location.pathname)) return;
 
     const colors = [
       "linear-gradient(135deg,#ffd6e0,#ff8fa3)",
