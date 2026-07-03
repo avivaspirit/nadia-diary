@@ -23,7 +23,15 @@
 
   /* ===== State ===== */
   let userPhotos = [];
-  try { userPhotos = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); } catch { userPhotos = []; }
+  try {
+    userPhotos = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    // Clean up any old parents' photos if stored in localStorage
+    const filtered = userPhotos.filter(p => p.src && !p.src.includes("birthday-couple-1") && !p.src.includes("birthday-couple-2"));
+    if (filtered.length !== userPhotos.length) {
+      userPhotos = filtered;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(userPhotos));
+    }
+  } catch { userPhotos = []; }
   let hiddenBuiltin = [];
   try { hiddenBuiltin = JSON.parse(localStorage.getItem(HIDDEN_KEY) || "[]"); } catch { hiddenBuiltin = []; }
   let builtinOverrides = {};

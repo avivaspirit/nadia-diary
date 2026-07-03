@@ -251,7 +251,11 @@ window.NADIA_DATA = {
       { src: "./assets/uploads/nadia_wink_peace.jpg",          alt: "Nadia winking with peace sign",      caption: "wink and peace ✌️", tags: ["me"] },
       { src: "./assets/uploads/nadia_smile_drink.jpg",         alt: "Nadia smiling with a drink",         caption: "cheers to sweet moments 🥂", tags: ["me"] },
       { src: "./assets/uploads/couple_rose.jpg",               alt: "Nadia in blue dress",                caption: "sweet blue dress 🩵", tags: ["me"] },
-      { src: "./assets/uploads/nadia_restaurant.jpg",          alt: "Nadia winking and peace sign",      caption: "peace and smile ✌️", tags: ["me"] }
+      { src: "./assets/uploads/nadia_restaurant.jpg",          alt: "Nadia winking and peace sign",      caption: "peace and smile ✌️", tags: ["me"] },
+      { src: "./assets/uploads/couple_photobooth_strip.jpg",   alt: "Couple photo booth strip",           caption: "booth strip memories 🎞️", tags: ["us"] },
+      { src: "./assets/uploads/nadia_with_plushie.jpg",        alt: "Nadia with plushie",                 caption: "Nadia and puppy 🐶", tags: ["me"] },
+      { src: "./assets/uploads/plushie_close_up_2.jpg",        alt: "Plushie close up",                   caption: "soft little resident 🧸", tags: ["moments"] },
+      { src: "./assets/uploads/teddy_plushie.jpg",             alt: "Teddy bear plushie",                 caption: "teddy bear friend 🧸", tags: ["moments"] }
     ]
   },
 
@@ -311,8 +315,8 @@ window.NADIA_DATA = {
     headline: "Happy birthday Nadia 🎂, my favorite person.",
     intro: "You bring laughter and radiate positivity everywhere you go. You're brilliant, talented, and incredibly kind-hearted. Thank you for always treating me so well, and for being the best friend and girlfriend I could ever ask for. My life is so much brighter with you in it. ✨",
     photoStrip: [
-      { src: "./assets/uploads/img_6539.jpg",  alt: "My favorite face" },
-      { src: "./assets/uploads/img_6507.jpg",  alt: "Our first day selfie" }
+      { src: "./assets/uploads/birthday-solo-1.jpg",  alt: "Warm smiles together" },
+      { src: "./assets/uploads/birthday-solo-2-web.jpg",  alt: "Sweet memories together" }
     ],
 
     /* Step 3 — the letters. Typewriter effect on open. */
