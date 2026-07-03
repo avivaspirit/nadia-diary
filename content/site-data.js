@@ -33,7 +33,7 @@ window.NADIA_DATA = {
       eyebrow: "Mini bio",
       title: "The girl this diary belongs to",
       text: "Her world is full of soft details, pretty little treasures, and warm conversations. She has the softest heart and cares deeply about the people around her. She makes everything feel more fun, even the simplest moments. This diary is for the joy she creates, the memories that stay, and the way she makes ordinary days feel brighter. ♡",
-      photo: { src: "./assets/uploads/nadia-note-1.jpg", alt: "Photo of Nadia", caption: "the diary girl" }
+      photo: { src: "./assets/uploads/img_2434.jpg", alt: "Nadia's prettiest smile", caption: "the prettiest smile ♡" }
     },
 
     notes: {
@@ -55,9 +55,9 @@ window.NADIA_DATA = {
         "She makes love feel like home, adventure, and forever."
       ],
       featurePhoto: {
-        src: "./assets/uploads/nadia-note-2.jpg",
-        alt: "Nadia by a blue decorated door",
-        caption: "soft and bright"
+        src: "./assets/uploads/img_6306.jpg",
+        alt: "Nadia with soft flowers",
+        caption: "soft like flowers 🌸"
       }
     },
 
@@ -66,9 +66,9 @@ window.NADIA_DATA = {
       title: "Small memories with their own sparkle.",
       /* Polaroids on the scrapbook wall. Tap any photo to open the gallery. */
       items: [
-        { src: "./assets/uploads/nadia-note-couple.jpg", alt: "Nadia and Mac together",        caption: "little us moment" },
-        { src: "./assets/uploads/nadia-note-3.jpg",      alt: "Nadia with a birthday dessert", caption: "night sparkle" },
-        { src: "./assets/uploads/nadia-note-4.jpg",      alt: "Nadia at dinner",               caption: "little bunny" }
+        { src: "./assets/uploads/img_6507.jpg",     alt: "First day together selfie",  caption: "where it all began ♡" },
+        { src: "./assets/uploads/img_6539.jpg",     alt: "Close-up couple portrait",    caption: "my favorite face" },
+        { src: "./assets/uploads/img_2333.jpg",     alt: "Sweet couple moment",         caption: "us being us 🐰" }
       ]
     },
 
@@ -150,7 +150,63 @@ window.NADIA_DATA = {
         emoji: "💕",
         title: "Day One",
         text: "The day everything started. The first hello, the first smile, the moment our story began.",
-        photo: ""
+        photo: "./assets/uploads/img_6507.jpg"
+      },
+      {
+        date: "May 21, 2026",
+        emoji: "🌃",
+        title: "First Rooftop Date",
+        text: "City lights, warm hearts, and the kind of view that makes you fall even harder.",
+        photo: "./assets/uploads/img_6557.jpg"
+      },
+      {
+        date: "May 21, 2026",
+        emoji: "🌹",
+        title: "Flowers in the Night",
+        text: "The evening that turned into magic. Flowers, city backdrop, and just us.",
+        photo: "./assets/uploads/nadia-note-couple.jpg"
+      },
+      {
+        date: "Jun 7, 2026",
+        emoji: "🐰",
+        title: "Her Smile",
+        text: "A day spent together, just being us. Her laugh, her joy, her everything.",
+        photo: "./assets/uploads/img_6306.jpg"
+      },
+      {
+        date: "Jun 13, 2026",
+        emoji: "✨",
+        title: "Aesthetic Vibes",
+        text: "She looked absolutely stunning. The light was perfect, and so was she.",
+        photo: "./assets/uploads/img_2434.jpg"
+      },
+      {
+        date: "Jun 19, 2026",
+        emoji: "🍽️",
+        title: "Dinner for Two",
+        text: "Good food, great company, and the kind of date that makes you never want to go home.",
+        photo: "./assets/uploads/img_1399.jpg"
+      },
+      {
+        date: "Jun 20, 2026",
+        emoji: "🎁",
+        title: "A Little Something",
+        text: "A small surprise, a big smile. It's the little things that mean the most.",
+        photo: "./assets/uploads/img_1562.jpg"
+      },
+      {
+        date: "Jun 27, 2026",
+        emoji: "🥰",
+        title: "Us Being Us",
+        text: "The sweetest moments are the ones where we're just together, doing nothing special, and everything feels perfect.",
+        photo: "./assets/uploads/img_2333.jpg"
+      },
+      {
+        date: "Jul 1, 2026",
+        emoji: "📸",
+        title: "Picture Perfect",
+        text: "Booth memories and architectural backdrops. Every frame looks like a movie poster when we're in it.",
+        photo: "./assets/uploads/2026-07-01(2).jpg"
       }
     ]
   },
@@ -200,9 +256,9 @@ window.NADIA_DATA = {
     title: "A tiny cabinet of soft treasures.",
     intro: "Plushies, charms, and little finds sit together like a private mini museum. Tap a cabinet door to peek inside each tiny story 🗝️.",
     heroPhoto: {
-      src: "./assets/uploads/nadia-cabinet-hero.jpg",
-      alt: "Nadia holding flowers with a night city view",
-      caption: "keeper of the cabinet"
+      src: "./assets/uploads/img_2434.jpg",
+      alt: "Nadia's prettiest smile with soft lighting",
+      caption: "keeper of the cabinet ✨"
     },
     shelfEyebrow: "Tiny cabinet stories",
     shelfTitle: "Open a little treasure door",
@@ -250,8 +306,8 @@ window.NADIA_DATA = {
     headline: "Happy birthday Nadia 🎂, my favorite person.",
     intro: "You bring laughter and radiate positivity everywhere you go. You're brilliant, talented, and incredibly kind-hearted. Thank you for always treating me so well, and for being the best friend and girlfriend I could ever ask for. My life is so much brighter with you in it. ✨",
     photoStrip: [
-      { src: "./assets/uploads/birthday-wedding-left.jpg",  alt: "A sweet photo memory together" },
-      { src: "./assets/uploads/birthday-wedding-right.jpg", alt: "A sweet photo memory together" }
+      { src: "./assets/uploads/img_6374.jpg",  alt: "Warm smiles together" },
+      { src: "./assets/uploads/img_6507.jpg",  alt: "Our first day selfie" }
     ],
 
     /* Step 3 — the letters. Typewriter effect on open. */
@@ -269,8 +325,8 @@ window.NADIA_DATA = {
           "Success is bound to follow as you build your career and your own brand. You deserve true joy in everything you touch."
         ],
         photos: [
-          { src: "./assets/uploads/birthday-solo-1.jpg",     alt: "Photo memory of Nadia", caption: "" },
-          { src: "./assets/uploads/birthday-solo-2-web.jpg", alt: "Photo memory of Nadia", caption: "" }
+          { src: "./assets/uploads/img_2434.jpg",        alt: "Nadia's prettiest smile", caption: "the prettiest smile ♡" },
+          { src: "./assets/uploads/img_6306.jpg",        alt: "Nadia with soft flowers",  caption: "soft like flowers 🌸" }
         ]
       },
       {
@@ -283,8 +339,8 @@ window.NADIA_DATA = {
           "Let's always choose love over any fear or doubt. No matter what comes our way, let's keep growing side by side for an eternity."
         ],
         photos: [
-          { src: "./assets/uploads/birthday-couple-1.jpg", alt: "Photo memory together", caption: "" },
-          { src: "./assets/uploads/birthday-couple-2.jpg", alt: "Photo memory together", caption: "" }
+          { src: "./assets/uploads/img_6374.jpg",  alt: "Together, warm smiles", caption: "together is home ♡" },
+          { src: "./assets/uploads/img_6539.jpg",  alt: "My favorite face",     caption: "my favorite face 🥰" }
         ]
       }
     ],
