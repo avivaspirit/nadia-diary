@@ -9,7 +9,21 @@ const GEMINI_KEYS = [
   process.env.GEMINI_KEY_4,
 ].filter(Boolean);
 
-const PROMPT = `You are a cozy movie recommender for a sweet couple. Pick ONE romantic comedy, romance, or feel-good movie/series that they'd enjoy watching together.
+function buildPrompt() {
+  const genres = [
+    "romantic comedy", "classic romance", "K-drama romance", "anime romance",
+    "feel-good adventure", "cozy slice-of-life", "musical romance", "period romance",
+    "indie romance", "holiday romance", "friends-to-lovers", "enemies-to-lovers"
+  ];
+  const moods = [
+    "cozy and warm", "funny and light", "emotional and beautiful",
+    "adventurous and fun", "sweet and wholesome", "passionate and dramatic"
+  ];
+  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+  return `You are a cozy movie recommender for a sweet couple. Pick ONE ${pick(genres)} movie or series with a ${pick(moods)} vibe.
+
+IMPORTANT: Be creative and varied. Don't pick obvious popular titles every time. Explore lesser-known gems, international films, K-dramas, and anime too. Each call should feel like a fresh discovery.
 
 Respond ONLY with valid JSON (no markdown, no backticks). Use this exact shape:
 {
@@ -33,6 +47,7 @@ Rules:
 - Don't repeat the same title often — be creative
 - Keep synopsis spoiler-free
 - Keep it concise and cute`;
+}
 
 export default async function handler(req, res) {
   // CORS + cache headers
@@ -49,6 +64,8 @@ export default async function handler(req, res) {
     return;
   }
 
+  const prompt = buildPrompt();
+
   // Try each key until one works
   for (let i = 0; i < GEMINI_KEYS.length; i++) {
     const key = GEMINI_KEYS[i];
@@ -58,10 +75,10 @@ export default async function handler(req, res) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: PROMPT }] }],
+          contents: [{ parts: [{ text: prompt }] }],
           generationConfig: {
             thinkingConfig: { thinkingBudget: 0 },
-            temperature: 1.2,
+            temperature: 1.5,
             maxOutputTokens: 800,
           },
         }),
