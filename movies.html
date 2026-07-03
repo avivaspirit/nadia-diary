@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Movie Time 🎬 | Nadia's Diary 🎀</title>
+    <meta name="description" content="What should we watch tonight? AI picks a romantic movie for us ♡" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/diary.css?v=20260703i" />
+    <link rel="stylesheet" href="./assets/css/movies.css?v=20260703i" />
+  </head>
+  <body class="page-movies">
+    <canvas id="bgCanvas"></canvas>
+
+    <header class="site-banner">
+      <div class="banner-inner">
+        <a href="./index.html" class="banner-logo">Nadia's Diary 🎀</a>
+        <nav class="main-nav" aria-label="Main navigation"></nav>
+      </div>
+    </header>
+
+    <main class="movies-page">
+      <!-- Hero -->
+      <div class="movies-hero">
+        <p class="eyebrow">MOVIE NIGHT ♡</p>
+        <h1>What should we watch tonight?</h1>
+        <p class="lead">Let AI pick a romantic movie or series for our cozy night in 🍿</p>
+      </div>
+
+      <!-- Loading state -->
+      <div id="movieLoading" class="movie-loading">
+        <div class="movie-loading-spinner"></div>
+        <p>Finding the perfect movie for us… 🎬</p>
+      </div>
+
+      <!-- Movie Card (hidden until loaded) -->
+      <div id="movieCard" class="movie-card hidden">
+        <div class="movie-card-glow"></div>
+        <div class="movie-poster-area">
+          <div class="movie-emoji-big" id="movieEmoji">🍿</div>
+        </div>
+        <div class="movie-info">
+          <div class="movie-tags">
+            <span class="movie-tag" id="tagType">Movie</span>
+            <span class="movie-tag" id="tagYear">2024</span>
+            <span class="movie-tag" id="tagRating">PG-13</span>
+            <span class="movie-tag" id="tagDuration">1h 48m</span>
+          </div>
+          <h2 class="movie-title" id="movieTitle">—</h2>
+          <p class="movie-genre" id="movieGenre">—</p>
+          <div class="movie-meta-row">
+            <span class="movie-mood" id="movieMood">✨ warm & cozy</span>
+            <span class="movie-watch" id="movieWatch">📺 Netflix</span>
+          </div>
+          <div class="movie-synopsis">
+            <p class="synopsis-label">Synopsis</p>
+            <p id="movieSynopsis">—</p>
+          </div>
+          <div class="movie-why">
+            <p class="why-label">Why for us</p>
+            <p id="movieWhy">—</p>
+          </div>
+          <div class="movie-sweet">
+            <p id="movieSweet">—</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="movie-actions">
+        <button id="btnPick" class="movie-btn movie-btn-primary" type="button">
+          <span>🎬 Surprise Me!</span>
+        </button>
+        <button id="btnAgain" class="movie-btn movie-btn-secondary hidden" type="button">
+          <span>🔄 Pick Another</span>
+        </button>
+      </div>
+
+      <!-- History -->
+      <div id="movieHistory" class="movie-history hidden">
+        <p class="history-label">Previous picks ✨</p>
+        <div id="historyList" class="history-list"></div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>♡ ⋆ ♡</p>
+      <p id="footerText">Made for cozy nights, many movies, and one very loved girl.</p>
+    </footer>
+
+    <script src="./content/nav.js?v=20260703i"></script>
+    <script src="./content/site-data.js?v=20260703i"></script>
+    <script src="./assets/js/magic.js?v=20260703i"></script>
+    <script src="./assets/js/movies.js?v=20260703i"></script>
+  </body>
+</html>

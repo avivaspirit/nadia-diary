@@ -1,0 +1,285 @@
+/* ====================================================== MOVIE TIME PAGE ====== */
+.movies-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+  position: relative;
+  z-index: 2;
+}
+
+.movies-hero {
+  text-align: center;
+  padding: 40px 0 28px;
+}
+.movies-hero .eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.25em;
+  color: var(--rose);
+  margin-bottom: 10px;
+}
+.movies-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 5vw, 2.3rem);
+  color: var(--plum);
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+.movies-hero .lead {
+  color: var(--rose);
+  font-size: 1rem;
+}
+
+/* === Loading === */
+.movie-loading {
+  text-align: center;
+  padding: 60px 20px;
+}
+.movie-loading p {
+  font-family: var(--font-display);
+  color: var(--rose);
+  font-size: 1.1rem;
+}
+.movie-loading-spinner {
+  width: 56px; height: 56px;
+  margin: 0 auto 20px;
+  border: 4px solid rgba(229,138,160,0.2);
+  border-top-color: var(--rose);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* === Movie Card === */
+.movie-card {
+  background: linear-gradient(160deg, rgba(255,255,255,0.85), rgba(255,245,248,0.7));
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(229,138,160,0.25);
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  box-shadow:
+    0 20px 60px rgba(180,100,130,0.15),
+    0 4px 16px rgba(180,100,130,0.08);
+  animation: cardReveal 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.movie-card-glow {
+  position: absolute;
+  top: -40%; left: -10%;
+  width: 120%; height: 60%;
+  background: radial-gradient(ellipse at center, rgba(255,200,220,0.35), transparent 70%);
+  pointer-events: none;
+}
+
+.movie-poster-area {
+  text-align: center;
+  padding: 36px 20px 16px;
+  position: relative;
+}
+.movie-emoji-big {
+  font-size: 72px;
+  line-height: 1;
+  filter: drop-shadow(0 8px 20px rgba(180,100,130,0.25));
+  animation: floatEmoji 3s ease-in-out infinite;
+}
+@keyframes floatEmoji {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-6px); }
+}
+
+.movie-info {
+  padding: 0 28px 28px;
+}
+
+.movie-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+.movie-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 4px 12px;
+  border-radius: 100px;
+  background: rgba(229,138,160,0.12);
+  color: var(--rose);
+  border: 1px solid rgba(229,138,160,0.2);
+}
+.movie-tag:nth-child(1) { background: rgba(229,138,160,0.18); }
+
+.movie-title {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  color: var(--plum);
+  margin: 0 0 4px;
+}
+.movie-genre {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--rose);
+  opacity: 0.8;
+  margin: 0 0 14px;
+}
+
+.movie-meta-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  font-size: 0.85rem;
+}
+.movie-mood {
+  color: var(--rose);
+}
+.movie-watch {
+  color: var(--plum);
+  opacity: 0.7;
+}
+
+.movie-synopsis,
+.movie-why {
+  margin-bottom: 16px;
+}
+.synopsis-label,
+.why-label {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin: 0 0 6px;
+}
+.movie-synopsis p:last-child,
+.movie-why p:last-child {
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.movie-sweet {
+  text-align: center;
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255,218,230,0.5), rgba(255,240,245,0.3));
+}
+.movie-sweet p {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--rose);
+  margin: 0;
+}
+
+/* === Action Buttons === */
+.movie-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 28px;
+}
+.movie-btn {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+}
+.movie-btn-primary {
+  background: linear-gradient(135deg, var(--rose), #d67a9a);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(229,138,160,0.35);
+}
+.movie-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(229,138,160,0.45);
+}
+.movie-btn-primary:active {
+  transform: translateY(0);
+}
+.movie-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+.movie-btn-secondary {
+  background: rgba(255,255,255,0.7);
+  color: var(--rose);
+  border: 1px solid rgba(229,138,160,0.3);
+}
+.movie-btn-secondary:hover {
+  background: rgba(255,245,248,0.9);
+  transform: translateY(-2px);
+}
+
+/* === History === */
+.movie-history {
+  margin-top: 40px;
+}
+.history-label {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--rose);
+  text-align: center;
+  margin-bottom: 14px;
+}
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(229,138,160,0.15);
+  border-radius: 12px;
+  font-size: 0.85rem;
+  animation: fadeInUp 0.3s ease-out;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.history-item .h-emoji {
+  font-size: 1.4rem;
+}
+.history-item .h-title {
+  font-weight: 600;
+  color: var(--plum);
+}
+.history-item .h-meta {
+  color: var(--rose);
+  opacity: 0.7;
+  font-size: 0.78rem;
+  margin-left: auto;
+}
+
+/* === Utility === */
+.hidden { display: none !important; }
+
+/* === Mobile === */
+@media (max-width: 580px) {
+  .movie-info { padding: 0 20px 20px; }
+  .movie-emoji-big { font-size: 56px; }
+  .movie-tags { gap: 6px; }
+  .movie-tag { font-size: 0.68rem; padding: 3px 10px; }
+  .movie-btn { padding: 12px 24px; font-size: 0.95rem; }
+}
