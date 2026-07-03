@@ -119,6 +119,8 @@ body.page-leaving .site-header { opacity: 0; transition: opacity 0.26s ease; }
   color: var(--rose-darker);
   letter-spacing: 0.01em;
   transition: transform 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .brand:hover { transform: scale(1.03) rotate(-1deg); }
 

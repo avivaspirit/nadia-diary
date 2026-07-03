@@ -22,8 +22,8 @@
 
   /* Elements */
   const tabs = $$(".game-tab");
-  const gameAreas = { balloon: $("#gameBalloon"), catch: $("#gameCatch"), memory: $("#gameMemory"), reaction: $("#gameReaction") };
-  const overlays = { balloon: $("#balloonOverlay"), catch: $("#catchOverlay"), memory: $("#memoryOverlay"), reaction: $("#reactionOverlay") };
+  const gameAreas = { balloon: $("#gameBalloon"), catch: $("#gameCatch"), memory: $("#gameMemory"), reaction: $("#gameReaction"), movie: $("#gameMovie") };
+  const overlays = { balloon: $("#balloonOverlay"), catch: $("#catchOverlay"), memory: $("#memoryOverlay"), reaction: $("#reactionOverlay"), movie: null };
   const scoreEl = $("#gameScore");
   const bestEl = $("#gameBest");
   const heartsEl = $("#gameHearts");
@@ -52,7 +52,16 @@
     Object.entries(gameAreas).forEach(([k, e]) => e.classList.toggle("active", k === game));
     score = 0; updateScore(); updateBest();
     heartsEl.textContent = "💖";
-    overlays[game].classList.remove("hidden");
+    if (overlays[game]) overlays[game].classList.remove("hidden");
+
+    /* Movie tab — auto-pick if empty + hide score bar */
+    if (game === "movie") {
+      const card = $("#movieCard");
+      if (card && card.classList.contains("hidden")) pickMovie();
+      scoreEl.closest(".game-scorebar")?.classList.add("hidden");
+    } else {
+      scoreEl.closest(".game-scorebar")?.classList.remove("hidden");
+    }
   }
 
   function stopAllGames() {
@@ -493,7 +502,7 @@
   /* ==================================================== Start dispatcher === */
   function startGame(game) {
     score = 0; updateScore();
-    overlays[game].classList.add("hidden");
+    if (overlays[game]) overlays[game].classList.add("hidden");
     if (spawnTimer) { clearInterval(spawnTimer); spawnTimer = null; }
     if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
     if (cleanupTimer) { clearInterval(cleanupTimer); cleanupTimer = null; }
@@ -504,6 +513,7 @@
       case "catch":    startFlowerCatch(); break;
       case "memory":   startMemoryMatch(); break;
       case "reaction": startHeartTap();    break;
+      case "movie":    pickMovie();        break;
     }
   }
 
@@ -512,6 +522,68 @@
   $("#catchStart").addEventListener("click", () => startGame("catch"));
   $("#memoryStart").addEventListener("click", () => startGame("memory"));
   $("#reactionStart").addEventListener("click", () => startGame("reaction"));
+
+  /* ==================================================== 5. MOVIE PICK === */
+  async function pickMovie() {
+    const loading = $("#movieLoading");
+    const card = $("#movieCard");
+    const btn = $("#moviePickBtn");
+    if (!loading || !card) return;
+
+    card.classList.add("hidden");
+    loading.classList.remove("hidden");
+    if (btn) btn.disabled = true;
+
+    try {
+      const resp = await fetch("/api/movie");
+      if (!resp.ok) throw new Error("API " + resp.status);
+      const m = await resp.json();
+
+      card.innerHTML = `
+        <div class="movie-card-glow"></div>
+        <div class="movie-poster-area">
+          <div class="movie-emoji-big">${m.emoji || "🍿"}</div>
+        </div>
+        <div class="movie-info">
+          <div class="movie-tags">
+            <span class="movie-tag">${m.type || "Movie"}</span>
+            <span class="movie-tag">${m.year || "—"}</span>
+            <span class="movie-tag">${m.rating || "—"}</span>
+            <span class="movie-tag">${m.duration || "—"}</span>
+          </div>
+          <h2 class="movie-title">${m.title || "Unknown"}</h2>
+          <p class="movie-genre">${m.genre || "Romance"}</p>
+          <div class="movie-meta-row">
+            <span class="movie-mood">✨ ${m.mood || "cozy"}</span>
+            <span class="movie-watch">📺 ${m.where_to_watch || "Streaming"}</span>
+          </div>
+          <div class="movie-synopsis">
+            <p class="synopsis-label">Synopsis</p>
+            <p>${(m.synopsis || "—").replace(/</g,"&lt;")}</p>
+          </div>
+          <div class="movie-why">
+            <p class="why-label">Why for us</p>
+            <p>${(m.why_for_them || "—").replace(/</g,"&lt;")}</p>
+          </div>
+          <div class="movie-sweet">
+            <p>${(m.sweet_message || "Enjoy together ♡").replace(/</g,"&lt;")}</p>
+          </div>
+        </div>
+      `;
+
+      loading.classList.add("hidden");
+      card.classList.remove("hidden");
+    } catch (err) {
+      console.error("Movie pick failed:", err);
+      loading.querySelector("p").textContent = "Couldn't reach the AI… try again 🎬";
+    } finally {
+      if (btn) btn.disabled = false;
+    }
+  }
+
+  /* Movie button */
+  const movieBtn = $("#moviePickBtn");
+  if (movieBtn) movieBtn.addEventListener("click", pickMovie);
 
   /* Init */
   updateBest();
