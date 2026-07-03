@@ -175,7 +175,22 @@ window.NADIA_DATA = {
       { src: "./assets/uploads/birthday-solo-1.jpg",       alt: "A sweet memory",            caption: "your moments", tags: ["moments"] },
       { src: "./assets/uploads/birthday-solo-2-web.jpg",   alt: "A sweet memory",            caption: "your moments", tags: ["moments"] },
       { src: "./assets/uploads/birthday-couple-1.jpg",     alt: "Together",                  caption: "your moments", tags: ["moments","us"] },
-      { src: "./assets/uploads/birthday-couple-2.jpg",     alt: "Together",                  caption: "your moments", tags: ["moments","us"] }
+      { src: "./assets/uploads/birthday-couple-2.jpg",     alt: "Together",                  caption: "your moments", tags: ["moments","us"] },
+
+      /* --- New photos from Nadia 🐰 album (Jul 3 2026) --- */
+      { src: "./assets/uploads/img_6507.jpg",                  alt: "Couple close-up selfie",            caption: "where it all began ♡", tags: ["us"] },
+      { src: "./assets/uploads/img_6539.jpg",                  alt: "Intimate couple portrait",           caption: "my favorite face", tags: ["us"] },
+      { src: "./assets/uploads/img_6557.jpg",                  alt: "Couple with city skyline",           caption: "rooftop dreams", tags: ["us"] },
+      { src: "./assets/uploads/img_1399.jpg",                  alt: "Couple at restaurant",               caption: "dinner for two", tags: ["us"] },
+      { src: "./assets/uploads/img_2333.jpg",                  alt: "Sweet couple interaction",           caption: "us being us", tags: ["us"] },
+      { src: "./assets/uploads/img_2434.jpg",                  alt: "Nadia solo portrait",               caption: "the prettiest smile", tags: ["me"] },
+      { src: "./assets/uploads/img_6306.jpg",                  alt: "Nadia with flowers",                caption: "soft like flowers", tags: ["me"] },
+      { src: "./assets/uploads/img_6374.jpg",                  alt: "Couple warm smiles",                caption: "together is home", tags: ["us"] },
+      { src: "./assets/uploads/img_6631.jpg",                  alt: "Couple romantic moment",            caption: "golden hour love", tags: ["us"] },
+      { src: "./assets/uploads/img_1562.jpg",                  alt: "Romantic card and gift setup",       caption: "a little something ♡", tags: ["moments"] },
+      { src: "./assets/uploads/2026-07-01(2).jpg",              alt: "Photo booth strip",                 caption: "booth memories", tags: ["moments"] },
+      { src: "./assets/uploads/2026-07-01(14).jpg",             alt: "Architectural couple shot",         caption: "our kind of view", tags: ["us"] },
+      { src: "./assets/uploads/moment-eebc59c1-4c2.jpg",       alt: "Couple striking shot",              caption: "picture perfect", tags: ["us"] }
     ]
   },
 
