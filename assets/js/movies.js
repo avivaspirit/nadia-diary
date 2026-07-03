@@ -44,10 +44,24 @@
     historySection.classList.remove("hidden");
     historyList.innerHTML = hist
       .map(
-        (h) =>
-          `<div class="history-item"><span class="h-emoji">${h.emoji || "🎬"}</span><span class="h-title">${escapeHtml(h.title)}</span><span class="h-meta">${escapeHtml(h.type || "Movie")}${h.year ? " · " + h.year : ""}</span></div>`
+        (h, i) =>
+          `<div class="history-item"><span class="h-emoji">${h.emoji || "🎬"}</span><span class="h-title">${escapeHtml(h.title)}</span><span class="h-meta">${escapeHtml(h.type || "Movie")}${h.year ? " · " + h.year : ""}</span><button class="h-delete" data-idx="${i}" type="button" title="Remove">✕</button></div>`
       )
       .join("");
+
+    /* Bind delete buttons */
+    $$(".h-delete", historyList).forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const idx = parseInt(btn.dataset.idx, 10);
+        deleteHistoryItem(idx);
+      });
+    });
+  }
+  function deleteHistoryItem(idx) {
+    const hist = getHistory();
+    hist.splice(idx, 1);
+    try { localStorage.setItem(HISTORY_KEY, JSON.stringify(hist)); } catch {}
+    renderHistory();
   }
   function escapeHtml(s) {
     if (!s) return "";

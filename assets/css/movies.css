@@ -271,11 +271,27 @@
   font-size: 0.78rem;
   margin-left: auto;
 }
+.h-delete {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--rose);
+  opacity: 0.4;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  line-height: 1;
+}
+.h-delete:hover {
+  opacity: 1;
+  background: rgba(229,138,160,0.15);
+}
 
 /* === Utility === */
 .hidden { display: none !important; }
 
-/* === Mobile === */
 @media (max-width: 580px) {
   .movie-info { padding: 0 20px 20px; }
   .movie-emoji-big { font-size: 56px; }

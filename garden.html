@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Caveat:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/css/diary.css?v=20260703m" />
+    <link rel="stylesheet" href="./assets/css/diary.css?v=20260703n" />
   </head>
   <body>
     <header class="site-header">
@@ -33,7 +33,90 @@
           <p class="lede">Plant a flower and watch the vine grow taller. Each bloom carries a memory of Nadia. 🌷</p>
         </div>
 
-        <!-- Toolbar -->
+        <!-- ================================================================ -->
+        <!-- PLANT GARDEN — real SVG botanical illustrations                  -->
+        <!-- ================================================================ -->
+        <div class="pg-section reveal">
+          <div class="pg-section-header">
+            <h2 class="pg-section-title">Nadia's Plant Garden 🌱</h2>
+            <p class="pg-section-sub">Each flower grows as a real plant illustration. Pin photos to the stems, leaves & petals. 🌸</p>
+          </div>
+
+          <div class="pg-toolbar">
+            <button class="pg-add-btn" id="pgPlantBtn" type="button">
+              <span>🌱</span> Plant a flower
+            </button>
+            <button class="pg-clear-btn" id="pgClearBtn" type="button" style="display:none;">
+              <span>🧹</span> Clear garden
+            </button>
+          </div>
+
+          <!-- Hidden file input for plant garden -->
+          <input type="file" id="pgFileInput" accept="image/*" multiple style="position:absolute;width:0;height:0;opacity:0;overflow:hidden;border:0;" />
+
+          <!-- Plant garden grid -->
+          <div class="pg-garden" id="pgGarden"></div>
+
+          <!-- Empty state -->
+          <div class="pg-empty" id="pgEmpty">
+            <div class="pg-empty-icon">🌱</div>
+            <p>Your plant garden is waiting to bloom ♡</p>
+            <p class="pg-empty-sub">Plant your first flower — choose from roses, tulips, sunflowers & more!</p>
+          </div>
+        </div>
+
+        <!-- ================================================================ -->
+        <!-- PLANT EDITOR PANEL                                               -->
+        <!-- ================================================================ -->
+        <div class="pg-editor" id="pgEditorPanel">
+          <div class="pg-editor-inner">
+            <button class="pg-editor-close" id="pgCloseEditor" type="button">✕</button>
+            <h2 class="pg-editor-title">🌱 Plant a Flower</h2>
+
+            <!-- Step 1: Pick flower type -->
+            <div class="pg-step">
+              <label>Pick a flower 🌱</label>
+              <div class="pg-type-picker" id="pgTypePicker"></div>
+            </div>
+
+            <!-- SVG Preview -->
+            <div class="pg-step">
+              <label>Preview 🌿</label>
+              <div class="pg-svg-preview" id="pgSvgPreview"></div>
+            </div>
+
+            <!-- Step 2: Photos -->
+            <div class="pg-step">
+              <label>Add photos of Nadia 📸 <span class="pg-hint">(multiple allowed!)</span></label>
+              <div class="pg-photo-actions">
+                <button class="pg-photo-btn" id="pgUploadBtn" type="button"><span>📷</span> Upload</button>
+                <button class="pg-photo-btn" id="pgGalleryBtn" type="button"><span>🖼️</span> From gallery</button>
+              </div>
+              <div class="pg-gallery-grid" id="pgGalleryGrid" style="display:none;"></div>
+              <div class="pg-photo-list" id="pgPhotoList" style="display:none;"></div>
+            </div>
+
+            <!-- Step 3: Caption -->
+            <div class="pg-step">
+              <label>Add a little note 📝</label>
+              <input type="text" id="pgCaption" placeholder="a sweet message..." maxlength="80" />
+            </div>
+
+            <button class="pg-plant-final" id="pgPlantFinalBtn" type="button">🌷 Plant it!</button>
+          </div>
+        </div>
+
+        <!-- ================================================================ -->
+        <!-- MEMORY VINE — original emoji + photo vine garden                 -->
+        <!-- ================================================================ -->
+        <div class="pg-section pg-vine-section reveal">
+          <div class="pg-section-header">
+            <h2 class="pg-section-title">Memory Vine 🌿</h2>
+            <p class="pg-section-sub">Every memory grows along one winding vine. 🌱</p>
+          </div>
+        </div>
+
+        <!-- Vine Toolbar -->
         <div class="garden-toolbar reveal">
           <button class="garden-add-btn" id="plantBtn" type="button">
             <span>🌱</span> Plant a flower
@@ -118,8 +201,9 @@
       <p class="footer-text" id="footerText"></p>
     </footer>
 
-    <script src="./content/site-data.js?v=20260703m"></script>
-    <script src="./assets/js/magic.js?v=20260703m"></script>
-    <script src="./assets/js/garden.js?v=20260703m"></script>
+    <script src="./content/site-data.js?v=20260703n"></script>
+    <script src="./assets/js/magic.js?v=20260703n"></script>
+    <script src="./assets/js/plant-garden.js?v=20260703n"></script>
+    <script src="./assets/js/garden.js?v=20260703n"></script>
   </body>
 </html>
