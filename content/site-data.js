@@ -66,9 +66,9 @@ window.NADIA_DATA = {
       title: "Small memories with their own sparkle.",
       /* Polaroids on the scrapbook wall. Tap any photo to open the gallery. */
       items: [
-        { src: "./assets/uploads/img_6507.jpg",     alt: "First day together selfie",  caption: "my favorite face" },
+        { src: "./assets/uploads/img_6507.jpg",     alt: "First day together selfie",  caption: "us being us 🐰" },
         { src: "./assets/uploads/img_6539.jpg",     alt: "Close-up couple portrait",    caption: "where it all began ♡" },
-        { src: "./assets/uploads/img_2333.jpg",     alt: "Sweet couple moment",         caption: "us being us 🐰" }
+        { src: "./assets/uploads/img_2333.jpg",     alt: "Sweet couple moment",         caption: "my favorite face" }
       ]
     },
 
@@ -255,7 +255,16 @@ window.NADIA_DATA = {
       { src: "./assets/uploads/couple_photobooth_strip.jpg",   alt: "Couple photo booth strip",           caption: "booth strip memories 🎞️", tags: ["us"] },
       { src: "./assets/uploads/nadia_with_plushie.jpg",        alt: "Nadia with plushie",                 caption: "Nadia and puppy 🐶", tags: ["me"] },
       { src: "./assets/uploads/plushie_close_up_2.jpg",        alt: "Plushie close up",                   caption: "soft little resident 🧸", tags: ["moments"] },
-      { src: "./assets/uploads/teddy_plushie.jpg",             alt: "Teddy bear plushie",                 caption: "teddy bear friend 🧸", tags: ["moments"] }
+      { src: "./assets/uploads/teddy_plushie.jpg",             alt: "Teddy bear plushie",                 caption: "teddy bear friend 🧸", tags: ["moments"] },
+      { src: "./assets/uploads/img_0709.jpg",               alt: "Couple at the movies",             caption: "movie date night 🎬", tags: ["us"] },
+      { src: "./assets/uploads/img_0710.jpg",               alt: "Nadia at the cinema",             caption: "cinema vibes ✨", tags: ["me"] },
+      { src: "./assets/uploads/img_60607.jpg",              alt: "Nadia charming pose",              caption: "sweet like always 🌸", tags: ["me"] },
+      { src: "./assets/uploads/jul01-04.jpg",               alt: "Nadia casual and cute",            caption: "everyday beauty ♡", tags: ["me"] },
+      { src: "./assets/uploads/vc-call-1.jpg",              alt: "Video call with Nadia",             caption: "faceTime smiles 📱♡", tags: ["me"] },
+      { src: "./assets/uploads/new-photo-2.jpg",            alt: "Nadia smiling solo",               caption: "that smile though 🌷", tags: ["me"] },
+      { src: "./assets/uploads/new-photo-3.jpg",            alt: "Nadia in white top",               caption: "soft and lovely ✨", tags: ["me"] },
+      { src: "./assets/uploads/new-photo-4.jpg",            alt: "Couple selfie together",            caption: "us in a frame 📸", tags: ["us"] },
+      { src: "./assets/uploads/new-photo-5.jpg",            alt: "Slinky Dog plushie",               caption: "slinky dog goes out 🐕", tags: ["moments"] }
     ]
   },
 
@@ -285,6 +294,13 @@ window.NADIA_DATA = {
         tag: "เด็กหญิงบันนี่",
         photo: "./assets/uploads/doll-bunny.png",
         caption: "Bunny 🎀 (บันนี่) — เด็กหญิงบันนี่",
+        tags: ["plushie"]
+      },
+      {
+        name: "Slinky Dog 🐕",
+        tag: "movie buddy",
+        photo: "./assets/uploads/new-photo-5.jpg",
+        caption: "Slinky Dog 🐕 — เจ้าตัวน้อยที่ไปดูหนังด้วยทุกครั้ง เพราะไม่มีใครจอตั๋วเก่งเท่าเขา 🎬♡",
         tags: ["plushie"]
       }
     ],
