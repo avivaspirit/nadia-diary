@@ -106,6 +106,7 @@ body.page-leaving .site-header { opacity: 0; transition: opacity 0.26s ease; }
   min-height: var(--header-h);
   padding: 10px clamp(16px, 4vw, 52px);
   background: rgba(255, 250, 244, 0.78);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
   backdrop-filter: blur(16px) saturate(1.3);
   -webkit-backdrop-filter: blur(16px) saturate(1.3);
   border-bottom: 1px solid rgba(243, 217, 225, 0.7);
@@ -616,6 +617,7 @@ footer::before {
   place-items: center;
   padding: 24px;
   background: rgba(70, 30, 42, 0.55);
+  -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   opacity: 0;
@@ -1790,6 +1792,7 @@ footer::before {
   border-radius: 50%;
   border: 0;
   background: rgba(255, 255, 255, 0.88);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   box-shadow: var(--shadow-soft);
   cursor: pointer;
@@ -1818,6 +1821,7 @@ footer::before {
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
   background: rgba(255,255,255,0.96);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   display: flex;
@@ -1974,6 +1978,7 @@ footer::before {
   display: grid;
   place-items: center;
   background: linear-gradient(180deg, rgba(255, 248, 242, 0.97), rgba(255, 238, 243, 0.97));
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   text-align: center;
   padding: 30px;
@@ -2158,7 +2163,7 @@ body.page-story {
     linear-gradient(180deg, #0d0a1a 0%, #1a1129 40%, #0d0a1a 100%);
   background-attachment: fixed;
   color: #e8e0f0;
-  min-height: 100vh; /* Ensure body takes full height */
+  min-height: 100svh; /* Ensure body takes full height */
   overflow-x: hidden;
 }
 body.page-story .site-header,
@@ -2168,6 +2173,7 @@ body.page-story .site-header a {
 body.page-story .site-header {
   border-bottom-color: rgba(246, 200, 214, 0.1);
   background: rgba(13, 10, 26, 0.8);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -2225,6 +2231,7 @@ body.page-story .shooting-star {
 .love-float-area { position: relative; max-width: 700px; margin: 0 auto; height: 220px; }
 .love-note-float {
   position: absolute; padding: 10px 20px; border-radius: 20px;
+  -webkit-background: rgba(255,255,255,0.85); backdrop-filter: blur(6px);
   background: rgba(255,255,255,0.85); backdrop-filter: blur(6px);
   box-shadow: var(--shadow-soft); font-family: var(--font-hand); font-size: 20px;
   color: var(--rose-deep); white-space: nowrap;
@@ -2285,6 +2292,7 @@ body.page-story .shooting-star {
   padding: 28px;
   border-radius: var(--radius);
   background: rgba(255,255,255,0.7);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   box-shadow: var(--shadow-soft);
   max-height: 0;
@@ -3181,6 +3189,7 @@ body.page-story .shooting-star {
 .garden-panel {
   position: fixed; inset: 0;
   background: rgba(0,0,0,0.4);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   z-index: 200;
   display: none;
@@ -3337,6 +3346,7 @@ body.page-story .shooting-star {
 .flower-detail {
   position: fixed; inset: 0;
   background: rgba(0,0,0,0.5);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   z-index: 200;
   display: none;
@@ -3781,6 +3791,7 @@ body.page-story .shooting-star {
 .gscene-panel {
   position: fixed; inset: 0;
   background: rgba(0,0,0,0.4);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   z-index: 200; display: none;
   align-items: center; justify-content: center;
@@ -3932,6 +3943,7 @@ body.page-story .shooting-star {
 .gscene-detail {
   position: fixed; inset: 0;
   background: rgba(0,0,0,0.5);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   z-index: 200; display: none;
   align-items: center; justify-content: center;
@@ -4244,6 +4256,7 @@ body.page-story .shooting-star {
   position: fixed;
   inset: 0;
   background: rgba(70, 40, 47, 0.5);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   z-index: 150;
   display: none;
