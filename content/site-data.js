@@ -246,7 +246,9 @@ window.NADIA_DATA = {
       { src: "./assets/uploads/img_1562.jpg",                  alt: "Romantic card and gift setup",       caption: "a little something ♡", tags: ["moments"] },
       { src: "./assets/uploads/2026-07-01(2).jpg",              alt: "Photo booth strip",                 caption: "booth memories", tags: ["moments"] },
       { src: "./assets/uploads/2026-07-01(14).jpg",             alt: "Architectural couple shot",         caption: "our kind of view", tags: ["us"] },
-      { src: "./assets/uploads/moment-eebc59c1-4c2.jpg",       alt: "Couple striking shot",              caption: "picture perfect", tags: ["us"] }
+      { src: "./assets/uploads/moment-eebc59c1-4c2.jpg",       alt: "Nadia with Slinky Dog toy",           caption: "toy story date 🐕", tags: ["moments"] },
+      { src: "./assets/uploads/doll-bunny.png",                 alt: "Bunny plushie in pink dress",         caption: "little bunny ♡", tags: ["moments"] },
+      { src: "./assets/uploads/doll-mimi.jpg",                  alt: "Cute plushie collection",             caption: "our fluffy friends 🧸", tags: ["moments"] }
     ]
   },
 
