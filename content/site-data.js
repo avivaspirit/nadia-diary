@@ -249,7 +249,9 @@ window.NADIA_DATA = {
       { src: "./assets/uploads/slinky_dog_close_up.jpg",       alt: "Slinky Dog toy close up",           caption: "slinky dog close up 🐕", tags: ["moments"] },
       { src: "./assets/uploads/plushie_close_up.jpg",          alt: "Cute plushie close up",              caption: "fluffy friend 🧸", tags: ["moments"] },
       { src: "./assets/uploads/nadia_wink_peace.jpg",          alt: "Nadia winking with peace sign",      caption: "wink and peace ✌️", tags: ["me"] },
-      { src: "./assets/uploads/nadia_smile_drink.jpg",         alt: "Nadia smiling with a drink",         caption: "cheers to sweet moments 🥂", tags: ["me"] }
+      { src: "./assets/uploads/nadia_smile_drink.jpg",         alt: "Nadia smiling with a drink",         caption: "cheers to sweet moments 🥂", tags: ["me"] },
+      { src: "./assets/uploads/couple_rose.jpg",               alt: "Nadia in blue dress",                caption: "sweet blue dress 🩵", tags: ["me"] },
+      { src: "./assets/uploads/nadia_restaurant.jpg",          alt: "Nadia winking and peace sign",      caption: "peace and smile ✌️", tags: ["me"] }
     ]
   },
 
@@ -342,8 +344,8 @@ window.NADIA_DATA = {
           "Let's always choose love over any fear or doubt. No matter what comes our way, let's keep growing side by side for an eternity."
         ],
         photos: [
-          { src: "./assets/uploads/couple_rose.jpg",       alt: "Nadia and Mac with rose",   caption: "together is home ♡" },
-          { src: "./assets/uploads/nadia_restaurant.jpg",  alt: "Nadia smiling at table",    caption: "my favorite face 🥰" }
+          { src: "./assets/uploads/couple_night_smile_1.jpg",       alt: "Nadia and Mac together",   caption: "together is home ♡" },
+          { src: "./assets/uploads/couple_night_smile_2.jpg",       alt: "Nadia and Mac smiling",    caption: "my favorite face 🥰" }
         ]
       }
     ],
