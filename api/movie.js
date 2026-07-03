@@ -1,12 +1,13 @@
 // /api/movie.js — Vercel Serverless Function
 // Calls Gemini to recommend a romantic movie/series for Nadia ♡
+// Key order: REVERSED (Key 4 first) to avoid hitting same keys as FlowSoul
 
 const GEMINI_KEYS = [
-  process.env.GEMINI_KEY_0,
-  process.env.GEMINI_KEY_1,
-  process.env.GEMINI_KEY_2,
-  process.env.GEMINI_KEY_3,
   process.env.GEMINI_KEY_4,
+  process.env.GEMINI_KEY_3,
+  process.env.GEMINI_KEY_2,
+  process.env.GEMINI_KEY_1,
+  process.env.GEMINI_KEY_0,
 ].filter(Boolean);
 
 function buildPrompt() {
@@ -66,7 +67,7 @@ export default async function handler(req, res) {
 
   const prompt = buildPrompt();
 
-  // Try each key until one works
+  // Try each key until one works (starts from Key 4, reversed from FlowSoul)
   for (let i = 0; i < GEMINI_KEYS.length; i++) {
     const key = GEMINI_KEYS[i];
     try {
