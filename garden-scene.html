@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nadia's Garden Scene 🌳 | Nadia's Diary 🎀</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Caveat:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/diary.css?v=20260703f" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./index.html">Nadia's Diary 🎀</a>
+      <nav aria-label="Main navigation">
+        <a href="./index.html">Dianeyy 🐰</a>
+        <a href="./collection.html">Nadia's Dolls 🧸</a>
+        <a href="./birthday.html">Happy Birthday 🎂</a>
+        <a href="./story.html">Our Story 💑</a>
+        <a href="./gallery.html">Gallery 📸</a>
+        <a href="./garden.html">Garden 🌸</a>
+        <a aria-current="page" href="./garden-scene.html">Garden Scene 🌳</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="gscene-page">
+        <div class="gscene-hero reveal">
+          <p class="eyebrow">Nadia's Living Garden 🌿</p>
+          <h1>Where every photo blooms on a branch ♡</h1>
+          <p class="lede">Plant a seed, watch it grow into a beautiful stem, and pin Nadia's photo on it like a flower. 🌷</p>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="gscene-toolbar reveal">
+          <button class="gscene-add-btn" id="scenePlantBtn" type="button">
+            <span>🌱</span> Plant a new stem
+          </button>
+          <button class="gscene-clear-btn" id="sceneClearBtn" type="button">
+            <span>🌿</span> Clear garden
+          </button>
+        </div>
+
+        <!-- Hidden file input -->
+        <input type="file" id="sceneFileInput" accept="image/*" style="position:absolute;width:0;height:0;opacity:0;overflow:hidden;border:0;" />
+
+        <!-- The garden scene -->
+        <div class="gscene-container reveal" id="gsceneContainer">
+          <!-- SVG layer for stems/branches -->
+          <svg class="gscene-svg" id="gsceneSvg" preserveAspectRatio="none"></svg>
+          <!-- Ground -->
+          <div class="gscene-ground"></div>
+          <!-- Plants container -->
+          <div class="gscene-plants" id="gscenePlants"></div>
+          <!-- Empty state -->
+          <div class="gscene-empty" id="gsceneEmpty">
+            <div class="gscene-empty-icon">🌱</div>
+            <p>Your garden is waiting to bloom</p>
+            <p class="gscene-empty-sub">Plant your first stem to get started!</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Plant editor panel -->
+    <div class="gscene-panel" id="scenePlantPanel">
+      <div class="gscene-panel-inner">
+        <button class="gscene-panel-close" id="closeScenePanel" type="button">✕</button>
+        <h2 class="gscene-panel-title">🌱 Grow a New Stem</h2>
+
+        <!-- Step 1: Pick flower -->
+        <div class="gscene-step">
+          <label>Pick a flower type 🌸</label>
+          <div class="gscene-flower-picker" id="sceneFlowerPicker">
+            <button class="gscene-flower-choice selected" data-flower="rose" type="button"><span>🌹</span><small>Rose</small></button>
+            <button class="gscene-flower-choice" data-flower="sunflower" type="button"><span>🌻</span><small>Sunflower</small></button>
+            <button class="gscene-flower-choice" data-flower="tulip" type="button"><span>🌷</span><small>Tulip</small></button>
+            <button class="gscene-flower-choice" data-flower="daisy" type="button"><span>🌼</span><small>Daisy</small></button>
+            <button class="gscene-flower-choice" data-flower="cherry" type="button"><span>🌸</span><small>Sakura</small></button>
+            <button class="gscene-flower-choice" data-flower="hibiscus" type="button"><span>🌺</span><small>Hibiscus</small></button>
+            <button class="gscene-flower-choice" data-flower="lotus" type="button"><span>🪷</span><small>Lotus</small></button>
+            <button class="gscene-flower-choice" data-flower="bouquet" type="button"><span>💐</span><small>Bouquet</small></button>
+          </div>
+        </div>
+
+        <!-- Step 2: Placement -->
+        <div class="gscene-step">
+          <label>Where to place it? 📍</label>
+          <div class="gscene-placement">
+            <button class="gscene-place-choice selected" data-place="branch" type="button">
+              <span>🌿</span> On a branch (grows from ground)
+            </button>
+            <button class="gscene-place-choice" data-place="left" type="button">
+              <span>↖️</span> Left edge (hanging)
+            </button>
+            <button class="gscene-place-choice" data-place="right" type="button">
+              <span>↗️</span> Right edge (hanging)
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Photo -->
+        <div class="gscene-step">
+          <label>Choose a photo of Nadia 📸</label>
+          <div class="gscene-photo-options">
+            <button class="gscene-photo-action" id="sceneUploadBtn" type="button"><span>📷</span> Upload new</button>
+            <button class="gscene-photo-action" id="scenePickBtn" type="button"><span>🖼️</span> From gallery</button>
+          </div>
+          <div class="gscene-photo-grid" id="scenePhotoGrid" style="display:none;"></div>
+          <div class="gscene-photo-preview" id="scenePhotoPreview" style="display:none;">
+            <img id="sceneSelectedPhoto" alt="Selected" />
+            <button class="gscene-photo-remove" id="sceneRemovePhoto" type="button">✕</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Caption -->
+        <div class="gscene-step">
+          <label>Add a sweet note 📝</label>
+          <input type="text" id="sceneCaption" placeholder="something sweet..." maxlength="80" />
+        </div>
+
+        <button class="gscene-grow-btn" id="sceneGrowBtn" type="button">🌷 Grow it!</button>
+      </div>
+    </div>
+
+    <!-- Detail popup -->
+    <div class="gscene-detail" id="sceneDetail">
+      <div class="gscene-detail-inner" id="sceneDetailInner"></div>
+    </div>
+
+    <footer class="site-footer">
+      <p class="footer-text" id="footerText"></p>
+    </footer>
+
+    <script src="./content/site-data.js?v=20260703f"></script>
+    <script src="./assets/js/magic.js?v=20260703f"></script>
+    <script src="./assets/js/garden-scene.js?v=20260703f"></script>
+  </body>
+</html>
