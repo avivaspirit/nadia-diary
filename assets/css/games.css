@@ -319,3 +319,127 @@
   .game-score-item { padding: 6px 14px; min-width: 60px; }
   .game-score-value { font-size: 18px; }
 }
+
+/* ── Mobile games overhaul ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Game tabs: horizontal scroll */
+  .game-tabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+    justify-content: flex-start;
+    padding: 10px 4px 14px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .game-tabs::-webkit-scrollbar { display: none; }
+  .game-tab {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  /* Canvas height: fit screen */
+  .game-canvas-wrap {
+    height: 60vh;
+    min-height: 380px;
+    max-height: 520px;
+  }
+
+  /* Scorebar: compact */
+  .game-scorebar {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Game tabs: show icon + text, smaller */
+  .game-tabs {
+    gap: 4px;
+    padding: 8px 2px 10px;
+  }
+  .game-tab {
+    padding: 6px 10px;
+    font-size: 11px;
+    border-radius: 999px;
+  }
+  .game-tab span {
+    font-size: 16px;
+  }
+
+  /* Canvas: use more viewport height */
+  .game-canvas-wrap {
+    height: 55vh;
+    min-height: 340px;
+    border-radius: 14px;
+  }
+
+  /* Scorebar: stack if needed */
+  .game-scorebar {
+    gap: 6px;
+  }
+  .game-score-item {
+    padding: 5px 12px;
+    min-width: 50px;
+    border-radius: 10px;
+  }
+  .game-score-value {
+    font-size: 16px;
+  }
+  .game-score-label {
+    font-size: 9px;
+  }
+
+  /* Memory grid: 4 cols tight */
+  .memory-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    padding: 8px;
+  }
+  .memory-card {
+    font-size: 20px;
+    border-radius: 8px;
+  }
+
+  /* Balloon items */
+  .balloon-game-item {
+    font-size: 28px;
+  }
+
+  /* Game buttons */
+  .game-btn, .movie-btn {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+    border-radius: 999px;
+    width: 100%;
+  }
+
+  /* Movie card */
+  .movie-info {
+    padding: 0 14px 16px;
+  }
+  .movie-emoji-big {
+    font-size: 52px;
+  }
+  .movie-tags {
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .movie-tag {
+    font-size: 0.65rem;
+    padding: 3px 8px;
+  }
+  .movie-synopsis, .movie-why {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* History items */
+  .history-item {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    gap: 8px;
+  }
+  .history-item .h-emoji {
+    font-size: 1.2rem;
+  }
+}

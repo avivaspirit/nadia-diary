@@ -4590,3 +4590,464 @@ body.page-story .shooting-star {
     border-radius: 20px;
   }
 }
+
+/* ==========================================================================
+   MOBILE EXPERIENCE OVERHAUL — comprehensive responsive improvements
+   Three breakpoints: tablet (≤768px), phone (≤480px), small phone (≤380px)
+   ========================================================================== */
+
+/* ── TABLET (≤768px) ───────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Navigation: horizontal scroll strip */
+  .site-header {
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding: 8px 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .site-header::-webkit-scrollbar { display: none; }
+  .brand {
+    flex-shrink: 0;
+    font-size: 17px;
+    white-space: nowrap;
+  }
+  .site-header nav {
+    flex-wrap: nowrap;
+    flex-shrink: 1;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+  }
+  .site-header nav::-webkit-scrollbar { display: none; }
+  .site-header nav a {
+    flex-shrink: 0;
+    padding: 7px 12px;
+    font-size: 12.5px;
+    white-space: nowrap;
+  }
+
+  /* Hero sections */
+  .hero, .cabinet-hero {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+    gap: 24px;
+    padding-top: 24px;
+  }
+  .hero h1, .cabinet-hero h1 {
+    font-size: clamp(1.9rem, 7vw, 2.8rem);
+    line-height: 1.15;
+  }
+  .hero .eyebrow, .cabinet-hero .eyebrow {
+    text-align: center;
+  }
+
+  /* Hero image */
+  .hero-image-wrap, .cabinet-image-wrap {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  /* Section heads */
+  .section-head {
+    text-align: center;
+    padding: 0 8px;
+  }
+  .section-head h2 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+
+  /* Timeline */
+  .timeline-item {
+    grid-template-columns: 40px 1fr;
+    gap: 0 10px;
+    margin-bottom: 32px;
+  }
+  .timeline-item .tl-card-l, .timeline-item .tl-card-r {
+    grid-column: 2;
+  }
+  .timeline-item .tl-card-l { display: none; }
+  .timeline::before { left: 20px; }
+
+  /* Gallery grid */
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+  }
+
+  /* Polaroids */
+  .polaroid-wall {
+    gap: 12px;
+  }
+  .polaroid {
+    max-width: 280px;
+  }
+
+  /* Preview grid */
+  .preview-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 30px 0 50px;
+  }
+  .preview-link-card {
+    padding: 20px 18px;
+  }
+
+  /* Notes board */
+  .notes-board {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+  }
+
+  /* Main width */
+  main {
+    width: calc(100% - 24px);
+  }
+
+  /* Footer */
+  .site-footer {
+    padding: 24px 12px;
+    text-align: center;
+  }
+}
+
+/* ── PHONE (≤480px) ────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  body {
+    font-size: 15px;
+  }
+
+  /* Header: compact sticky */
+  .site-header {
+    padding: 6px 10px;
+  }
+  .brand {
+    font-size: 15px;
+  }
+  .site-header nav a {
+    padding: 6px 10px;
+    font-size: 11.5px;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: auto;
+    padding: 20px 0 40px;
+  }
+  .hero h1 {
+    font-size: clamp(1.6rem, 8vw, 2.2rem);
+    line-height: 1.2;
+  }
+  .hero .lede, .cabinet-hero .lede {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .hero-image-wrap {
+    max-width: 260px;
+  }
+
+  /* Section heads */
+  .section-head {
+    margin-bottom: 24px;
+  }
+  .section-head h2 {
+    font-size: clamp(1.3rem, 6vw, 1.8rem);
+  }
+  .section-head .lead {
+    font-size: 14px;
+  }
+
+  /* Gallery — 2 columns tight */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .gallery-item img {
+    border-radius: 8px;
+  }
+
+  /* Gallery lightbox */
+  .lightbox img {
+    max-width: 94vw;
+    max-height: 80vh;
+  }
+
+  /* Polaroids — 2 per row */
+  .polaroid-wall {
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .polaroid {
+    max-width: calc(50vw - 14px);
+    padding: 8px 8px 4px;
+  }
+  .polaroid figcaption, .polaroid .pol-caption {
+    font-size: 14px;
+    padding: 6px 2px 2px;
+  }
+
+  /* Feature photo */
+  .feature-photo {
+    max-width: 100%;
+    margin: 0 auto 16px;
+  }
+
+  /* Timeline */
+  .timeline-item {
+    margin-bottom: 24px;
+  }
+  .timeline-item .tl-card-r .tl-content {
+    padding: 14px 16px;
+    border-radius: 14px;
+  }
+  .timeline-item .tl-date {
+    font-size: 12px;
+  }
+
+  /* Notes board */
+  .notes-board {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .note-card {
+    padding: 16px 18px;
+    border-radius: 14px;
+  }
+  .note-card .note-text {
+    font-size: 18px;
+  }
+
+  /* Birthday hero */
+  .birthday-hero h1 {
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+  .candle-wrap {
+    transform: scale(0.8);
+  }
+
+  /* Preview link cards */
+  .preview-link-card {
+    padding: 16px 14px;
+    border-radius: 16px;
+  }
+  .preview-link-card h3 {
+    font-size: 16px;
+  }
+  .preview-link-card p {
+    font-size: 13px;
+  }
+
+  /* Footer */
+  .footer-text {
+    font-size: 13px;
+    padding: 0 10px;
+  }
+
+  /* ── Garden: vine ── */
+  .vine-garden {
+    max-width: 100%;
+  }
+  .vine-photo {
+    width: 72px !important;
+    height: 72px !important;
+  }
+  .vine-flower {
+    font-size: 24px !important;
+  }
+  .vine-caption {
+    font-size: 12px !important;
+  }
+
+  /* ── Garden: plant garden ── */
+  .pg-garden {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .pg-plant-card {
+    max-width: 100%;
+    border-radius: 16px;
+  }
+  .pg-plant-svg-wrap {
+    height: 200px;
+  }
+  .pg-type-picker {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+  .pg-type-choice {
+    padding: 6px 4px;
+    font-size: 11px;
+    border-radius: 10px;
+  }
+  .pg-section-title {
+    font-size: 18px;
+  }
+  .pg-editor-panel {
+    left: 8px !important;
+    right: 8px !important;
+    bottom: 8px !important;
+    max-height: 88vh;
+    border-radius: 18px;
+  }
+  .pg-editor-inner {
+    padding: 16px;
+    border-radius: 18px;
+  }
+  .pg-toolbar {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pg-toolbar button {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  /* ── Garden panel ── */
+  .garden-panel {
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    max-height: 92vh;
+    border-radius: 20px 20px 0 0;
+  }
+  .garden-panel-inner {
+    padding: 20px 16px 24px;
+    border-radius: 20px 20px 0 0;
+    max-height: 88vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .garden-toolbar {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .garden-add-btn, .garden-clear-btn {
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+  .flower-picker {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+  .flower-choice {
+    padding: 6px 4px;
+    font-size: 11px;
+    border-radius: 10px;
+  }
+  .flower-emoji {
+    font-size: 22px;
+  }
+  .garden-photo-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    max-height: 180px;
+  }
+
+  /* ── Reveal sections ── */
+  .reveal {
+    padding: 30px 0;
+  }
+}
+
+/* ── SMALL PHONE (≤380px) ──────────────────────────────────────────────── */
+@media (max-width: 380px) {
+  body {
+    font-size: 14px;
+  }
+  .brand {
+    font-size: 13px;
+  }
+  .site-header nav a {
+    padding: 5px 8px;
+    font-size: 10.5px;
+  }
+  .hero h1 {
+    font-size: 1.4rem;
+  }
+  .hero .lede {
+    font-size: 13px;
+  }
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+  .polaroid {
+    max-width: calc(50vw - 10px);
+    padding: 6px 6px 2px;
+  }
+  .polaroid figcaption {
+    font-size: 12px;
+  }
+  .preview-link-card {
+    padding: 14px 12px;
+  }
+  .note-card .note-text {
+    font-size: 16px;
+  }
+  .flower-picker, .pg-type-picker {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .garden-photo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .game-tabs {
+    gap: 4px;
+  }
+  .game-tab {
+    padding: 5px 8px;
+    font-size: 10px;
+  }
+  .game-tab span {
+    font-size: 14px;
+  }
+}
+
+/* ── SAFE AREA: account for iPhone notch/home bar ──────────────────────── */
+@supports (padding: max(0px)) {
+  .site-header {
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+  }
+  .site-footer {
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+  }
+}
+
+/* ── TOUCH-FRIENDLY: larger tap targets on mobile ──────────────────────── */
+@media (hover: none) and (pointer: coarse) {
+  .preview-link-card:hover {
+    transform: none;
+  }
+  .polaroid:hover {
+    transform: rotate(0deg);
+    box-shadow: var(--shadow-soft);
+  }
+  .site-header nav a {
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+  }
+  .game-tab {
+    min-height: 36px;
+  }
+  button {
+    -webkit-tap-highlight-color: rgba(229, 138, 160, 0.15);
+  }
+}
+
+/* ── LANDSCAPE PHONE fix: avoid squished hero ──────────────────────────── */
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
+  .hero {
+    min-height: auto;
+    padding: 20px 0 30px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+}
