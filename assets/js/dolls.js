@@ -48,6 +48,17 @@
   setText("#dollsTitle", dd.title);
   setText("#dollsIntro", dd.intro);
 
+  /* Hero photo */
+  const heroHost = $(".gallery-hero");
+  if (heroHost && dd.heroPhoto && dd.heroPhoto.src) {
+    const heroFig = el("figure", "hero-photo-reveal");
+    heroFig.innerHTML = `
+      <img src="${escapeHtml(dd.heroPhoto.src)}" alt="${escapeHtml(dd.heroPhoto.alt || "")}" loading="eager" decoding="async" />
+      <figcaption>${escapeHtml(dd.heroPhoto.caption || "")}</figcaption>
+    `;
+    heroHost.appendChild(heroFig);
+  }
+
   /* ===== Elements ===== */
   const grid = $("#dollGrid");
   const userGrid = $("#userDollGrid");
