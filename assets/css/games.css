@@ -157,24 +157,18 @@
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
-  transition: transform 0.1s;
-  animation: balloonFloat linear forwards;
+  /* JS controls transform via rAF — no CSS animation/transition on transform */
   z-index: 10;
 }
 .balloon-game-item.popped {
-  animation: balloonPop 0.3s ease-out forwards !important;
+  animation: balloonPop 0.3s ease-out forwards;
   pointer-events: none;
 }
-@keyframes balloonFloat {
-  0% { transform: translateY(0) translateX(0); }
-  100% { transform: translateY(-600px) translateX(var(--drift, 0px)); }
-}
 @keyframes balloonPop {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.5); opacity: 0.7; }
-  100% { transform: scale(0); opacity: 0; }
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 0; }
 }
-.balloon-game-item:hover { transform: scale(1.1); }
 
 /* Pop score popup */
 .balloon-pop-score {
