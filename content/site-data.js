@@ -56,8 +56,8 @@ window.NADIA_DATA = {
       ],
       featurePhoto: {
         src: "./assets/uploads/img_6306.jpg",
-        alt: "Nadia with soft flowers",
-        caption: "soft like flowers 🌸"
+        alt: "Nadia with the first flowers",
+        caption: "the first flowers I gave her 🌹"
       }
     },
 
