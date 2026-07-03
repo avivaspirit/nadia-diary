@@ -3377,7 +3377,190 @@ body.page-story .shooting-star {
   .flower-card { width: 140px; }
 }
 
-/* ============================================== GARDEN SCENE PAGE ====== */
+/* ============================================== VINE GARDEN ====== */
+.vine-garden {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 20px;
+  min-height: 400px;
+  background: linear-gradient(180deg, rgba(245,255,245,0.3) 0%, rgba(255,250,240,0.2) 100%);
+  border: 1px solid rgba(180,200,160,0.2);
+  scroll-behavior: smooth;
+}
+.vine-svg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+.vine-ground {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 30px;
+  background: linear-gradient(180deg, rgba(190,170,130,0.25), rgba(160,140,100,0.35));
+  border-radius: 0 0 20px 20px;
+  z-index: 2;
+}
+.vine-ground::before {
+  content: "🌱 🌿 🌱";
+  position: absolute;
+  bottom: 4px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  letter-spacing: 8px;
+}
+.vine-nodes { position: relative; z-index: 3; }
+
+/* Each node positioned absolutely */
+.vine-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  animation: vineGrow 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes vineGrow {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Flower emoji at center */
+.vine-flower {
+  font-size: 36px;
+  text-align: center;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
+  animation: flowerSway 4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+@keyframes flowerSway {
+  0%, 100% { transform: rotate(-3deg); }
+  50%      { transform: rotate(3deg); }
+}
+
+/* Photo circle on alternating sides */
+.vine-photo {
+  position: absolute;
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid rgba(255,255,255,0.8);
+  box-shadow: 0 6px 18px rgba(180,100,130,0.25);
+  top: 50%;
+  transform: translateY(-50%);
+}
+/* Photo goes left or right depending on --side */
+.vine-node { /* default: side -1 (left) */ }
+.vine-node[style*="--side: -1"] .vine-photo,
+.vine-node:not([style*="--side: 1"]) .vine-photo {
+  right: 35px;
+}
+.vine-node[style*="--side: 1"] .vine-photo {
+  left: 35px;
+}
+.vine-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+/* Connector line from stem to photo */
+.vine-connector {
+  position: absolute;
+  top: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(124,184,124,0.6), rgba(124,184,124,0.2));
+  transform: translateY(-50%);
+}
+.vine-node[style*="--side: -1"] .vine-connector,
+.vine-node:not([style*="--side: 1"]) .vine-connector {
+  right: 20px; width: 20px;
+}
+.vine-node[style*="--side: 1"] .vine-connector {
+  left: 20px; width: 20px;
+}
+
+/* Caption */
+.vine-caption {
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: var(--rose);
+  text-align: center;
+  white-space: nowrap;
+  margin-top: 6px;
+  opacity: 0.85;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 140px;
+  white-space: normal;
+  text-align: center;
+}
+
+/* Remove button */
+.vine-remove {
+  position: absolute;
+  top: -8px; right: -8px;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,100,100,0.7);
+  color: #fff;
+  font-size: 11px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+.vine-node:hover .vine-remove { opacity: 1; }
+
+/* Empty state */
+.vine-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.vine-empty-icon {
+  font-size: 56px;
+  animation: bounce 2s ease-in-out infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+.vine-empty p { color: var(--rose); }
+.vine-empty-sub { font-size: 0.85rem; opacity: 0.6; }
+
+/* Clear button */
+.garden-clear-btn {
+  background: rgba(255,255,255,0.6);
+  color: var(--rose);
+  border: 1px solid rgba(229,138,160,0.3);
+  border-radius: 100px;
+  padding: 10px 20px;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.garden-clear-btn:hover {
+  background: rgba(255,240,245,0.9);
+}
+
+@media (max-width: 580px) {
+  .vine-garden { max-width: 100%; }
+  .vine-flower { font-size: 28px; }
+  .vine-photo { width: 80px; height: 80px; }
+}
+
+/* (Legacy garden-scene CSS kept below for backwards compat) */
 .gscene-page {
   max-width: 1200px;
   margin: 0 auto;

@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Nadia's Garden 🌸 | Nadia's Diary 🎀</title>
+    <title>Nadia's Garden 🌿 | Nadia's Diary 🎀</title>
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="./manifest.json" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Caveat:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/css/diary.css?v=20260703j" />
+    <link rel="stylesheet" href="./assets/css/diary.css?v=20260703k" />
   </head>
   <body>
     <header class="site-header">
@@ -20,8 +20,7 @@
         <a href="./birthday.html">Happy Birthday 🎂</a>
         <a href="./story.html">Our Story 💑</a>
         <a href="./gallery.html">Gallery 📸</a>
-        <a aria-current="page" href="./garden.html">Garden 🌸</a>
-        <a href="./garden-scene.html">Garden Scene 🌳</a>
+        <a aria-current="page" href="./garden.html">Garden 🌿</a>
         <a href="./games.html">Play Time 🎮</a>
         <a href="./movies.html">Movie Time 🎬</a>
       </nav>
@@ -30,32 +29,38 @@
     <main>
       <section class="garden-page">
         <div class="garden-hero reveal">
-          <p class="eyebrow">Nadia's Little Garden 🌿</p>
-          <h1>Plant a flower, pin a memory ♡</h1>
-          <p class="lede">Pick a flower, choose a photo of Nadia, and grow your own little garden. Every bloom tells a story. 🌷</p>
+          <p class="eyebrow">Nadia's Living Garden 🌿</p>
+          <h1>Every photo blooms on one vine ♡</h1>
+          <p class="lede">Plant a flower and watch the vine grow taller. Each bloom carries a memory of Nadia. 🌷</p>
         </div>
 
         <!-- Toolbar -->
         <div class="garden-toolbar reveal">
           <button class="garden-add-btn" id="plantBtn" type="button">
-            <span>🌻</span> Plant a flower
+            <span>🌱</span> Plant a flower
           </button>
-          <span class="garden-hint">tap to add a new flower to the garden ♡</span>
+          <button class="garden-clear-btn" id="clearBtn" type="button" style="display:none;">
+            <span>🌿</span> Clear garden
+          </button>
         </div>
 
         <!-- Hidden file input -->
         <input type="file" id="gardenFileInput" accept="image/*" style="position:absolute;width:0;height:0;opacity:0;overflow:hidden;border:0;" />
 
-        <!-- Garden bed -->
-        <div class="garden-bed reveal" id="gardenBed">
-          <!-- Flowers get dynamically inserted here -->
-        </div>
-
-        <!-- Empty state -->
-        <div class="garden-empty reveal" id="gardenEmpty">
-          <div class="garden-empty-icon">🌱</div>
-          <p>Your garden is waiting to bloom ♡</p>
-          <p class="garden-empty-sub">Plant your first flower to get started!</p>
+        <!-- The vine garden -->
+        <div class="vine-garden reveal" id="vineGarden">
+          <!-- SVG vine layer -->
+          <svg class="vine-svg" id="vineSvg" preserveAspectRatio="none"></svg>
+          <!-- Nodes (flowers/photos) layer -->
+          <div class="vine-nodes" id="vineNodes"></div>
+          <!-- Ground -->
+          <div class="vine-ground"></div>
+          <!-- Empty state -->
+          <div class="vine-empty" id="vineEmpty">
+            <div class="vine-empty-icon">🌱</div>
+            <p>Your vine is waiting to bloom ♡</p>
+            <p class="vine-empty-sub">Plant your first flower to start growing!</p>
+          </div>
         </div>
       </section>
     </main>
@@ -64,70 +69,31 @@
     <div class="garden-panel" id="plantPanel">
       <div class="garden-panel-inner">
         <button class="garden-panel-close" id="closePlantPanel" type="button">✕</button>
-
         <h2 class="garden-panel-title">🌿 Plant a Flower</h2>
 
         <!-- Step 1: Pick flower type -->
         <div class="garden-step">
-          <label>Pick a flower or plant 🌱</label>
+          <label>Pick a flower 🌱</label>
           <div class="flower-picker" id="flowerPicker">
-            <button class="flower-choice selected" data-flower="rose" type="button">
-              <span class="flower-emoji">🌹</span>
-              <span class="flower-name">Rose</span>
-            </button>
-            <button class="flower-choice" data-flower="sunflower" type="button">
-              <span class="flower-emoji">🌻</span>
-              <span class="flower-name">Sunflower</span>
-            </button>
-            <button class="flower-choice" data-flower="tulip" type="button">
-              <span class="flower-emoji">🌷</span>
-              <span class="flower-name">Tulip</span>
-            </button>
-            <button class="flower-choice" data-flower="daisy" type="button">
-              <span class="flower-emoji">🌼</span>
-              <span class="flower-name">Daisy</span>
-            </button>
-            <button class="flower-choice" data-flower="cherry" type="button">
-              <span class="flower-emoji">🌸</span>
-              <span class="flower-name">Sakura</span>
-            </button>
-            <button class="flower-choice" data-flower="hibiscus" type="button">
-              <span class="flower-emoji">🌺</span>
-              <span class="flower-name">Hibiscus</span>
-            </button>
-            <button class="flower-choice" data-flower="cactus" type="button">
-              <span class="flower-emoji">🌵</span>
-              <span class="flower-name">Cactus</span>
-            </button>
-            <button class="flower-choice" data-flower="lotus" type="button">
-              <span class="flower-emoji">🪷</span>
-              <span class="flower-name">Lotus</span>
-            </button>
-            <button class="flower-choice" data-flower="bloom" type="button">
-              <span class="flower-emoji">💐</span>
-              <span class="flower-name">Bouquet</span>
-            </button>
-            <button class="flower-choice" data-flower="herb" type="button">
-              <span class="flower-emoji">🌿</span>
-              <span class="flower-name">Herb</span>
-            </button>
+            <button class="flower-choice selected" data-flower="rose" type="button"><span class="flower-emoji">🌹</span><span class="flower-name">Rose</span></button>
+            <button class="flower-choice" data-flower="sunflower" type="button"><span class="flower-emoji">🌻</span><span class="flower-name">Sunflower</span></button>
+            <button class="flower-choice" data-flower="tulip" type="button"><span class="flower-emoji">🌷</span><span class="flower-name">Tulip</span></button>
+            <button class="flower-choice" data-flower="daisy" type="button"><span class="flower-emoji">🌼</span><span class="flower-name">Daisy</span></button>
+            <button class="flower-choice" data-flower="cherry" type="button"><span class="flower-emoji">🌸</span><span class="flower-name">Sakura</span></button>
+            <button class="flower-choice" data-flower="hibiscus" type="button"><span class="flower-emoji">🌺</span><span class="flower-name">Hibiscus</span></button>
+            <button class="flower-choice" data-flower="lotus" type="button"><span class="flower-emoji">🪷</span><span class="flower-name">Lotus</span></button>
+            <button class="flower-choice" data-flower="bouquet" type="button"><span class="flower-emoji">💐</span><span class="flower-name">Bouquet</span></button>
           </div>
         </div>
 
-        <!-- Step 2: Pick or upload photo -->
+        <!-- Step 2: Photo -->
         <div class="garden-step">
           <label>Choose a photo of Nadia 📸</label>
           <div class="garden-photo-options">
-            <button class="garden-photo-action" id="uploadPhotoBtn" type="button">
-              <span>📷</span> Upload new photo
-            </button>
-            <button class="garden-photo-action" id="pickExistingBtn" type="button">
-              <span>🖼️</span> Pick from gallery
-            </button>
+            <button class="garden-photo-action" id="uploadPhotoBtn" type="button"><span>📷</span> Upload new</button>
+            <button class="garden-photo-action" id="pickExistingBtn" type="button"><span>🖼️</span> From gallery</button>
           </div>
-          <div class="garden-photo-grid" id="photoGrid" style="display:none;">
-            <!-- Existing photos populated by JS -->
-          </div>
+          <div class="garden-photo-grid" id="photoGrid" style="display:none;"></div>
           <div class="garden-photo-preview" id="photoPreview" style="display:none;">
             <img id="selectedPhotoPreview" alt="Selected photo" />
             <button class="garden-remove-photo" id="removePhotoBtn" type="button">✕ remove</button>
@@ -140,26 +106,21 @@
           <input type="text" id="flowerCaption" placeholder="a sweet message..." maxlength="80" />
         </div>
 
-        <!-- Plant button -->
-        <button class="garden-plant-final" id="plantFlowerBtn" type="button">
-          🌷 Plant it!
-        </button>
+        <button class="garden-plant-final" id="plantFlowerBtn" type="button">🌷 Plant it!</button>
       </div>
     </div>
 
     <!-- Flower detail popup -->
     <div class="flower-detail" id="flowerDetail">
-      <div class="flower-detail-inner" id="flowerDetailInner">
-        <!-- Populated by JS -->
-      </div>
+      <div class="flower-detail-inner" id="flowerDetailInner"></div>
     </div>
 
     <footer class="site-footer">
       <p class="footer-text" id="footerText"></p>
     </footer>
 
-    <script src="./content/site-data.js?v=20260703j"></script>
-    <script src="./assets/js/magic.js?v=20260703j"></script>
-    <script src="./assets/js/garden.js?v=20260703j"></script>
+    <script src="./content/site-data.js?v=20260703k"></script>
+    <script src="./assets/js/magic.js?v=20260703k"></script>
+    <script src="./assets/js/garden.js?v=20260703k"></script>
   </body>
 </html>
