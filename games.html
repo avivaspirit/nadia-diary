@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Play Time 🎮 | Nadia's Diary 🎀</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Caveat:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/diary.css?v=20260703g" />
+    <link rel="stylesheet" href="./assets/css/games.css?v=20260703g" />
+  </head>
+  <body class="page-games">
+    <header class="site-header">
+      <a class="brand" href="./index.html">Nadia's Diary 🎀</a>
+      <nav aria-label="Main navigation">
+        <a href="./index.html">Dianeyy 🐰</a>
+        <a href="./collection.html">Nadia's Dolls 🧸</a>
+        <a href="./birthday.html">Happy Birthday 🎂</a>
+        <a href="./story.html">Our Story 💑</a>
+        <a href="./gallery.html">Gallery 📸</a>
+        <a href="./garden.html">Garden 🌸</a>
+        <a href="./garden-scene.html">Garden Scene 🌳</a>
+        <a aria-current="page" href="./games.html">Play Time 🎮</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="games-page">
+        <div class="games-hero reveal">
+          <p class="eyebrow">Play Time with Nadia 🎀</p>
+          <h1>Little games for a little bunny 🐰</h1>
+          <p class="lede">Pop balloons, catch flowers, and match sweet moments. Win hearts! 💕</p>
+        </div>
+
+        <!-- Game picker -->
+        <div class="game-tabs reveal" id="gameTabs">
+          <button class="game-tab active" data-game="balloon" type="button">
+            <span>🎈</span> Balloon Pop
+          </button>
+          <button class="game-tab" data-game="catch" type="button">
+            <span>🌷</span> Flower Catch
+          </button>
+          <button class="game-tab" data-game="memory" type="button">
+            <span>🃏</span> Memory Match
+          </button>
+          <button class="game-tab" data-game="reaction" type="button">
+            <span>✨</span> Heart Tap
+          </button>
+        </div>
+
+        <!-- Score bar -->
+        <div class="game-scorebar reveal">
+          <div class="game-score-item">
+            <span class="game-score-label">Score</span>
+            <span class="game-score-value" id="gameScore">0</span>
+          </div>
+          <div class="game-score-item">
+            <span class="game-score-label">Best</span>
+            <span class="game-score-value" id="gameBest">0</span>
+          </div>
+          <div class="game-score-item">
+            <span class="game-score-label">Hearts</span>
+            <span class="game-score-value" id="gameHearts">💖</span>
+          </div>
+        </div>
+
+        <!-- ============ BALLOON POP ============ -->
+        <div class="game-area game-balloon active" id="gameBalloon">
+          <div class="game-canvas-wrap">
+            <div class="balloon-play-area" id="balloonPlayArea">
+              <!-- Balloons spawn here -->
+            </div>
+            <div class="game-overlay" id="balloonOverlay">
+              <div class="game-overlay-inner">
+                <div class="game-emoji-big">🎈</div>
+                <h2>Balloon Pop!</h2>
+                <p>Tap the balloons before they float away. Avoid the bombs! 💣</p>
+                <button class="game-start-btn" id="balloonStart" type="button">Start Popping! 🎈</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ FLOWER CATCH ============ -->
+        <div class="game-area game-catch" id="gameCatch">
+          <div class="game-canvas-wrap">
+            <canvas id="catchCanvas" width="400" height="500"></canvas>
+            <div class="game-overlay" id="catchOverlay">
+              <div class="game-overlay-inner">
+                <div class="game-emoji-big">🌷</div>
+                <h2>Flower Catch</h2>
+                <p>Move the basket to catch falling flowers. Don't miss too many! 🌸</p>
+                <button class="game-start-btn" id="catchStart" type="button">Start Catching! 🌷</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ MEMORY MATCH ============ -->
+        <div class="game-area game-memory" id="gameMemory">
+          <div class="game-canvas-wrap">
+            <div class="memory-grid" id="memoryGrid">
+              <!-- Cards dealt here -->
+            </div>
+            <div class="game-overlay" id="memoryOverlay">
+              <div class="game-overlay-inner">
+                <div class="game-emoji-big">🃏</div>
+                <h2>Memory Match</h2>
+                <p>Flip cards to find matching pairs. How fast can you match them all? 💝</p>
+                <button class="game-start-btn" id="memoryStart" type="button">Start Matching! 🃏</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ HEART TAP (Reaction) ============ -->
+        <div class="game-area game-reaction" id="gameReaction">
+          <div class="game-canvas-wrap">
+            <div class="reaction-area" id="reactionArea">
+              <div class="reaction-target" id="reactionTarget"></div>
+            </div>
+            <div class="game-overlay" id="reactionOverlay">
+              <div class="game-overlay-inner">
+                <div class="game-emoji-big">✨</div>
+                <h2>Heart Tap</h2>
+                <p>Tap as many hearts as you can in 20 seconds. Be quick! 💓</p>
+                <button class="game-start-btn" id="reactionStart" type="button">Start Tapping! ✨</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p class="footer-text" id="footerText"></p>
+    </footer>
+
+    <script src="./content/site-data.js?v=20260703g"></script>
+    <script src="./assets/js/magic.js?v=20260703g"></script>
+    <script src="./assets/js/games.js?v=20260703g"></script>
+  </body>
+</html>

@@ -1,0 +1,327 @@
+/* ====================================================== GAMES PAGE ====== */
+.games-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 16px 60px;
+}
+.games-hero { text-align: center; padding: 32px 20px 12px; }
+.games-hero .eyebrow {
+  font-family: var(--font-ui); font-size: 12px;
+  letter-spacing: 2px; color: var(--rose);
+  text-transform: uppercase;
+}
+.games-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 5vw, 34px);
+  color: var(--ink); margin: 8px 0 10px;
+}
+.games-hero .lede {
+  font-family: var(--font-ui); font-size: 14px;
+  color: var(--muted);
+}
+
+/* === Game tabs === */
+.game-tabs {
+  display: flex; gap: 8px; justify-content: center;
+  flex-wrap: wrap; padding: 12px 0 16px;
+}
+.game-tab {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 16px;
+  border: 2px solid var(--cloud);
+  border-radius: 999px;
+  background: #fff;
+  font-family: var(--font-ui);
+  font-size: 13px; font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.game-tab span { font-size: 18px; }
+.game-tab:hover { border-color: var(--rose-light); color: var(--ink); }
+.game-tab.active {
+  border-color: var(--rose);
+  background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+  color: #fff;
+}
+
+/* === Score bar === */
+.game-scorebar {
+  display: flex; gap: 16px; justify-content: center;
+  padding: 8px 0 16px;
+}
+.game-score-item {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 2px;
+  padding: 8px 20px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.6);
+  min-width: 80px;
+}
+.game-score-label {
+  font-family: var(--font-ui);
+  font-size: 10px; letter-spacing: 1px;
+  color: var(--rose); text-transform: uppercase;
+}
+.game-score-value {
+  font-family: var(--font-display);
+  font-size: 22px; font-weight: 700;
+  color: var(--ink);
+}
+
+/* === Game area === */
+.game-area { display: none; }
+.game-area.active { display: block; }
+
+.game-canvas-wrap {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  border-radius: 24px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg,
+      rgba(255,238,242,0.5),
+      rgba(255,248,230,0.3),
+      rgba(240,255,240,0.4));
+  border: 2px solid rgba(229,138,160,0.15);
+}
+
+/* === Game overlay === */
+.game-overlay {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+  text-align: center;
+  padding: 20px;
+}
+.game-overlay.hidden { display: none; }
+.game-overlay-inner { max-width: 320px; }
+.game-emoji-big {
+  font-size: 56px; margin-bottom: 12px;
+  animation: gameBounce 2s ease-in-out infinite;
+  display: inline-block;
+}
+@keyframes gameBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.game-overlay h2 {
+  font-family: var(--font-display);
+  font-size: 26px; color: var(--ink);
+  margin: 0 0 8px;
+}
+.game-overlay p {
+  font-family: var(--font-ui);
+  font-size: 14px; color: var(--muted);
+  margin: 0 0 20px; line-height: 1.5;
+}
+.game-start-btn {
+  padding: 14px 32px;
+  border: none; border-radius: 999px;
+  background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+  color: #fff;
+  font-family: var(--font-ui);
+  font-size: 15px; font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(229,138,160,0.35);
+  transition: transform 0.2s;
+  animation: gamePulse 2s ease-in-out infinite;
+}
+@keyframes gamePulse {
+  0%, 100% { box-shadow: 0 4px 14px rgba(229,138,160,0.35); }
+  50% { box-shadow: 0 6px 22px rgba(229,138,160,0.55); }
+}
+.game-start-btn:hover { transform: translateY(-2px); }
+
+/* === Timer / round result text === */
+.game-result {
+  font-family: var(--font-display);
+  font-size: 22px; color: var(--ink);
+  margin: 12px 0;
+}
+.game-result-hearts {
+  font-size: 28px; color: var(--rose);
+}
+
+/* === Balloon pop === */
+.balloon-play-area {
+  position: absolute; inset: 0;
+  overflow: hidden;
+}
+.balloon-game-item {
+  position: absolute;
+  font-size: 40px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 0.1s;
+  animation: balloonFloat linear forwards;
+  z-index: 10;
+}
+.balloon-game-item.popped {
+  animation: balloonPop 0.3s ease-out forwards !important;
+  pointer-events: none;
+}
+@keyframes balloonFloat {
+  0% { transform: translateY(0) translateX(0); }
+  100% { transform: translateY(-600px) translateX(var(--drift, 0px)); }
+}
+@keyframes balloonPop {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.7; }
+  100% { transform: scale(0); opacity: 0; }
+}
+.balloon-game-item:hover { transform: scale(1.1); }
+
+/* Pop score popup */
+.balloon-pop-score {
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: 18px; font-weight: 700;
+  color: var(--rose);
+  pointer-events: none;
+  animation: scoreFloat 0.8s ease-out forwards;
+  z-index: 20;
+}
+@keyframes scoreFloat {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-40px); opacity: 0; }
+}
+
+/* === Flower Catch === */
+#catchCanvas {
+  display: block;
+  width: 100%; height: 100%;
+  touch-action: none;
+}
+
+/* === Memory Match === */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 24px;
+  max-width: 420px;
+  margin: 0 auto;
+  height: 100%;
+  align-content: center;
+}
+.memory-card {
+  aspect-ratio: 1;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s;
+  transform-style: preserve-3d;
+  perspective: 600px;
+}
+.memory-card-inner {
+  width: 100%; height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.4s;
+  border-radius: 14px;
+}
+.memory-card.flipped .memory-card-inner {
+  transform: rotateY(180deg);
+}
+.memory-card.matched .memory-card-inner {
+  transform: rotateY(180deg);
+  opacity: 0.5;
+}
+.memory-card.matched {
+  pointer-events: none;
+}
+.memory-front, .memory-back {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 14px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.memory-front {
+  background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 24px;
+}
+.memory-back {
+  background: #fff;
+  font-size: 32px;
+  transform: rotateY(180deg);
+  box-shadow: inset 0 0 0 2px rgba(229,138,160,0.2);
+}
+
+/* === Heart Tap (Reaction) === */
+.reaction-area {
+  position: absolute; inset: 0;
+  overflow: hidden;
+}
+.reaction-target {
+  position: absolute;
+  font-size: 36px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: 10;
+  transition: transform 0.1s;
+}
+.reaction-target.tapped {
+  animation: heartTap 0.3s ease-out forwards !important;
+  pointer-events: none;
+}
+@keyframes heartTap {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+/* Reaction timer bar */
+.reaction-timer {
+  position: absolute;
+  top: 8px; left: 10%; right: 10%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(229,138,160,0.2);
+  z-index: 50;
+  overflow: hidden;
+}
+.reaction-timer-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--rose), var(--rose-deep));
+  transition: width 0.1s linear;
+}
+
+/* Countdown text */
+.game-countdown {
+  font-family: var(--font-display);
+  font-size: 60px;
+  color: var(--rose);
+  animation: countdownPop 1s ease-out;
+}
+@keyframes countdownPop {
+  0% { transform: scale(0.5); opacity: 0; }
+  40% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 580px) {
+  .game-canvas-wrap { height: 440px; }
+  .memory-grid { grid-template-columns: repeat(4, 1fr); gap: 6px; padding: 12px; }
+  .memory-card { font-size: 24px; }
+  .memory-front { font-size: 18px; }
+  .memory-back { font-size: 24px; }
+  .balloon-game-item { font-size: 32px; }
+  .game-tabs { gap: 6px; }
+  .game-tab { padding: 6px 12px; font-size: 12px; }
+  .game-scorebar { gap: 8px; }
+  .game-score-item { padding: 6px 14px; min-width: 60px; }
+  .game-score-value { font-size: 18px; }
+}
