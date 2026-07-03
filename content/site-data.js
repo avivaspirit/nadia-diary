@@ -55,7 +55,7 @@ window.NADIA_DATA = {
         "She makes love feel like home, adventure, and forever."
       ],
       featurePhoto: {
-        src: "./assets/uploads/img_6306.jpg",
+        src: "./assets/uploads/img_first_flowers.jpg",
         alt: "Nadia with the first flowers",
         caption: "the first flowers I gave her 🌹"
       }
@@ -66,7 +66,7 @@ window.NADIA_DATA = {
       title: "Small memories with their own sparkle.",
       /* Polaroids on the scrapbook wall. Tap any photo to open the gallery. */
       items: [
-        { src: "./assets/uploads/img_6306.jpg",     alt: "Nadia with the first flowers",  caption: "the first flowers I gave her 🌹" },
+        { src: "./assets/uploads/img_first_flowers.jpg",     alt: "Nadia with the first flowers",  caption: "the first flowers I gave her 🌹" },
         { src: "./assets/uploads/img_6539.jpg",     alt: "Close-up couple portrait",    caption: "where it all began ♡" },
         { src: "./assets/uploads/img_2333.jpg",     alt: "Sweet couple moment",         caption: "my favorite face" }
       ]
