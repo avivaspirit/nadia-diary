@@ -5222,6 +5222,154 @@ body.page-story .shooting-star {
     max-width: 100% !important;
     box-sizing: border-box;
   }
+
+  /* === TEXT OVERFLOW FIXES === */
+  
+  /* Force text wrapping everywhere */
+  body, main, section, article, div, p, h1, h2, h3, h4, h5, h6, span, li, td, figcaption, blockquote {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+  
+  /* Long words/URLs must break */
+  p, .note-text, .lede, .section-heading {
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  
+  /* .lede max-width too wide for mobile */
+  .lede {
+    max-width: 100% !important;
+  }
+  
+  /* Section headings */
+  .section-heading {
+    max-width: 100% !important;
+    padding: 0 8px;
+    box-sizing: border-box;
+  }
+  
+  /* Section head lead text */
+  .section-head .lead,
+  .section-head p {
+    max-width: 100% !important;
+    padding: 0 8px;
+    box-sizing: border-box;
+  }
+  
+  /* Note card text: ensure full width */
+  .note-card {
+    max-width: 100% !important;
+    overflow: hidden;
+  }
+  .note-card .note-text {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  
+  /* Preview link card text */
+  .preview-link-card {
+    max-width: 100% !important;
+    overflow: hidden;
+  }
+  .preview-link-card p {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  
+  /* Timeline content */
+  .timeline-content,
+  .timeline-item:nth-child(odd) .timeline-content,
+  .timeline-item:nth-child(even) .timeline-content {
+    max-width: 100% !important;
+    padding: 14px 16px !important;
+    box-sizing: border-box;
+  }
+  
+  /* Bio card */
+  .bio-card {
+    max-width: 100% !important;
+  }
+  .bio-text {
+    max-width: 100% !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  
+  /* Doll collection */
+  .doll-card,
+  .doll-info {
+    max-width: 100% !important;
+    overflow: hidden;
+  }
+  .doll-desc {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  
+  /* Write back / love jar */
+  .write-back-section,
+  .write-back-list {
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+  
+  /* Music player track info */
+  .mp-track-title,
+  .mp-track-artist {
+    white-space: normal !important;
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+  
+  /* Vine caption: allow wrapping */
+  .vine-caption {
+    white-space: normal !important;
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+  
+  /* Hero actions: allow wrapping */
+  .hero-actions {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* Birthday text */
+  .envelope-intro,
+  .birthday-reveal {
+    max-width: 100% !important;
+    box-sizing: border-box;
+    padding: 0 12px;
+  }
+  .envelope-intro p,
+  .birthday-reveal p {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  
+  /* Gallery captions */
+  .gallery-caption {
+    max-width: 100% !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* All headings: no nowrap */
+  h1, h2, h3, h4, h5, h6 {
+    white-space: normal !important;
+    overflow-wrap: break-word;
+  }
+  
+  /* Feature photo caption */
+  .feature-photo figcaption,
+  .washi-frame figcaption {
+    max-width: 100% !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
 }
 
 @media (max-width: 480px) {
