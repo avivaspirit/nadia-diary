@@ -4026,7 +4026,8 @@ body.page-story .shooting-star {
 }
 
 .pg-add-btn,
-.pg-clear-btn {
+.pg-clear-btn,
+.pg-auto-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -4049,6 +4050,17 @@ body.page-story .shooting-star {
 .pg-add-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(229, 138, 160, 0.5);
+}
+
+.pg-auto-btn {
+  background: linear-gradient(135deg, #b59ddb, #7e57c2);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(126, 87, 194, 0.4);
+}
+
+.pg-auto-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(126, 87, 194, 0.5);
 }
 
 .pg-clear-btn {

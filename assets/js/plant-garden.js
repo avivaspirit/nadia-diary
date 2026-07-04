@@ -347,6 +347,7 @@
   var pgEmpty = $("#pgEmpty");
   var pgClearBtn = $("#pgClearBtn");
   var pgPlantBtn = $("#pgPlantBtn");
+  var pgAutoBtn = $("#pgAutoBtn");
   var pgEditorPanel = $("#pgEditorPanel");
   var pgCloseEditor = $("#pgCloseEditor");
   var pgTypePicker = $("#pgTypePicker");
@@ -677,10 +678,73 @@
   }
 
   /* ========================================================================
+     AUTO-PLANT — randomly generates full-grown plants with gallery photos
+     ======================================================================== */
+
+  function autoPlant() {
+    var photos = (window.NADIA_DATA && window.NADIA_DATA.gallery &&
+      window.NADIA_DATA.gallery.photos) || [];
+
+    var typeKeys = Object.keys(TYPES);
+    var numPlants = 3 + Math.floor(Math.random() * 3); /* 3-5 plants */
+    var plants = loadPlants();
+    var photoIdx = Math.floor(Math.random() * Math.max(photos.length, 1));
+
+    var captions = [
+      "our little moment ♡", "always smiling 🌸", "candid and sweet",
+      "us being us", "that smile though 🌷", "golden hour ✨",
+      "a sweet capture", "together 💑", "soft and lovely",
+      "our favorite memory", "beautiful as always", "forever moment ♡"
+    ];
+
+    for (var i = 0; i < numPlants; i++) {
+      var type = typeKeys[Math.floor(Math.random() * typeKeys.length)];
+      var photoCount = 1 + Math.floor(Math.random() * 3); /* 1-3 photos per plant */
+      var plantPhotos = [];
+
+      for (var j = 0; j < photoCount && photos.length > 0; j++) {
+        var offset = Math.floor(Math.random() * photos.length);
+        var p = photos[(photoIdx + offset + j) % photos.length];
+        if (p && p.src && plantPhotos.indexOf(p.src) === -1) {
+          plantPhotos.push(p.src);
+        }
+      }
+
+      var cap = captions[Math.floor(Math.random() * captions.length)];
+
+      plants.push({
+        id: Date.now().toString() + "-" + i + "-" + Math.floor(Math.random() * 9999),
+        type: type,
+        caption: cap,
+        photos: plantPhotos,
+        createdAt: Date.now() + i
+      });
+    }
+
+    savePlants(plants);
+    renderGarden();
+
+    if (!reducedMotion && window.DiaryMagic && window.DiaryMagic.burstConfetti) {
+      window.DiaryMagic.burstConfetti();
+    }
+
+    /* Scroll to first new plant */
+    setTimeout(function () {
+      var cards = document.querySelectorAll(".pg-plant-card");
+      if (cards.length > 0) {
+        cards[cards.length - numPlants].scrollIntoView({
+          behavior: "smooth", block: "center"
+        });
+      }
+    }, 200);
+  }
+
+  /* ========================================================================
      EVENT WIRING
      ======================================================================== */
 
   pgPlantBtn.addEventListener("click", function () { openEditor("new"); });
+  pgAutoBtn.addEventListener("click", autoPlant);
   pgCloseEditor.addEventListener("click", closeEditor);
   pgEditorPanel.addEventListener("click", function (e) {
     if (e.target === pgEditorPanel) closeEditor();
