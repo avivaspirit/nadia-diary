@@ -97,6 +97,16 @@ window.NADIA_DATA = {
         num: "05", emoji: "📸", title: "Photo Gallery",
         text: "Every little moment, captured together in one cozy scrapbook wall.",
         href: "./gallery.html"
+      },
+      {
+        num: "06", emoji: "🌿", title: "Garden",
+        text: "Plant a flower, pin a memory, and watch every moment bloom into a living garden.",
+        href: "./garden.html"
+      },
+      {
+        num: "07", emoji: "🎮", title: "Play & Movies",
+        text: "Mini games and movie picks for cozy nights in — balloon popping, memory matching, and more.",
+        href: "./games.html"
       }
     ]
   },
