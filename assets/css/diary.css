@@ -5076,3 +5076,193 @@ body.page-story .shooting-star {
     font-size: 1.5rem;
   }
 }
+
+
+/* ==========================================================================
+   MOBILE OVERFLOW FIX — v2: force max-width:100% on all fixed-width elements
+   Prevents horizontal scroll and text overflow on phones
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* === Force all fixed-width elements to respect viewport === */
+  .section-heading,
+  .polaroid,
+  .birthday-reveal,
+  .envelope-intro,
+  .closing-line,
+  .washi-frame,
+  .notes-layout .washi-frame,
+  .bio-card .bio-photo-wrap,
+  .music-toggle,
+  .timeline-hero,
+  .timeline,
+  .gallery-hero,
+  .gallery-grid,
+  .write-back-section,
+  .write-back-list,
+  .password-gate-box,
+  .moon-caption,
+  .candle-wish,
+  .love-float-area,
+  .upload-bar,
+  .upload-panel,
+  .my-photos-divider,
+  .gallery-controls,
+  .gallery-grid.layout-mosaic,
+  .layout-mosaic .gallery-item:hover .gallery-caption,
+  .gallery-grid.layout-postcards,
+  .passcode-card,
+  .garden-page,
+  .garden-hero .lede,
+  .garden-panel-inner,
+  .flower-detail-inner,
+  .flower-detail-close,
+  .vine-garden,
+  .gscene-page,
+  .gscene-hero .lede,
+  .gscene-panel-inner,
+  .gscene-detail-inner,
+  .gscene-detail-close,
+  .pg-section,
+  .pg-editor-inner,
+  .pg-plant-final:active,
+  .hero-image-wrap,
+  .cabinet-image-wrap,
+  .site-footer,
+  .reveal,
+  .timeline-content,
+  .timeline-item:nth-child(odd) .timeline-content,
+  .garden-clear-btn:hover {
+    max-width: 100% !important;
+    width: auto !important;
+  }
+  
+  /* Specific elements that need width not auto */
+  .gallery-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .timeline {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 10px;
+  }
+  .upload-bar,
+  .gallery-controls,
+  .my-photos-divider,
+  .gscene-page,
+  .garden-page,
+  .pg-section,
+  .birthday-reveal {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* === Prevent horizontal overflow on body === */
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  main {
+    width: calc(100% - 24px) !important;
+    max-width: 100% !important;
+  }
+
+  /* === Lede text: shrink max-width === */
+  .lede {
+    max-width: 100% !important;
+  }
+  
+  /* === Polaroid: fit 2 per row === */
+  .polaroid {
+    width: calc(50vw - 16px) !important;
+    max-width: 200px !important;
+  }
+
+  /* === Envelope intro === */
+  .envelope-intro {
+    padding: 0 12px;
+  }
+  
+  /* === Birthday reveal === */
+  .birthday-reveal {
+    padding: 0 8px;
+  }
+  
+  /* === Notes layout === */
+  .washi-frame {
+    width: 100% !important;
+  }
+  
+  /* === Hero image === */
+  .hero-image-wrap, .cabinet-image-wrap {
+    max-width: 280px !important;
+    width: auto !important;
+  }
+  
+  /* === Write back section === */
+  .write-back-section,
+  .write-back-list {
+    padding: 0 8px;
+  }
+  
+  /* === Music player === */
+  .music-player {
+    width: calc(100% - 16px) !important;
+    max-width: 320px !important;
+  }
+  
+  /* === Garden panels === */
+  .garden-panel-inner,
+  .flower-detail-inner,
+  .gscene-panel-inner,
+  .gscene-detail-inner,
+  .pg-editor-inner {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Even tighter on small phones */
+  .lede {
+    max-width: 100% !important;
+    font-size: 14px !important;
+  }
+  .section-heading,
+  .timeline-hero,
+  .gallery-hero {
+    padding: 0 4px;
+  }
+  .polaroid {
+    width: calc(50vw - 12px) !important;
+    max-width: 160px !important;
+  }
+  .washi-frame {
+    width: 100% !important;
+  }
+  .password-gate-box,
+  .passcode-card {
+    width: calc(100% - 16px) !important;
+    max-width: 360px !important;
+  }
+  .candle-wish,
+  .moon-caption {
+    width: 100% !important;
+  }
+  .love-float-area {
+    width: 100% !important;
+  }
+  .music-player {
+    width: calc(100% - 12px) !important;
+  }
+  .reveal {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .site-footer {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
