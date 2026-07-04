@@ -55,9 +55,9 @@ window.NADIA_DATA = {
         "She makes love feel like home, adventure, and forever."
       ],
       featurePhoto: {
-        src: "./assets/uploads/img_first_flowers.jpg",
-        alt: "Nadia with the first flowers",
-        caption: "the first flowers I gave her 🌹"
+        src: "./assets/uploads/img_photobooth.jpg",
+        alt: "Photo booth strip",
+        caption: "booth strip memories 🎞️"
       }
     },
 
