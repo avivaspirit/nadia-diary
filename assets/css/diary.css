@@ -5164,12 +5164,12 @@ body.page-story .shooting-star {
     overflow-x: hidden;
   }
   main {
-    width: calc(100% - 32px) !important;
+    width: calc(100% - 40px) !important;
     max-width: 100% !important;
     padding: 0 !important;
   }
   
-  /* Ensure all sections have horizontal padding on mobile */
+  /* Ensure ALL sections have generous horizontal padding on mobile */
   .hero,
   .notes-section,
   .love-jar-section,
@@ -5182,45 +5182,26 @@ body.page-story .shooting-star {
   .reveal,
   .garden-section,
   .games-section,
-  .dolls-section {
-    padding-left: 8px !important;
-    padding-right: 8px !important;
+  .dolls-section,
+  .timeline,
+  .gallery-grid,
+  .notes-board,
+  .preview-cards,
+  .bio-card,
+  .love-jar-wrap {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
     box-sizing: border-box !important;
   }
   
-  /* Section head needs more padding */
+  /* Section head needs even more padding */
   .section-head {
-    padding: 0 12px !important;
+    padding: 0 20px !important;
   }
   
-  /* Note cards need internal padding */
-  .notes-board {
-    padding: 0 4px;
-  }
-  
-  /* Preview cards */
-  .preview-cards {
-    padding: 0 4px;
-  }
-  
-  /* Gallery grid */
-  .gallery-grid {
-    padding: 0 4px;
-  }
-  
-  /* Love jar */
-  .love-jar-wrap {
-    padding: 0 12px;
-  }
-  
-  /* Timeline */
-  .timeline {
-    padding: 0 8px;
-  }
-  
-  /* Bio section */
-  .bio-card {
-    padding: 0 8px;
+  /* Section heading text */
+  .section-heading {
+    padding: 0 16px !important;
   }
 
   /* === Lede text: shrink max-width === */
