@@ -243,13 +243,13 @@
           '<span class="closet-card-scene">' + style.scene + '</span>' +
         '</div>' +
         '<p class="closet-card-tagline"' +
-          (isLight(style.gradient) ? '' : ' style="color:rgba(255,255,255,0.85)"') + '>' +
+          (isDark(style.gradient) ? ' style="color:rgba(255,255,255,0.85)"' : '') + '>' +
           style.tagline + '</p>' +
-        '<div class="closet-tips' + (isLight(style.gradient) ? '' : ' dark') + '">' + tipsHTML + '</div>' +
+        '<div class="closet-tips' + (isDark(style.gradient) ? ' dark' : '') + '">' + tipsHTML + '</div>' +
         '<div class="closet-palette"' +
-          (isLight(style.gradient) ? '' : ' style="border-color:rgba(255,255,255,0.15)"') + '>' +
+          (isDark(style.gradient) ? ' style="border-color:rgba(255,255,255,0.15)"' : '') + '>' +
           '<span class="closet-palette-label"' +
-          (isLight(style.gradient) ? '' : ' style="color:rgba(255,255,255,0.5)"') + '>PALETTE</span>' +
+          (isDark(style.gradient) ? ' style="color:rgba(255,255,255,0.5)"' : '') + '>PALETTE</span>' +
           '<div class="closet-swatches">' + swatchHTML + '</div>' +
         '</div>';
 
@@ -262,13 +262,11 @@
     }
   }
 
-  function isLight(grad) {
-    // Dark backgrounds: spicy, glam, street
-    return !(style_id_isDark(grad));
-  }
-
-  function style_id_isDark(grad) {
-    return grad.indexOf("#1a") !== -1 || grad.indexOf("#2c") !== -1 || grad.indexOf("#0f") !== -1;
+  function isDark(grad) {
+    return grad.indexOf("#1a0a0a") !== -1 ||
+           grad.indexOf("#1a1a2e") !== -1 ||
+           grad.indexOf("#2c2c2c") !== -1 ||
+           grad.indexOf("#0f3460") !== -1;
   }
 
   renderGrid(null);
