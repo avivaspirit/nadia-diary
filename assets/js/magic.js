@@ -793,24 +793,29 @@
     var pickerClose = picker.querySelector(".photo-picker-close");
 
     var currentTargetImg = null;
+    var photosPopulated = false;
 
-    /* Populate grid */
-    var photos = getGalleryPhotos();
-    photos.forEach(function (src) {
-      var thumb = el("button", "photo-picker-thumb");
-      thumb.setAttribute("type", "button");
-      thumb.style.backgroundImage = "url('" + src + "')";
-      thumb.addEventListener("click", function () {
-        if (currentTargetImg) {
-          var origSrc = currentTargetImg.getAttribute("data-original-src") || currentTargetImg.getAttribute("src");
-          saveOverride(origSrc, src);
-          currentTargetImg.setAttribute("src", src);
-          currentTargetImg.setAttribute("data-original-src", origSrc);
-        }
-        picker.classList.remove("show");
+    /* Populate grid lazily — only when picker first opens */
+    function ensurePhotosPopulated() {
+      if (photosPopulated) return;
+      photosPopulated = true;
+      var photos = getGalleryPhotos();
+      photos.forEach(function (src) {
+        var thumb = el("button", "photo-picker-thumb");
+        thumb.setAttribute("type", "button");
+        thumb.style.backgroundImage = "url('" + src + "')";
+        thumb.addEventListener("click", function () {
+          if (currentTargetImg) {
+            var origSrc = currentTargetImg.getAttribute("data-original-src") || currentTargetImg.getAttribute("src");
+            saveOverride(origSrc, src);
+            currentTargetImg.setAttribute("src", src);
+            currentTargetImg.setAttribute("data-original-src", origSrc);
+          }
+          picker.classList.remove("show");
+        });
+        pickerGrid.appendChild(thumb);
       });
-      pickerGrid.appendChild(thumb);
-    });
+    }
 
     /* Close picker */
     pickerClose.addEventListener("click", function () {
@@ -839,6 +844,7 @@
       e.preventDefault();
       e.stopPropagation();
       currentTargetImg = img;
+      ensurePhotosPopulated();
       picker.classList.add("show");
     });
   }
