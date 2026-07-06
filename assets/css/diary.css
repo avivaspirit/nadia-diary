@@ -3427,6 +3427,23 @@ body.page-leaving {
   color: var(--ink);
   opacity: 0.8;
 }
+/* swap button on each style card tip */
+.tip-swap-btn {
+  background: rgba(232, 127, 163, 0.12);
+  border: 1.5px solid rgba(232, 127, 163, 0.25);
+  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  font-size: 13px;
+  cursor: pointer;
+  flex-shrink: 0;
+  align-self: center;
+  transition: all 0.2s ease;
+}
+.tip-swap-btn:hover {
+  background: rgba(232, 127, 163, 0.25);
+  transform: scale(1.1);
+}
 .closet-tips.dark .closet-tip-text {
   color: rgba(255, 255, 255, 0.8);
 }

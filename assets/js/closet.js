@@ -15,7 +15,7 @@
       emoji: "🌸",
       gradient: "linear-gradient(135deg, #ffd1dc 0%, #ffe5ec 50%, #fff0f5 100%)",
       accent: "#e87fa3",
-      vibe: "สาวหวาน",
+      vibe: "Sweet & Cute",
       tagline: "Soft pastels, floral prints, and a smile that melts hearts.",
       tips: [
         { icon: "👗", label: "Dress", text: "Floral midi dress in blush pink, puffed sleeves" },
@@ -33,7 +33,7 @@
       emoji: "🔥",
       gradient: "linear-gradient(135deg, #1a0a0a 0%, #3d0c0c 50%, #1a0a0a 100%)",
       accent: "#ff4444",
-      vibe: "สาวแซ่บ",
+      vibe: "Bold & Spicy",
       tagline: "Bold, confident, turning heads wherever she walks.",
       tips: [
         { icon: "👗", label: "Dress", text: "Bodycon mini in black or deep red, strappy details" },
@@ -51,7 +51,7 @@
       emoji: "⚽",
       gradient: "linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%)",
       accent: "#2e7d32",
-      vibe: "Sporty Girl",
+      vibe: "Sporty & Active",
       tagline: "Athleisure energy — comfy, cool, and ready to move.",
       tips: [
         { icon: "👕", label: "Top", text: "Oversized crop hoodie or fitted sports bra + windbreaker" },
@@ -69,7 +69,7 @@
       emoji: "📻",
       gradient: "linear-gradient(135deg, #f5e6d3 0%, #e8d5b7 50%, #d4a574 100%)",
       accent: "#8b6914",
-      vibe: "สาววินเทจ",
+      vibe: "Retro & Classic",
       tagline: "Timeless elegance from another era — tea dresses and retro waves.",
       tips: [
         { icon: "👗", label: "Dress", text: "Tea-length polka dot dress, puff sleeves, cinched waist" },
@@ -87,7 +87,7 @@
       emoji: "💎",
       gradient: "linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 100%)",
       accent: "#ffd700",
-      vibe: "สาว Glam Hiso",
+      vibe: "Glam & Luxe",
       tagline: "Old money, quiet luxury — understated elegance that whispers wealth.",
       tips: [
         { icon: "👗", label: "Dress", text: "Silk slip dress or tailored blazer dress in ivory/navy" },
@@ -105,7 +105,7 @@
       emoji: "👸",
       gradient: "linear-gradient(135deg, #e6e6fa 0%, #dda0dd 30%, #ee82ee 100%)",
       accent: "#9370db",
-      vibe: "สาวเจ้าหญิง Disney",
+      vibe: "Princess Dreams",
       tagline: "Fairytale magic — tulle, sparkles, and a tiara to match your dreams.",
       tips: [
         { icon: "👗", label: "Dress", text: "Tulle ball gown, off-shoulder bodice, sparkle overlay" },
@@ -123,7 +123,7 @@
       emoji: "🧸",
       gradient: "linear-gradient(135deg, #fdf2e9 0%, #f5e6d3 50%, #e8c4a0 100%)",
       accent: "#c4956c",
-      vibe: "สาวโคซี่",
+      vibe: "Cozy & Warm",
       tagline: "Warm, soft, and huggable — like a latte on a rainy day.",
       tips: [
         { icon: "🧶", label: "Top", text: "Chunky knit sweater or oversized cardigan in cream" },
@@ -141,7 +141,7 @@
       emoji: "🦋",
       gradient: "linear-gradient(135deg, #e0ffff 0%, #87ceeb 30%, #dda0dd 100%)",
       accent: "#ff69b4",
-      vibe: "สาว Y2K",
+      vibe: "Y2K Nostalgia",
       tagline: "Noughties nostalgia — butterfly clips, low-rise, and baby tees.",
       tips: [
         { icon: "👕", label: "Top", text: "Cropped baby tee with rhinestone logo or butterfly print" },
@@ -159,7 +159,7 @@
       emoji: "🧢",
       gradient: "linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 50%, #333333 100%)",
       accent: "#ff6b35",
-      vibe: "สาวสตรีท",
+      vibe: "Street & Cool",
       tagline: "Effortlessly cool — oversized everything and sneakers worth flexing.",
       tips: [
         { icon: "🧥", label: "Top", text: "Oversized graphic tee or bomber jacket, layered chains" },
@@ -214,18 +214,21 @@
       var card = document.createElement("div");
       card.className = "closet-card reveal";
       card.style.animationDelay = (i * 0.08) + "s";
+      card.dataset.styleId = style.id;
 
       // Style-specific background
       card.style.background = style.gradient;
 
-      // Build tips HTML
-      var tipsHTML = style.tips.map(function (t) {
-        return '<div class="closet-tip">' +
+      // Build tips HTML — each tip gets a swap button
+      var tipsHTML = style.tips.map(function (t, ti) {
+        return '<div class="closet-tip" data-tip-idx="' + ti + '">' +
           '<span class="closet-tip-icon">' + t.icon + '</span>' +
           '<div class="closet-tip-body">' +
           '<span class="closet-tip-label" style="color:' + style.accent + '">' + t.label + '</span>' +
           '<span class="closet-tip-text">' + t.text + '</span>' +
-          '</div></div>';
+          '</div>' +
+          '<button class="tip-swap-btn" data-style="' + style.id + '" data-idx="' + ti + '" type="button" title="Swap this item">🔄</button>' +
+          '</div>';
       }).join("");
 
       // Color palette swatches
@@ -254,6 +257,62 @@
         '</div>';
 
       grid.appendChild(card);
+    });
+
+    // Wire swap buttons on style card tips
+    $$(".tip-swap-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var styleId = btn.dataset.style;
+        var tipIdx = parseInt(btn.dataset.idx);
+        var styleObj = styles.filter(function (s) { return s.id === styleId; })[0];
+        if (!styleObj) return;
+
+        // Find alternatives from the item pool by category label
+        var currentTip = styleObj.tips[tipIdx];
+        var label = currentTip.label.toLowerCase();
+
+        // Map label to itemPool category
+        var cat = null;
+        if (label.indexOf("dress") !== -1 || label.indexOf("top") !== -1) cat = "top";
+        else if (label.indexOf("bottom") !== -1 || label.indexOf("pants") !== -1 || label.indexOf("skirt") !== -1) cat = "bottom";
+        else if (label.indexOf("shoe") !== -1) cat = "shoes";
+        else if (label.indexOf("hair") !== -1) cat = "hair";
+        else if (label.indexOf("makeup") !== -1 || label.indexOf("lip") !== -1) cat = "makeup";
+        else cat = "accessories";
+
+        // Pick a random alternative from the pool
+        var pool = itemPool[cat] || [];
+        var candidates = pool.filter(function (p) { return p.t !== currentTip.text; });
+        var newPick = pickRandom(candidates.length ? candidates : pool);
+
+        // Animate
+        btn.style.transform = "rotate(360deg)";
+        btn.style.transition = "transform 0.4s ease";
+
+        // Update the tip text
+        setTimeout(function () {
+          btn.style.transform = "";
+          currentTip.text = newPick.t;
+          currentTip.icon = categoryIcons[cat] || currentTip.icon;
+
+          // Re-render just this tip's text
+          var tipEl = btn.closest(".closet-tip");
+          var textEl = tipEl.querySelector(".closet-tip-text");
+          var iconEl = tipEl.querySelector(".closet-tip-icon");
+          if (textEl) textEl.textContent = newPick.t;
+          if (iconEl) iconEl.textContent = currentTip.icon;
+
+          // Flash effect
+          if (textEl) {
+            textEl.style.transition = "none";
+            textEl.style.opacity = "0.3";
+            setTimeout(function () {
+              textEl.style.transition = "opacity 0.4s ease";
+              textEl.style.opacity = "1";
+            }, 50);
+          }
+        }, 200);
+      });
     });
 
     // Trigger reveals
@@ -526,7 +585,7 @@
     if (q.indexOf("swap") !== -1 || q.indexOf("change") !== -1 || q.indexOf("เปลี่ยน") !== -1 || q.indexOf("หนึ่ง") !== -1) {
       if (swapCat) {
         swapItem(swapCat);
-        reply = "สลับ " + swapCat + " ใหม่ให้แล้วค่ะ! 🔄 ดูด้านบนนะ — ลองอันอื่นเพิ่มเติมได้น้า ♡";
+        reply = "Swapped " + swapCat + " ใหม่ให้แล้วค่ะ! 🔄 ดูด้านบนนะ — ลองอันอื่นเพิ่มเติมได้น้า ♡";
       } else {
         reply = "อยากเปลี่ยนอะไรเป็นพิเศษไหม? บอกได้เลย เช่น 'เปลี่ยนรองเท้า' หรือ 'swap hair' 🔄";
       }
