@@ -55,14 +55,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* faint paper grain */
+/* faint paper grain — subtle, NOT distracting */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.5;
+  opacity: 0.3;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
 }
 
@@ -74,7 +74,7 @@ img { max-width: 100%; display: block; }
 /* page enters with a soft fade-rise; .page-leaving fades out on nav */
 main {
   position: relative;
-  z-index: 1;
+  z-index: 10;
   width: min(1140px, calc(100% - 36px));
   margin: 0 auto;
   animation: pageIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -86,12 +86,14 @@ main {
 body.page-leaving main,
 body.page-leaving .site-header { opacity: 0; transition: opacity 0.26s ease; }
 
-/* sparkle canvas behind everything */
+/* sparkle canvas behind everything — sits on body bg, below grain */
 #sparkleCanvas {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.85;
 }
 
 /* ---------------------------------------------------------------- header */
@@ -3152,7 +3154,7 @@ body.page-story .shooting-star {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
   overflow: hidden;
 }
 .balloon {
@@ -3216,7 +3218,7 @@ body.page-story .shooting-star {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 1;
+  z-index: 2;
   overflow: hidden;
 }
 .wish-bubble {
