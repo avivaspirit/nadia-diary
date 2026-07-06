@@ -561,7 +561,50 @@
     reducedMotion
   };
 
+  /* ──────────────────────── NAV TOGGLE (hamburger) ─────────────────────── */
+  function initNavToggle() {
+    const header = $(".site-header");
+    if (!header) return;
+
+    // Inject hamburger button before nav
+    const nav = header.querySelector("nav");
+    if (!nav) return;
+
+    const btn = document.createElement("button");
+    btn.className = "nav-toggle";
+    btn.setAttribute("aria-label", "Toggle menu");
+    btn.setAttribute("aria-expanded", "false");
+    btn.innerHTML = "<span></span>";
+    header.insertBefore(btn, nav);
+
+    // Toggle on click
+    btn.addEventListener("click", () => {
+      const open = nav.classList.toggle("open");
+      btn.classList.toggle("open", open);
+      btn.setAttribute("aria-expanded", open);
+    });
+
+    // Close when a nav link is clicked (mobile UX)
+    nav.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        nav.classList.remove("open");
+        btn.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener("click", (e) => {
+      if (!header.contains(e.target)) {
+        nav.classList.remove("open");
+        btn.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
+    initNavToggle();
     initPasscode();
     initSeasonal();
     initPageTransitions();
