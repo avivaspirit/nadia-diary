@@ -5473,3 +5473,438 @@ body.page-story .shooting-star {
     max-width: 100% !important;
   }
 }
+
+
+/* ================================================================
+   MAKE A WISH 🌠 — night sky, shooting stars, constellation wall
+   ================================================================ */
+
+/* ---- Page background overrides ---- */
+body.page-wish {
+  background: #0a0a2e !important;
+  background-image: none !important;
+  overflow-x: hidden;
+}
+
+/* ---- Wish page layout ---- */
+.wish-page {
+  position: relative;
+  min-height: calc(100svh - var(--header-h, 60px));
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+/* ---- Star canvas (background) ---- */
+.star-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ---- Moon ---- */
+.moon {
+  position: fixed;
+  top: 80px;
+  right: 5%;
+  z-index: 1;
+  transition: transform 0.3s ease-out;
+  pointer-events: none;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 30px rgba(255, 245, 200, 0.3));
+}
+.moon svg {
+  width: clamp(60px, 12vw, 100px);
+  height: auto;
+}
+
+/* ---- Hero ---- */
+.wish-hero {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: clamp(40px, 8vh, 80px) 20px 20px;
+}
+.wish-hero .eyebrow {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 235, 180, 0.8);
+  margin: 0 0 12px;
+}
+.wish-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 6vw, 2.8rem);
+  color: #fff;
+  text-shadow: 0 0 20px rgba(255, 230, 180, 0.4);
+  margin: 0 0 16px;
+  line-height: 1.2;
+}
+.wish-hero .lede {
+  color: rgba(255, 240, 220, 0.7);
+  max-width: 500px;
+  margin: 0 auto;
+  font-size: 15px;
+}
+
+/* ---- Wish counter ---- */
+.wish-counter {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin: 20px 0 30px;
+}
+.wish-count-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: #ffd700;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  line-height: 1;
+}
+.wish-count-label {
+  color: rgba(255, 235, 180, 0.6);
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+/* ---- Wish input area ---- */
+.wish-input-area {
+  position: relative;
+  z-index: 2;
+  max-width: 560px;
+  margin: 0 auto 50px;
+  padding: 0 16px;
+}
+
+.wish-input-wrap {
+  position: relative;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 230, 180, 0.15);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.wish-textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 18px;
+  line-height: 1.6;
+  min-height: 70px;
+}
+.wish-textarea::placeholder {
+  color: rgba(255, 235, 180, 0.35);
+  font-style: italic;
+}
+
+.wish-char-count {
+  text-align: right;
+  font-size: 11px;
+  color: rgba(255, 235, 180, 0.3);
+  margin-top: 8px;
+}
+
+/* ---- Send button ---- */
+.wish-send-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  margin-top: 16px;
+  border: 1px solid rgba(255, 230, 180, 0.2);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 235, 180, 0.4);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: not-allowed;
+  transition: all 0.4s ease;
+}
+.wish-send-btn.ready {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 180, 80, 0.15));
+  border-color: rgba(255, 215, 0, 0.5);
+  color: #ffd700;
+  cursor: pointer;
+  animation: wishBtnPulse 1.5s ease-in-out infinite;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+.wish-send-btn.ready:hover {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.35), rgba(255, 180, 80, 0.25));
+  border-color: rgba(255, 215, 0, 0.8);
+  transform: scale(1.02);
+}
+.wish-send-btn:disabled {
+  opacity: 0.6;
+}
+
+@keyframes wishBtnPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.3); }
+  50% { box-shadow: 0 0 0 8px rgba(255, 215, 0, 0); }
+}
+
+/* ---- Hint text ---- */
+.wish-hint {
+  text-align: center;
+  color: rgba(255, 240, 220, 0.45);
+  font-size: 13px;
+  margin-top: 14px;
+  transition: all 0.3s ease;
+}
+.wish-hint.urgent {
+  color: rgba(255, 215, 0, 0.8);
+  font-size: 14px;
+  animation: hintBlink 1s ease-in-out infinite;
+}
+@keyframes hintBlink {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* ---- Wish wall (constellation) ---- */
+.wish-wall-section {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto 60px;
+  padding: 0 16px;
+  text-align: center;
+}
+.wish-wall-section .eyebrow {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 235, 180, 0.8);
+  margin: 0 0 8px;
+}
+.wish-wall-section h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  color: #fff;
+  margin: 0 0 30px;
+}
+
+.wish-wall {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.wish-tile {
+  position: relative;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 230, 180, 0.1);
+  border-radius: 16px;
+  padding: 24px 20px 16px;
+  text-align: center;
+  animation: wishTileAppear 0.6s ease both;
+  transition: all 0.3s ease;
+}
+.wish-tile:hover {
+  border-color: rgba(255, 215, 0, 0.3);
+  background: rgba(255, 255, 255, 0.07);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.1);
+}
+.wish-tile.vanishing {
+  opacity: 0;
+  transform: scale(0.8) translateY(-20px);
+}
+
+@keyframes wishTileAppear {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.wish-tile-star {
+  font-size: 28px;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
+}
+.wish-tile-text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 15px;
+  color: rgba(255, 250, 240, 0.9);
+  line-height: 1.5;
+  margin: 0 0 10px;
+}
+.wish-tile-date {
+  font-size: 11px;
+  color: rgba(255, 235, 180, 0.35);
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+.wish-tile-delete {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 235, 180, 0.3);
+  font-size: 11px;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+.wish-tile:hover .wish-tile-delete {
+  opacity: 1;
+}
+.wish-tile-delete:hover {
+  background: rgba(255, 100, 100, 0.2);
+  color: rgba(255, 150, 150, 0.8);
+}
+
+/* ---- Wish popup ---- */
+.wish-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 10, 46, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.wish-popup.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.wish-popup-inner {
+  text-align: center;
+  max-width: 400px;
+  padding: 40px 30px;
+  transform: scale(0.8);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.wish-popup.show .wish-popup-inner {
+  transform: scale(1);
+}
+
+.wish-popup-star {
+  font-size: 60px;
+  margin-bottom: 16px;
+  animation: starPop 0.8s ease both;
+  filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.5));
+}
+@keyframes starPop {
+  0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+  60% { transform: scale(1.3) rotate(10deg); }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+.wish-popup h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: #fff;
+  margin: 0 0 16px;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+.wish-popup-text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 17px;
+  color: rgba(255, 250, 230, 0.85);
+  line-height: 1.5;
+  margin: 0 0 12px;
+}
+.wish-popup-sub {
+  font-size: 13px;
+  color: rgba(255, 235, 180, 0.5);
+  margin: 0 0 24px;
+}
+.wish-popup-close {
+  padding: 14px 28px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 999px;
+  background: rgba(255, 215, 0, 0.08);
+  color: rgba(255, 235, 180, 0.9);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.wish-popup-close:hover {
+  background: rgba(255, 215, 0, 0.15);
+  border-color: rgba(255, 215, 0, 0.6);
+  transform: scale(1.05);
+}
+
+/* ---- Footer override for dark page ---- */
+body.page-wish .site-footer {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+}
+body.page-wish .footer-text {
+  color: rgba(255, 235, 180, 0.3);
+}
+
+/* ---- Header dark theme for wish page ---- */
+body.page-wish .site-header,
+body.page-wish .site-header a,
+body.page-wish .brand {
+  background: rgba(10, 10, 46, 0.8) !important;
+  color: rgba(255, 240, 220, 0.9) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 768px) {
+  .moon { top: 70px; right: 10px; }
+  .wish-hero { padding-top: 30px; }
+  .wish-hero h1 { font-size: clamp(1.5rem, 7vw, 2.2rem); }
+  .wish-input-area { padding: 0 12px; }
+  .wish-wall { grid-template-columns: 1fr; }
+  .wish-tile { padding: 20px 16px 14px; }
+  .wish-tile-text { font-size: 14px; }
+  .wish-tile-delete { opacity: 0.5; }
+}
+
+@media (max-width: 480px) {
+  .wish-hero h1 { font-size: 1.5rem; }
+  .wish-hero .lede { font-size: 13px; }
+  .wish-textarea { font-size: 16px; }
+  .wish-count-num { font-size: 2rem; }
+  .wish-popup-inner { padding: 30px 20px; }
+  .wish-popup-star { font-size: 48px; }
+  .wish-popup h3 { font-size: 18px; }
+}
+
+@media (max-width: 380px) {
+  .wish-hero h1 { font-size: 1.3rem; }
+  .wish-send-btn { font-size: 13px; padding: 14px; }
+}
+
+/* ---- Safe area ---- */
+@supports (padding: max(0px)) {
+  .wish-page { padding-top: max(20px, env(safe-area-inset-top)); }
+}

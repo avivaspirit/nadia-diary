@@ -107,6 +107,11 @@ window.NADIA_DATA = {
         num: "07", emoji: "🎮", title: "Play & Movies",
         text: "Mini games and movie picks for cozy nights in — balloon popping, memory matching, and more.",
         href: "./games.html"
+      },
+      {
+        num: "08", emoji: "🌠", title: "Make a Wish",
+        text: "Whisper a wish to the shooting stars. Every wish becomes a star in your own constellation.",
+        href: "./wish.html"
       }
     ]
   },
