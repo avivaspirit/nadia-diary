@@ -182,6 +182,11 @@
     CK:{n:"Cook Islands",f:"🇨🇰",c:"Avarua",l:"English",cu:"NZD",p:"0.02M",t:"Aitutaki lagoon, hibiscus, free association with NZ"},
     NC:{n:"New Caledonia",f:"🇳🇨",c:"Noumea",l:"French",cu:"XPF",p:"0.29M",t:"Largest lagoon, Kanak culture, French Pacific"},
     /* Missing countries */
+    BI:{n:"Burundi",f:"🇧🇮",c:"Gitega",l:"Kirundi",cu:"BIF",p:"13M",t:"Heart of Africa, drumming tradition, Lake Tanganyika"},
+    EH:{n:"Western Sahara",f:"🇪🇭",c:"El Aaiun",l:"Arabic",cu:"MAD",p:"0.6M",t:"Sahara desert, phosphate, disputed territory, dunes"},
+    FK:{n:"Falkland Islands",f:"🇫🇰",c:"Stanley",l:"English",cu:"FKP",p:"0.003M",t:"Penguins, sheep, rugged islands, British overseas territory"},
+    KP:{n:"North Korea",f:"🇰🇵",c:"Pyongyang",l:"Korean",cu:"KPW",p:"26M",t:"Most secretive country, Mass Games, Arirang, DMZ"},
+    TF:{n:"Fr. Southern Lands",f:"🇹🇫",c:"Port-aux-Francais",l:"French",cu:"EUR",p:"0.0001M",t:"Penguins, research stations, sub-Antarctic islands"},
     CV:{n:"Cape Verde",f:"🇨🇻",c:"Praia",l:"Portuguese",cu:"CVE",p:"0.59M",t:"Volcanic islands, morna music, warm Atlantic paradise"},
     BH:{n:"Bahrain",f:"🇧🇭",c:"Manama",l:"Arabic",cu:"BHD",p:"1.5M",t:"F1 night race, pearls, ancient Dilmun civilization"},
     KW:{n:"Kuwait",f:"🇰🇼",c:"Kuwait City",l:"Arabic",cu:"KWD",p:"4.3M",t:"Oil wealth, dhows, Kuwait Towers, desert"},
