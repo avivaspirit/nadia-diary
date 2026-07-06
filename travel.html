@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Caveat:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/css/diary.css?v=20260707a" />
+    <link rel="stylesheet" href="./assets/css/diary.css?v=20260707b" />
     <link rel="stylesheet" href="./assets/vendor/jsvectormap/jsvectormap.min.css" />
   </head>
   <body class="page-travel">
@@ -48,12 +48,18 @@
         <span class="bot-banner-arrow">→</span>
       </a>
 
+      <!-- Search bar -->
+      <div class="travel-search-wrap">
+        <input id="travelSearch" type="text" class="travel-search" placeholder="🔍 Search any country or capital..." autocomplete="off" />
+        <div class="travel-search-results" id="travelSearchResults" style="display:none;"></div>
+      </div>
+
       <!-- Interactive World Map -->
       <div class="travel-map-container">
         <div id="worldMap" class="world-map"></div>
       </div>
 
-      <p class="travel-hint">👆 Click any country to explore</p>
+      <p class="travel-hint">👆 Click any country · 📌 Pin in the popup · double-click pin to remove</p>
     </main>
 
     <!-- Country modal -->
@@ -67,6 +73,6 @@
     <script src="./assets/vendor/jsvectormap/jsvectormap.min.js"></script>
     <script src="./assets/vendor/jsvectormap/world.js"></script>
     <script src="./assets/js/magic.js?v=20260706s"></script>
-    <script src="./assets/js/travel.js?v=20260707a"></script>
+    <script src="./assets/js/travel.js?v=20260707b"></script>
   </body>
 </html>

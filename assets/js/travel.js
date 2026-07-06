@@ -212,6 +212,7 @@
     ST:{n:"Sao Tome & Principe",f:"🇸🇹",c:"Sao Tome",l:"Portuguese",cu:"STN",p:"0.23M",t:"Chocolate paradise, rainforests, equatorial beauty"},
     MR:{n:"Mauritania",f:"🇲🇷",c:"Nouakchott",l:"Arabic",cu:"MRU",p:"4.9M",t:"Iron ore train, Sahara, ancient cities"},
     SS:{n:"South Sudan",f:"🇸🇸",c:"Juba",l:"English",cu:"SSP",p:"11M",t:"Newest country in the world, Nile, wildlife migrations"},
+    /* Islands & territories (not on world map — added as markers) */
     RE:{n:"Reunion",f:"🇷🇪",c:"Saint-Denis",l:"French",cu:"EUR",p:"0.9M",t:"Volcano island, cirques, French tropical paradise"},
     YT:{n:"Mayotte",f:"🇾🇹",c:"Mamoudzou",l:"French",cu:"EUR",p:"0.32M",t:"Lagoon, baobabs, French overseas department"},
     FO:{n:"Faroe Islands",f:"🇫🇴",c:"Torshavn",l:"Faroese",cu:"DKK",p:"0.05M",t:"Sheep islands, cliffs, Viking heritage, waterfalls"},
@@ -229,11 +230,9 @@
     GD:{n:"Grenada",f:"🇬🇩",c:"St George's",l:"English",cu:"XCD",p:"0.13M",t:"Spice island, nutmeg, underwater sculpture park"},
     DM:{n:"Dominica",f:"🇩🇲",c:"Roseau",l:"English",cu:"XCD",p:"0.07M",t:"Nature island, boiling lake, 365 rivers"},
     AG:{n:"Antigua & Barbuda",f:"🇦🇬",c:"St John's",l:"English",cu:"XCD",p:"0.1M",t:"365 beaches, cricket, Nelson's Dockyard"},
-    BZ2:{n:"Belize",f:"🇧🇿",c:"Belmopan",l:"English",cu:"BZD",p:"0.4M",t:"Barrier reef, Mayan caves, Caribbean coast"},
     GF:{n:"French Guiana",f:"🇬🇫",c:"Cayenne",l:"French",cu:"EUR",p:"0.3M",t:"Spaceport, rainforest, Devil's Island"},
     MQ:{n:"Martinique",f:"🇲🇶",c:"Fort-de-France",l:"French",cu:"EUR",p:"0.37M",t:"Mount Pelee volcano, rum, French Caribbean"},
-    GP:{n:"Guadeloupe",f:"🇬🇵",c:"Basse-Terre",l:"French",cu:"EUR",p:"0.38M",t:"Butterfly island, volcano, Creole culture"},
-    FM2:{n:"Federated States of Micronesia",f:"🇫🇲",c:"Palikir",l:"English",cu:"USD",p:"0.12M",t:"607 islands, Nan Madol ruins, diving"}
+    GP:{n:"Guadeloupe",f:"🇬🇵",c:"Basse-Terre",l:"French",cu:"EUR",p:"0.38M",t:"Butterfly island, volcano, Creole culture"}
   };
 
   /* ---- init jsVectorMap ---- */
@@ -243,11 +242,43 @@
   var visited = {};
   try { visited = JSON.parse(localStorage.getItem("nadia_visited") || "{}"); } catch(e) {}
 
-  /* ---- pinned countries (want to visit) ---- */
   var pinned = {};
   try { pinned = JSON.parse(localStorage.getItem("nadia_pinned") || "{}"); } catch(e) {}
 
-  var pins = {};  // DOM elements for pins
+  /* ---- lat/lon → SVG coords for islands not on map ---- */
+  /* World map projection: mill, centralMeridian 11.5, width 900, height ~441 */
+  function latLonToSvg(lat, lon) {
+    var cm = 11.5;
+    var dlon = lon - cm;
+    // Normalize to [-180, 180]
+    while (dlon > 180) dlon -= 360;
+    while (dlon < -180) dlon += 360;
+    var x = 450 + (dlon / 180) * 450;
+    // Miller projection
+    var y = 220.35 - (Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI / 360))) / Math.log(Math.tan(Math.PI / 4 + Math.PI / 4))) * 220.35;
+    return { x: x, y: y };
+  }
+
+  var ISLANDS = {
+    AD:{lat:42.5,lon:1.5}, AG:{lat:17.0,lon:-61.8}, AW:{lat:12.5,lon:-70.0},
+    BB:{lat:13.2,lon:-59.5}, BH:{lat:26.0,lon:50.6}, BM:{lat:32.3,lon:-64.8},
+    CK:{lat:-21.2,lon:-159.8}, CV:{lat:16.0,lon:-24.0}, CW:{lat:12.1,lon:-68.9},
+    DM:{lat:15.4,lon:-61.3}, FO:{lat:62.0,lon:-7.0}, GD:{lat:12.1,lon:-61.7},
+    GF:{lat:4.0,lon:-53.0}, GL:{lat:72.0,lon:-40.0}, GP:{lat:16.2,lon:-61.6},
+    HK:{lat:22.3,lon:114.2}, KI:{lat:1.4,lon:173.0}, KN:{lat:17.4,lon:-62.7},
+    KY:{lat:19.3,lon:-81.2}, LC:{lat:13.9,lon:-60.9}, LI:{lat:47.2,lon:9.6},
+    MC:{lat:43.7,lon:7.4}, MH:{lat:7.1,lon:171.2}, MQ:{lat:14.6,lon:-61.0},
+    MT:{lat:35.9,lon:14.4}, MU:{lat:-20.3,lon:57.5}, MV:{lat:3.2,lon:73.2},
+    NR:{lat:-0.5,lon:166.9}, NR2:{lat:-0.5,lon:166.9}, NC:{lat:-21.3,lon:165.5},
+    PW:{lat:7.5,lon:134.5}, RE:{lat:-21.1,lon:55.5}, SC:{lat:-4.7,lon:55.5},
+    SG:{lat:1.35,lon:103.8}, SM:{lat:43.9,lon:12.5}, ST:{lat:0.3,lon:6.7},
+    SX:{lat:18.0,lon:-63.1}, TO:{lat:-21.2,lon:-175.2}, TV:{lat:-7.5,lon:178.7},
+    VA:{lat:41.9,lon:12.4}, VC:{lat:13.2,lon:-61.2}, VG:{lat:18.4,lon:-64.6},
+    VI:{lat:18.3,lon:-64.9}, WS:{lat:-13.6,lon:-172.4}, XK:{lat:42.6,lon:20.9},
+    YT:{lat:-12.8,lon:45.2}
+  };
+
+  var pins = {};
   var mapSvg = null;
 
   function getMapSvg() {
@@ -256,11 +287,14 @@
   }
 
   function getRegionCenter(code) {
+    // For islands not on map, use latLon
+    if (ISLANDS[code]) {
+      return latLonToSvg(ISLANDS[code].lat, ISLANDS[code].lon);
+    }
     var svg = getMapSvg();
     if (!svg) return null;
-    var path = svg.querySelector('[data-code="' + code + '"]') || svg.querySelector('path[data-code="' + code.toLowerCase() + '"]');
+    var path = svg.querySelector('path[data-code="' + code + '"]') || svg.querySelector('path[data-code="' + code.toLowerCase() + '"]');
     if (!path) {
-      // Try lowercase
       var paths = svg.querySelectorAll("path");
       for (var i = 0; i < paths.length; i++) {
         if (paths[i].getAttribute("data-code") === code || paths[i].getAttribute("data-code") === code.toLowerCase()) {
@@ -277,7 +311,6 @@
     var svg = getMapSvg();
     if (!svg) return;
 
-    // Remove existing pins
     Object.keys(pins).forEach(function (code) {
       if (pins[code] && pins[code].parentNode) pins[code].remove();
     });
@@ -293,7 +326,6 @@
       g.setAttribute("data-pin-code", code);
       g.style.cursor = "pointer";
 
-      // Pin circle with emoji
       var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
       circle.setAttribute("cx", center.x);
       circle.setAttribute("cy", center.y);
@@ -303,7 +335,6 @@
       circle.setAttribute("stroke-width", "1.5");
       circle.style.filter = "drop-shadow(0 1px 3px rgba(0,0,0,0.3))";
 
-      // Pulse animation ring
       var pulse = document.createElementNS("http://www.w3.org/2000/svg", "circle");
       pulse.setAttribute("cx", center.x);
       pulse.setAttribute("cy", center.y);
@@ -312,9 +343,8 @@
       pulse.setAttribute("stroke", "#e87fa3");
       pulse.setAttribute("stroke-width", "2");
       pulse.setAttribute("opacity", "0.5");
-      pulse.style.animation = "pin-pulse 2s ease-out infinite";
+      pulse.setAttribute("class", "pin-pulse-ring");
 
-      // Flag emoji text
       var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
       text.setAttribute("x", center.x);
       text.setAttribute("y", center.y - 10);
@@ -327,7 +357,13 @@
       g.appendChild(circle);
       g.appendChild(text);
 
-      // Double click to remove
+      // Click pin = open modal
+      g.addEventListener("click", function (e) {
+        e.stopPropagation();
+        if (FACTS[code]) showCountry(FACTS[code], code);
+        else showUnknown(code);
+      });
+      // Double-click = remove pin
       g.addEventListener("dblclick", function (e) {
         e.stopPropagation();
         delete pinned[code];
@@ -345,6 +381,46 @@
     var count = Object.keys(pinned).length;
     var el = $("#pinnedCount");
     if (el) el.textContent = count + " pinned 📍";
+  }
+
+  /* ---- render island markers (dots for small countries) ---- */
+  function renderIslandMarkers() {
+    var svg = getMapSvg();
+    if (!svg) return;
+    Object.keys(ISLANDS).forEach(function (code) {
+      var coords = latLonToSvg(ISLANDS[code].lat, ISLANDS[code].lon);
+      var data = FACTS[code];
+      if (!data) return;
+
+      var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      g.setAttribute("class", "island-marker");
+      g.style.cursor = "pointer";
+
+      var dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      dot.setAttribute("cx", coords.x);
+      dot.setAttribute("cy", coords.y);
+      dot.setAttribute("r", "3.5");
+      dot.setAttribute("fill", "#c4a3b5");
+      dot.setAttribute("stroke", "#fff");
+      dot.setAttribute("stroke-width", "0.8");
+      dot.setAttribute("opacity", "0.8");
+
+      g.appendChild(dot);
+      g.addEventListener("click", function (e) {
+        e.stopPropagation();
+        showCountry(data, code);
+      });
+      g.addEventListener("mouseenter", function () {
+        dot.setAttribute("r", "5");
+        dot.setAttribute("fill", "#e87fa3");
+      });
+      g.addEventListener("mouseleave", function () {
+        dot.setAttribute("r", "3.5");
+        dot.setAttribute("fill", "#c4a3b5");
+      });
+
+      svg.appendChild(g);
+    });
   }
 
   new window.jsVectorMap({
@@ -373,21 +449,8 @@
     onRegionClick: function (event, code) {
       code = code.toUpperCase();
       var data = FACTS[code];
-      // Toggle pin
-      if (pinned[code]) {
-        delete pinned[code];
-      } else {
-        pinned[code] = true;
-      }
-      try { localStorage.setItem("nadia_pinned", JSON.stringify(pinned)); } catch(e2) {}
-      renderPins();
-      updatePinCount();
-
-      if (data) {
-        showCountry(data, code);
-      } else {
-        showUnknown(code);
-      }
+      if (data) showCountry(data, code);
+      else showUnknown(code);
     },
     onRegionTooltip: function (event, tooltip, code) {
       var data = FACTS[code.toUpperCase()];
@@ -396,8 +459,11 @@
       tooltip.html(name + pin);
     },
     onLoaded: function () {
-      setTimeout(renderPins, 300);
-      updatePinCount();
+      setTimeout(function () {
+        renderIslandMarkers();
+        renderPins();
+        updatePinCount();
+      }, 300);
     }
   });
 
@@ -420,11 +486,26 @@
       '<p class="country-modal-fact">' + data.t + '</p>' +
       '<div class="country-modal-actions">' +
         '<a href="' + TG_BOT + '" target="_blank" rel="noopener" class="country-modal-btn primary">✈️ Plan Trip</a>' +
+        '<button class="country-modal-btn secondary" id="pinToggleBtn" type="button">' + (isPinned ? "📍 Unpin" : "📌 Pin") + '</button>' +
         '<button class="country-modal-btn secondary" id="visitedToggle" type="button">' + isVisited + '</button>' +
-        (isPinned ? '<button class="country-modal-btn secondary" id="pinRemoveBtn" type="button">📍 Unpin</button>' : '') +
-      '</div>' +
-      '<p class="country-modal-hint">📍 click any country to pin/unpin · double-click pin to remove</p>';
+      '</div>';
     modalBg.classList.add("show");
+
+    var ptBtn = $("#pinToggleBtn");
+    if (ptBtn) {
+      ptBtn.addEventListener("click", function () {
+        if (pinned[code]) {
+          delete pinned[code];
+          ptBtn.textContent = "📌 Pin";
+        } else {
+          pinned[code] = true;
+          ptBtn.textContent = "📍 Unpin";
+        }
+        try { localStorage.setItem("nadia_pinned", JSON.stringify(pinned)); } catch(e2) {}
+        renderPins();
+        updatePinCount();
+      });
+    }
 
     var vtBtn = $("#visitedToggle");
     if (vtBtn) {
@@ -438,17 +519,6 @@
         }
         try { localStorage.setItem("nadia_visited", JSON.stringify(visited)); } catch(e) {}
         updateVisitedCount();
-      });
-    }
-
-    var pinBtn = $("#pinRemoveBtn");
-    if (pinBtn) {
-      pinBtn.addEventListener("click", function () {
-        delete pinned[code];
-        try { localStorage.setItem("nadia_pinned", JSON.stringify(pinned)); } catch(e2) {}
-        renderPins();
-        updatePinCount();
-        modalBg.classList.remove("show");
       });
     }
   }
@@ -474,4 +544,44 @@
     if (el) el.textContent = count + " / " + total + " explored";
   }
   updateVisitedCount();
+
+  /* ---- search ---- */
+  var searchInput = $("#travelSearch");
+  if (searchInput) {
+    var resultsEl = $("#travelSearchResults");
+    searchInput.addEventListener("input", function () {
+      var q = searchInput.value.toLowerCase().trim();
+      if (!q) {
+        if (resultsEl) resultsEl.innerHTML = "";
+        resultsEl.style.display = "none";
+        return;
+      }
+      var matches = [];
+      Object.keys(FACTS).forEach(function (code) {
+        var d = FACTS[code];
+        if (d.n.toLowerCase().indexOf(q) !== -1 || d.c.toLowerCase().indexOf(q) !== -1) {
+          matches.push({ code: code, data: d });
+        }
+      });
+      if (resultsEl) {
+        if (matches.length === 0) {
+          resultsEl.innerHTML = '<div class="search-result-item">No countries found</div>';
+        } else {
+          resultsEl.innerHTML = matches.slice(0, 12).map(function (m) {
+            return '<button class="search-result-item" data-code="' + m.code + '">' + m.data.f + ' ' + m.data.n + '</button>';
+          }).join("");
+        }
+        resultsEl.style.display = "block";
+        // Wire clicks
+        resultsEl.querySelectorAll(".search-result-item[data-code]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var c = btn.getAttribute("data-code");
+            if (FACTS[c]) showCountry(FACTS[c], c);
+            resultsEl.style.display = "none";
+            searchInput.value = "";
+          });
+        });
+      }
+    });
+  }
 })();
