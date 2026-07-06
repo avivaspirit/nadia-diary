@@ -752,10 +752,11 @@
     });
   }
 
-  /* Build gallery photo list from site-data.js */
+  /* Build gallery photo list from NADIA_DATA */
   function getGalleryPhotos() {
-    if (typeof window.siteData !== "undefined" && window.siteData.gallery) {
-      return window.siteData.gallery.photos.map(function (p) { return p.src; });
+    var data = window.NADIA_DATA || window.siteData;
+    if (data && data.gallery && data.gallery.photos) {
+      return data.gallery.photos.map(function (p) { return p.src; });
     }
     return [];
   }
