@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/css/diary.css?v=20260706o" />
+    <link rel="stylesheet" href="./assets/css/diary.css?v=20260706w" />
     <link rel="stylesheet" href="./assets/css/movies.css?v=20260704h" />
   </head>
   <body class="page-movies">
@@ -94,6 +94,20 @@
       </div>
     </main>
 
+    <!-- Movie Chat floating button + panel -->
+    <button id="movieChatToggle" class="chat-toggle" type="button" aria-label="Open movie chat">🎬</button>
+    <div id="movieChatBox" class="chat-box">
+      <div class="chat-header">
+        <span>🎬 Movie Buddy</span>
+        <button id="movieChatClose" class="chat-close" type="button">✕</button>
+      </div>
+      <div id="movieChatMessages" class="chat-messages"></div>
+      <div class="chat-input-row">
+        <input id="movieChatInput" type="text" class="chat-input" placeholder="ask for a movie recommendation..." autocomplete="off" />
+        <button id="movieChatSend" class="chat-send" type="button">→</button>
+      </div>
+    </div>
+
     <footer class="site-footer">
       <p>♡ ⋆ ♡</p>
       <p id="footerText">Made for cozy nights, many movies, and one very loved girl.</p>
@@ -102,5 +116,6 @@
     <script src="./content/site-data.js?v=20260706k"></script>
     <script src="./assets/js/magic.js?v=20260706s"></script>
     <script src="./assets/js/movies.js?v=20260704h"></script>
+    <script src="./assets/js/movie-chat.js?v=20260706w"></script>
   </body>
 </html>

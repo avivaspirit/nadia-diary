@@ -533,6 +533,9 @@
   var chatInput = $("#chatInput");
   var chatSend = $("#chatSend");
 
+  /* Conversation history for AI context */
+  var chatHistory = [];
+
   function addChatMsg(text, who) {
     var msg = document.createElement("div");
     msg.className = "chat-msg " + (who === "user" ? "chat-user" : "chat-bot");
@@ -541,40 +544,50 @@
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 
-  function chatReply(input) {
+  function addChatTyping() {
+    var msg = document.createElement("div");
+    msg.className = "chat-msg chat-bot chat-typing";
+    msg.textContent = "typing...";
+    msg.id = "chatTyping";
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function removeChatTyping() {
+    var el = document.getElementById("chatTyping");
+    if (el) el.remove();
+  }
+
+  /* Local keyword handler for quick swap/style actions */
+  function tryLocalCommand(input) {
     var q = input.toLowerCase();
-    var reply = "";
     var matched = [];
-
-    // Check for style keywords
     var styleKeywords = {
-      sweet: ["sweet", "cute", "หวาน", "น่ารัก", "pink", "pastel", "floral"],
-      spicy: ["spicy", "hot", "แซ่บ", "sexy", "bold", "red", "fierce"],
-      sporty: ["sport", "athletic", "สปอร์ต", "gym", "active", "comfy", "sneaker"],
-      vintage: ["vintage", "retro", "วินเทจ", "classic", "old"],
-      glam: ["glam", "hiso", "รวย", "luxury", "elegant", "fancy", "expensive"],
-      princess: ["princess", "disney", "เจ้าหญิง", "fairytale", "ball gown", "tiara"],
-      cozy: ["cozy", "warm", "อบอุ่น", "comfy", "lazy", "sweater", "knit"],
-      y2k: ["y2k", "2000", "butterfly", "retro 2000", "low rise"],
-      street: ["street", "urban", "สตรีท", "cool", "skater", "baggy"]
+      sweet: ["sweet", "cute", "pink", "pastel", "floral"],
+      spicy: ["spicy", "hot", "sexy", "bold", "fierce"],
+      sporty: ["sport", "athletic", "gym", "active", "sneaker"],
+      vintage: ["vintage", "retro", "classic"],
+      glam: ["glam", "hiso", "luxury", "elegant", "fancy"],
+      princess: ["princess", "disney", "fairytale", "tiara"],
+      cozy: ["cozy", "warm", "lazy", "sweater", "knit"],
+      y2k: ["y2k", "2000", "butterfly"],
+      street: ["street", "urban", "skater", "baggy"]
     };
-
     Object.keys(styleKeywords).forEach(function (style) {
       styleKeywords[style].forEach(function (kw) {
         if (q.indexOf(kw) !== -1) matched.push(style);
       });
     });
 
-    // Check for category swaps
+    // Swap commands stay local
     var swapKeywords = {
-      shoes: ["shoes", "รองเท้า", "sneaker", "heels", "boots", "flats"],
-      top: ["top", "เสื้อ", "dress", "ชุด", "shirt", "tee"],
-      hair: ["hair", "ผม", "ทรงผม", "hairstyle"],
-      accessories: ["accessories", "เครื่องประดับ", "bag", "กระเป๋า", "hat", "หมวก", "jewelry"],
-      makeup: ["makeup", "เมคอัพ", "ลิป", "lipstick", "cosmetics"],
-      bottom: ["bottom", "กางเกง", "pants", "skirt", "ขายาว"]
+      shoes: ["shoes", "sneaker", "heels", "boots", "flats"],
+      top: ["top", "dress", "shirt", "tee"],
+      hair: ["hair", "hairstyle"],
+      accessories: ["accessories", "bag", "hat", "jewelry"],
+      makeup: ["makeup", "lipstick", "lip"],
+      bottom: ["bottom", "pants", "skirt", "jeans"]
     };
-
     var swapCat = null;
     Object.keys(swapKeywords).forEach(function (cat) {
       swapKeywords[cat].forEach(function (kw) {
@@ -582,43 +595,64 @@
       });
     });
 
-    if (q.indexOf("swap") !== -1 || q.indexOf("change") !== -1 || q.indexOf("เปลี่ยน") !== -1 || q.indexOf("หนึ่ง") !== -1) {
-      if (swapCat) {
-        swapItem(swapCat);
-        reply = "Swapped " + swapCat + " ใหม่ให้แล้วค่ะ! 🔄 ดูด้านบนนะ — ลองอันอื่นเพิ่มเติมได้น้า ♡";
-      } else {
-        reply = "อยากเปลี่ยนอะไรเป็นพิเศษไหม? บอกได้เลย เช่น 'เปลี่ยนรองเท้า' หรือ 'swap hair' 🔄";
-      }
-    } else if (q.indexOf("help") !== -1 || q.indexOf("ช่วย") !== -1 || q === "") {
-      reply = "บอกได้เลยว่าอยากได้สไตล์อะไร — เช่น 'sweet', 'glam', 'sporty', 'vintage' หรือบอกว่าไม่ชอบชิ้นไหน เดี๋ยวสลับให้! 🔄";
-    } else if (matched.length > 0) {
+    if ((q.indexOf("swap") !== -1 || q.indexOf("change") !== -1) && swapCat) {
+      swapItem(swapCat);
+      return "Swapped " + swapCat + " for you! 🔄 Check the outfit above ♡";
+    }
+    if (q.indexOf("surprise") !== -1 || q.indexOf("random") !== -1) {
+      showOutfit(null);
+      return "Randomized a new look! 🎲✨";
+    }
+    if (matched.length > 0 && q.split(" ").length <= 3) {
       var mood = matched[0];
       selectedMood = mood;
-      moodPills.forEach(function (p) {
-        p.classList.toggle("active", p.dataset.mood === mood);
-      });
+      moodPills.forEach(function (p) { p.classList.toggle("active", p.dataset.mood === mood); });
       showOutfit(mood);
       var styleObj = styles.filter(function (s) { return s.id === mood; })[0];
-      reply = styleObj.emoji + " " + styleObj.tag + " — " + styleObj.tagline + " ลองดูแล้วกด 🔄 ถ้าอยากเปลี่ยนชิ้นไหนนะ ♡";
-    } else if (q.indexOf("random") !== -1 || q.indexOf("surprise") !== -1 || q.indexOf("สุ่ม") !== -1 || q.indexOf("เซอร์ไพรส์") !== -1) {
-      showOutfit(null);
-      reply = "สุ่มลุคใหม่ให้แล้วค่ะ! 🎲✨";
-    } else {
-      reply = "ลองบอกสไตล์ที่ชอบดูสิ — เช่น 'sweet', 'spicy', 'glam', 'street' หรือบอกว่าอยากเปลี่ยนชิ้นไหน 🔄";
+      return styleObj.emoji + " " + styleObj.tag + " — " + styleObj.tagline + " ♡";
     }
-
-    return reply;
+    return null; // fall through to AI
   }
 
-  function sendChat() {
+  async function sendChat() {
     var text = chatInput.value.trim();
     if (!text) return;
     addChatMsg(text, "user");
     chatInput.value = "";
-    setTimeout(function () {
-      var reply = chatReply(text);
-      addChatMsg(reply, "bot");
-    }, 400);
+
+    // Try local commands first (instant)
+    var localReply = tryLocalCommand(text);
+    if (localReply) {
+      setTimeout(function () { addChatMsg(localReply, "bot"); }, 300);
+      return;
+    }
+
+    // Send to AI API
+    addChatTyping();
+    chatHistory.push({ role: "user", content: text });
+
+    try {
+      var resp = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: chatHistory.slice(-8),
+          context: "fashion"
+        })
+      });
+      var data = await resp.json();
+      removeChatTyping();
+
+      if (data.reply) {
+        addChatMsg(data.reply, "bot");
+        chatHistory.push({ role: "assistant", content: data.reply });
+      } else {
+        addChatMsg("Sorry, I couldn't reach the stylist. Try again? 🎀", "bot");
+      }
+    } catch (err) {
+      removeChatTyping();
+      addChatMsg("Connection issue... try again? 🎀", "bot");
+    }
   }
 
   chatSend.addEventListener("click", sendChat);
