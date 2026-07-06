@@ -620,7 +620,7 @@
   /* ----------------------------------------------- hero ribbon entrance */
   function initHeroEntrance() {
     if (reducedMotion) return;
-    const hero = $("main .hero-section h1, main section:first-of-type h1");
+    const hero = $("main .hero h1, main .hero-copy h1, main section h1, main > div:first-child h1");
     if (!hero) return;
     hero.style.opacity = "0";
     hero.style.transform = "translateY(30px) scaleX(0.85)";
@@ -631,7 +631,7 @@
         hero.style.transition = "opacity 0.9s cubic-bezier(.22,1,.36,1), transform 0.9s cubic-bezier(.22,1,.36,1)";
         hero.style.opacity = "1";
         hero.style.transform = "translateY(0) scaleX(1)";
-      }, 600); // after passcode unlocked + confetti
+      }, 600);
     });
   }
 
@@ -663,6 +663,9 @@
     $, $$, el, escapeHtml,
     stagger,
     initReveals,
+    init3DTilt,
+    initMagneticPills,
+    initHeroEntrance,
     lightbox,
     burstConfetti,
     reducedMotion
@@ -718,9 +721,6 @@
     initSparkles();
     initCardGlow();
     initCursorTrail();
-    init3DTilt();
-    initMagneticPills();
-    initHeroEntrance();
     initWishBubbles();
     initParallax();
     initMusic();

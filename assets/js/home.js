@@ -162,4 +162,7 @@
   stagger(cards, 0.12, 0.4);
 
   initReveals();
+  if (window.DiaryMagic.init3DTilt) window.DiaryMagic.init3DTilt();
+  if (window.DiaryMagic.initMagneticPills) window.DiaryMagic.initMagneticPills();
+  if (window.DiaryMagic.initHeroEntrance) window.DiaryMagic.initHeroEntrance();
 })();
