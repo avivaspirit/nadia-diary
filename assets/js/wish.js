@@ -83,16 +83,16 @@
   /* ---- auto shooting star cycle ---- */
   var starTimer = null;
   function scheduleNextStar() {
-    var delay = isMobile() ? rand(8000, 15000) : rand(5000, 11000);
+    var delay = isMobile() ? rand(5000, 10000) : rand(3000, 7000);
     starTimer = setTimeout(function () {
       spawnShootingStar(false);
       starAvailable = true;
       updateButtonState();
-      // star is "catchable" for 4 seconds
+      // star is "catchable" for 8 seconds
       setTimeout(function () {
         starAvailable = false;
         updateButtonState();
-      }, 4000);
+      }, 8000);
       scheduleNextStar();
     }, delay);
   }
@@ -414,7 +414,7 @@
   renderWishWall();
   scheduleNextStar();
 
-  // First shooting star comes sooner (3s) for instant gratification
+  // First shooting star comes fast (1.5s) for instant gratification
   setTimeout(function () {
     spawnShootingStar(false);
     starAvailable = true;
@@ -422,9 +422,9 @@
     setTimeout(function () {
       starAvailable = false;
       updateButtonState();
-    }, 5000);
+    }, 8000);
     scheduleNextStar();
-  }, 3000);
+  }, 1500);
 
   // Re-init stars on resize
   window.addEventListener("resize", function () {
