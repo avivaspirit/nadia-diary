@@ -240,16 +240,18 @@
     wishStars = wishes.map(function (w, i) {
       return {
         x: rand(W * 0.1, W * 0.9),
-        y: rand(H * 0.1, H * 0.6),
-        vx: rand(0.15, 0.4) * dpr * (Math.random() > 0.5 ? 1 : -1),
-        vy: rand(-0.08, 0.08) * dpr,
-        r: rand(2.5, 4) * dpr,
+        y: rand(H * 0.08, H * 0.55),
+        vx: rand(0.2, 0.5) * dpr * (Math.random() > 0.5 ? 1 : -1),
+        vy: rand(-0.05, 0.05) * dpr,
+        r: rand(3.5, 5.5) * dpr,
         hue: wishHues[i % wishHues.length],
         text: w.text,
         twinklePhase: Math.random() * Math.PI * 2,
-        twinkleSpeed: rand(0.3, 0.8)
+        twinkleSpeed: rand(0.4, 1.0),
+        born: time
       };
     });
+    wishCountNum.textContent = wishes.length;
   }
 
   function renderWishWall() {
@@ -370,15 +372,36 @@
       ctx.fillStyle = "hsla(" + wStar.hue + ", 60%, 80%, " + (wAlpha * 0.08) + ")";
       ctx.fill();
 
-      // Wish text floating next to star (subtle)
+      // Wish text floating next to star — bright and readable
       ctx.save();
-      ctx.font = "500 " + (10 * dpr) + "px Quicksand, sans-serif";
+      ctx.font = "600 " + (12 * dpr) + "px Quicksand, sans-serif";
       ctx.textAlign = "left";
       ctx.textBaseline = "middle";
-      ctx.shadowColor = "rgba(5, 2, 20, 0.9)";
-      ctx.shadowBlur = 4;
-      ctx.fillStyle = "hsla(" + wStar.hue + ", 40%, 92%, " + (wAlpha * 0.6) + ")";
-      ctx.fillText(wStar.text.slice(0, 40), wStar.x + wStar.r + 8 * dpr, wStar.y);
+
+      // Wrap text if long
+      var wishText = wStar.text.slice(0, 45);
+      var maxWishChars = 22;
+      var wishLines = [];
+      var wishWords = wishText.split(" ");
+      var wishLine = "";
+      for (var wwi = 0; wwi < wishWords.length; wwi++) {
+        if ((wishLine + wishWords[wwi]).length > maxWishChars) {
+          if (wishLine) wishLines.push(wishLine.trim());
+          wishLine = wishWords[wwi] + " ";
+        } else {
+          wishLine += wishWords[wwi] + " ";
+        }
+      }
+      if (wishLine) wishLines.push(wishLine.trim());
+      if (wishLines.length > 2) wishLines = wishLines.slice(0, 2);
+
+      var wishTextY = wStar.y - (wishLines.length - 1) * 7 * dpr;
+      for (var wli = 0; wli < wishLines.length; wli++) {
+        ctx.shadowColor = "rgba(5, 2, 20, 1)";
+        ctx.shadowBlur = 6;
+        ctx.fillStyle = "hsla(" + wStar.hue + ", 50%, 95%, " + (wAlpha * 0.85) + ")";
+        ctx.fillText(wishLines[wli], wStar.x + wStar.r + 10 * dpr, wishTextY + wli * 14 * dpr);
+      }
       ctx.restore();
     }
     ctx.shadowBlur = 0;
