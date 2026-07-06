@@ -673,6 +673,7 @@
     init3DTilt,
     initMagneticPills,
     initHeroEntrance,
+    applyOverrides,
     lightbox,
     burstConfetti,
     reducedMotion
@@ -720,6 +721,127 @@
     });
   }
 
+  /* ===================================================================
+     PHOTO EDITOR — swap any image from gallery
+     =================================================================== */
+
+  var PHOTOS_KEY = "nadia_photo_overrides";
+  var EDIT_MODE = false;
+
+  function getOverrides() {
+    try { return JSON.parse(localStorage.getItem(PHOTOS_KEY) || "{}"); }
+    catch (e) { return {}; }
+  }
+
+  function saveOverride(originalSrc, newSrc) {
+    var overrides = getOverrides();
+    overrides[originalSrc] = newSrc;
+    try { localStorage.setItem(PHOTOS_KEY, JSON.stringify(overrides)); } catch (e) {}
+  }
+
+  function applyOverrides() {
+    var overrides = getOverrides();
+    var keys = Object.keys(overrides);
+    if (!keys.length) return;
+    $$("img").forEach(function (img) {
+      var src = img.getAttribute("src");
+      if (src && overrides[src]) {
+        img.setAttribute("src", overrides[src]);
+        img.setAttribute("data-original-src", src);
+      }
+    });
+  }
+
+  /* Build gallery photo list from site-data.js */
+  function getGalleryPhotos() {
+    if (typeof window.siteData !== "undefined" && window.siteData.gallery) {
+      return window.siteData.gallery.photos.map(function (p) { return p.src; });
+    }
+    return [];
+  }
+
+  function initPhotoEditor() {
+    /* Skip on gallery page itself */
+    if (document.body.classList.contains("page-gallery")) return;
+
+    /* Wait for page to render dynamic images */
+    setTimeout(function () { applyOverrides(); }, 800);
+
+    /* Create floating edit toggle button */
+    var editBtn = el("button", "photo-edit-toggle");
+    editBtn.setAttribute("type", "button");
+    editBtn.setAttribute("aria-label", "Toggle photo edit mode");
+    editBtn.textContent = "📸";
+    editBtn.title = "Edit Photos";
+    document.body.appendChild(editBtn);
+
+    /* Create picker overlay */
+    var picker = el("div", "photo-picker-overlay");
+    picker.innerHTML =
+      '<div class="photo-picker-panel">' +
+        '<div class="photo-picker-header">' +
+          '<span>🎀 Pick a Photo</span>' +
+          '<button class="photo-picker-close" type="button">✕</button>' +
+        '</div>' +
+        '<div class="photo-picker-grid" id="photoPickerGrid"></div>' +
+        '<p class="photo-picker-hint">tap a photo to replace the current one</p>' +
+      '</div>';
+    document.body.appendChild(picker);
+
+    var pickerGrid = picker.querySelector("#photoPickerGrid");
+    var pickerClose = picker.querySelector(".photo-picker-close");
+
+    var currentTargetImg = null;
+
+    /* Populate grid */
+    var photos = getGalleryPhotos();
+    photos.forEach(function (src) {
+      var thumb = el("button", "photo-picker-thumb");
+      thumb.setAttribute("type", "button");
+      thumb.style.backgroundImage = "url('" + src + "')";
+      thumb.addEventListener("click", function () {
+        if (currentTargetImg) {
+          var origSrc = currentTargetImg.getAttribute("data-original-src") || currentTargetImg.getAttribute("src");
+          saveOverride(origSrc, src);
+          currentTargetImg.setAttribute("src", src);
+          currentTargetImg.setAttribute("data-original-src", origSrc);
+        }
+        picker.classList.remove("show");
+      });
+      pickerGrid.appendChild(thumb);
+    });
+
+    /* Close picker */
+    pickerClose.addEventListener("click", function () {
+      picker.classList.remove("show");
+    });
+    picker.addEventListener("click", function (e) {
+      if (e.target === picker) picker.classList.remove("show");
+    });
+
+    /* Toggle edit mode */
+    editBtn.addEventListener("click", function () {
+      EDIT_MODE = !EDIT_MODE;
+      editBtn.classList.toggle("active", EDIT_MODE);
+      document.body.classList.toggle("photo-edit-mode", EDIT_MODE);
+    });
+
+    /* Click on images in edit mode → open picker */
+    document.addEventListener("click", function (e) {
+      if (!EDIT_MODE) return;
+      if (e.target.closest(".photo-picker-overlay")) return;
+      if (e.target.closest(".photo-edit-toggle")) return;
+
+      var img = e.target.closest("img");
+      if (!img) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+      currentTargetImg = img;
+      picker.classList.add("show");
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     initNavToggle();
     initPasscode();
@@ -735,6 +857,7 @@
     initParallax();
     initMusic();
     initBalloons();
+    initPhotoEditor();
     // initReveals is called by each page AFTER it renders dynamic content
   });
 })();
