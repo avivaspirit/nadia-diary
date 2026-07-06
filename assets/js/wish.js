@@ -222,11 +222,34 @@
     });
     localStorage.setItem(STORAGE_KEY, JSON.stringify(wishes));
     renderWishWall();
+    syncWishStars();
   }
   function deleteWish(id) {
     var wishes = getWishes().filter(function (w) { return w.id !== id; });
     localStorage.setItem(STORAGE_KEY, JSON.stringify(wishes));
     renderWishWall();
+    syncWishStars();
+  }
+
+  /* ---- floating wish stars on canvas ---- */
+  var wishStars = [];
+  var wishHues = [45, 50, 320, 280, 210, 180, 340];
+
+  function syncWishStars() {
+    var wishes = getWishes();
+    wishStars = wishes.map(function (w, i) {
+      return {
+        x: rand(W * 0.1, W * 0.9),
+        y: rand(H * 0.1, H * 0.6),
+        vx: rand(0.15, 0.4) * dpr * (Math.random() > 0.5 ? 1 : -1),
+        vy: rand(-0.08, 0.08) * dpr,
+        r: rand(2.5, 4) * dpr,
+        hue: wishHues[i % wishHues.length],
+        text: w.text,
+        twinklePhase: Math.random() * Math.PI * 2,
+        twinkleSpeed: rand(0.3, 0.8)
+      };
+    });
   }
 
   function renderWishWall() {
@@ -311,6 +334,52 @@
       }
       ctx.fillStyle = "hsla(" + s.hue + ", 30%, 95%, " + alpha + ")";
       ctx.fill();
+    }
+    ctx.shadowBlur = 0;
+
+    // ---- Draw floating wish stars (past wishes as glowing stars) ----
+    for (var ws = 0; ws < wishStars.length; ws++) {
+      var wStar = wishStars[ws];
+
+      // Float movement
+      wStar.x += wStar.vx;
+      wStar.y += wStar.vy;
+
+      // Wrap around screen
+      if (wStar.x < -100 * dpr) wStar.x = W + 80 * dpr;
+      if (wStar.x > W + 100 * dpr) wStar.x = -80 * dpr;
+      if (wStar.y < 0) wStar.y = H * 0.65;
+      if (wStar.y > H * 0.65) wStar.y = 0;
+
+      // Twinkle
+      var wTwinkle = Math.sin(time * wStar.twinkleSpeed + wStar.twinklePhase);
+      var wAlpha = 0.7 + wTwinkle * 0.3;
+
+      // Glow
+      ctx.beginPath();
+      ctx.arc(wStar.x, wStar.y, wStar.r, 0, Math.PI * 2);
+      ctx.shadowColor = "hsl(" + wStar.hue + ", 90%, 70%)";
+      ctx.shadowBlur = 20;
+      ctx.fillStyle = "hsla(" + wStar.hue + ", 60%, 90%, " + wAlpha + ")";
+      ctx.fill();
+
+      // Outer halo
+      ctx.beginPath();
+      ctx.arc(wStar.x, wStar.y, wStar.r * 2.5, 0, Math.PI * 2);
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = "hsla(" + wStar.hue + ", 60%, 80%, " + (wAlpha * 0.08) + ")";
+      ctx.fill();
+
+      // Wish text floating next to star (subtle)
+      ctx.save();
+      ctx.font = "500 " + (10 * dpr) + "px Quicksand, sans-serif";
+      ctx.textAlign = "left";
+      ctx.textBaseline = "middle";
+      ctx.shadowColor = "rgba(5, 2, 20, 0.9)";
+      ctx.shadowBlur = 4;
+      ctx.fillStyle = "hsla(" + wStar.hue + ", 40%, 92%, " + (wAlpha * 0.6) + ")";
+      ctx.fillText(wStar.text.slice(0, 40), wStar.x + wStar.r + 8 * dpr, wStar.y);
+      ctx.restore();
     }
     ctx.shadowBlur = 0;
 
@@ -412,6 +481,7 @@
 
   /* ---- init ---- */
   renderWishWall();
+  syncWishStars();
   scheduleNextStar();
 
   // First shooting star comes fast (1.5s) for instant gratification
