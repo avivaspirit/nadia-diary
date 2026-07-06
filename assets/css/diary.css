@@ -5913,8 +5913,17 @@ body.page-leaving {
 /* ---- Page background overrides ---- */
 body.page-wish {
   background: #0a0a2e !important;
-  background-image: none !important;
+  background-image: linear-gradient(180deg, #0a0a2e 0%, #12124a 40%, #1a1040 80%, #0d0d2e 100%) !important;
+  background-attachment: fixed !important;
   overflow-x: hidden;
+}
+/* Kill paper grain on wish page — uniform night sky */
+body.page-wish::before {
+  display: none !important;
+}
+/* Kill sparkle canvas on wish page — star canvas is the real bg */
+body.page-wish #sparkleCanvas {
+  display: none !important;
 }
 
 /* ---- Wish page layout ---- */

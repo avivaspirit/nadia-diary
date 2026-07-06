@@ -289,14 +289,8 @@
   function animate() {
     time += 0.016;
 
-    // Clear with dark gradient
-    var grad = ctx.createLinearGradient(0, 0, 0, H);
-    grad.addColorStop(0, "#0a0a2e");
-    grad.addColorStop(0.4, "#12124a");
-    grad.addColorStop(0.8, "#1a1040");
-    grad.addColorStop(1, "#0d0d2e");
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, W, H);
+    // Clear transparent — body gradient shows through (uniform bg, no seams)
+    ctx.clearRect(0, 0, W, H);
 
     // Draw stars
     for (var i = 0; i < stars.length; i++) {
