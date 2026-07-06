@@ -147,20 +147,46 @@
     starAvailable = false;
     updateButtonState();
 
-    // Create a big dramatic shooting star
-    var ceremonialStar = {
-      x: W * 0.1,
-      y: H * 0.15,
-      vx: Math.cos(0.3) * 18 * (window.devicePixelRatio || 1),
-      vy: Math.sin(0.3) * 18 * (window.devicePixelRatio || 1),
-      life: 1,
-      decay: 0.005,
-      trail: [],
-      maxTrail: 40,
-      isManual: true,
-      ceremonial: true
-    };
-    shootingStars.push(ceremonialStar);
+    var dpr = window.devicePixelRatio || 1;
+
+    // --- METEOR SHOWER: multiple smaller stars first ---
+    for (var ms = 0; ms < 8; ms++) {
+      (function (idx) {
+        setTimeout(function () {
+          var angle = rand(Math.PI * 0.15, Math.PI * 0.4);
+          shootingStars.push({
+            x: rand(W * 0.05, W * 0.7),
+            y: rand(0, H * 0.25),
+            vx: Math.cos(angle) * rand(10, 16) * dpr,
+            vy: Math.sin(angle) * rand(10, 16) * dpr,
+            life: 1,
+            decay: 0.012,
+            trail: [],
+            maxTrail: 20,
+            isManual: true,
+            ceremonial: false
+          });
+        }, idx * 180);
+      })(ms);
+    }
+
+    // --- MAIN ceremonial star carries the wish text ---
+    setTimeout(function () {
+      var ceremonialStar = {
+        x: W * 0.05,
+        y: H * 0.12,
+        vx: Math.cos(0.28) * 12 * dpr,
+        vy: Math.sin(0.28) * 12 * dpr,
+        life: 1,
+        decay: 0.004, // slow — stays longer so text is readable
+        trail: [],
+        maxTrail: 50,
+        isManual: true,
+        ceremonial: true,
+        wishText: text // ← wish text carried by this star
+      };
+      shootingStars.push(ceremonialStar);
+    }, 600);
 
     // Save wish
     saveWish(text);
@@ -173,7 +199,7 @@
     setTimeout(function () {
       wishPopupText.textContent = "“" + text + "”";
       wishPopup.classList.add("show");
-    }, 1200);
+    }, 3000);
   });
 
   wishPopupClose.addEventListener("click", function () {
@@ -259,6 +285,7 @@
 
   /* ---- animation loop ---- */
   var time = 0;
+  var dpr = window.devicePixelRatio || 1;
   function animate() {
     time += 0.016;
 
@@ -329,6 +356,26 @@
         ctx.fillStyle = "rgba(255, 250, 230, " + ss.life + ")";
         ctx.fill();
         ctx.shadowBlur = 0;
+
+        // --- Draw wish text following the ceremonial star ---
+        if (ss.ceremonial && ss.wishText && ss.life > 0.15) {
+          ctx.save();
+          ctx.font = "600 " + (13 * dpr) + "px Quicksand, sans-serif";
+          ctx.textAlign = "left";
+          ctx.textBaseline = "middle";
+
+          // Position text to the left of trail, slightly above
+          var textX = ss.x + 14 * dpr;
+          var textY = ss.y - 14 * dpr;
+
+          // Dark glow background behind text for readability
+          ctx.shadowColor = "rgba(10, 5, 30, 1)";
+          ctx.shadowBlur = 8;
+          ctx.fillStyle = "rgba(255, 255, 240, " + Math.min(ss.life * 1.2, 1) + ")";
+          ctx.fillText(ss.wishText, textX, textY);
+
+          ctx.restore();
+        }
       }
 
       // Remove if off-screen or dead
