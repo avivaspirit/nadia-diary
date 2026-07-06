@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Travel Around the World 🌍 | Nadia's Diary 🎀</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Caveat:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/diary.css?v=20260706x" />
+  </head>
+  <body class="page-travel">
+    <header class="site-header">
+      <a class="brand" href="./index.html" id="siteTitle">Nadia's Diary 🎀</a>
+      <nav aria-label="Main navigation">
+        <a href="./index.html">Dianeyy 🐰</a>
+        <a href="./collection.html">Nadia's Dolls 🧸</a>
+        <a href="./birthday.html">Happy Birthday 🎂</a>
+        <a href="./story.html">Our Story 💑</a>
+        <a href="./gallery.html">Gallery 📸</a>
+        <a href="./garden.html">Garden 🌿</a>
+        <a href="./games.html">Play & Movies 🎮</a>
+        <a href="./wish.html">Wish 🌠</a>
+        <a href="./closet.html">Closet 👗</a>
+        <a aria-current="page" href="./travel.html">Travel 🌍</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="travel-hero">
+        <p class="eyebrow">✨ EXPLORE THE WORLD ✨</p>
+        <h1>Travel Around the World 🌍</h1>
+        <p class="lede">Every country is a story waiting to be lived. Tap any country to discover its charm, then let our flight bot plan your next adventure. ♡</p>
+      </section>
+
+      <!-- Flight bot banner -->
+      <a href="https://t.me/avivaflightsbot" target="_blank" rel="noopener" class="travel-bot-banner">
+        <span class="bot-banner-icon">✈️</span>
+        <div>
+          <strong>Aviva Flights Bot</strong>
+          <span>Plan your perfect trip — flights, hotels, itineraries</span>
+        </div>
+        <span class="bot-banner-arrow">→</span>
+      </a>
+
+      <!-- Search -->
+      <div class="travel-search-wrap">
+        <input id="travelSearch" type="text" class="travel-search" placeholder="🔍 Search any country..." autocomplete="off" />
+      </div>
+
+      <!-- Continent tabs -->
+      <div class="travel-tabs" id="travelTabs"></div>
+
+      <!-- Country grid -->
+      <section class="travel-grid" id="travelGrid" aria-label="Countries"></section>
+    </main>
+
+    <!-- Country modal -->
+    <div class="travel-modal-bg" id="travelModalBg">
+      <div class="travel-modal" id="travelModal"></div>
+    </div>
+
+    <footer id="siteFooter"></footer>
+
+    <script src="./content/site-data.js?v=20260706k"></script>
+    <script src="./assets/js/magic.js?v=20260706s"></script>
+    <script src="./assets/js/travel.js?v=20260706x"></script>
+  </body>
+</html>
