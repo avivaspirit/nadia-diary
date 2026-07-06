@@ -5505,8 +5505,10 @@ body.page-wish {
   left: 0;
   width: 100vw;
   height: 100vh;
+  max-width: 100vw;
   z-index: 0;
   pointer-events: none;
+  overflow: hidden;
 }
 
 /* ---- Moon ---- */
@@ -5781,7 +5783,7 @@ body.page-wish {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   background: rgba(10, 10, 46, 0.7);
@@ -5792,6 +5794,7 @@ body.page-wish {
   transition: opacity 0.5s ease;
 }
 .wish-popup.show {
+  display: flex !important;
   opacity: 1;
   pointer-events: auto;
 }
