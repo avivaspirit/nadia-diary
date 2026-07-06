@@ -360,19 +360,37 @@
         // --- Draw wish text following the ceremonial star ---
         if (ss.ceremonial && ss.wishText && ss.life > 0.15) {
           ctx.save();
-          ctx.font = "600 " + (13 * dpr) + "px Quicksand, sans-serif";
+          var fontSize = 13 * dpr;
+          ctx.font = "600 " + fontSize + "px Quicksand, sans-serif";
           ctx.textAlign = "left";
           ctx.textBaseline = "middle";
 
-          // Position text to the left of trail, slightly above
-          var textX = ss.x + 14 * dpr;
-          var textY = ss.y - 14 * dpr;
+          // Wrap text if too long — max 25 chars per line
+          var maxChars = 28;
+          var words = ss.wishText.split(" ");
+          var lines = [];
+          var line = "";
+          for (var wi = 0; wi < words.length; wi++) {
+            if ((line + words[wi]).length > maxChars) {
+              if (line) lines.push(line);
+              line = words[wi] + " ";
+            } else {
+              line += words[wi] + " ";
+            }
+          }
+          if (line) lines.push(line);
+          if (lines.length > 2) lines = lines.slice(0, 2); // max 2 lines
 
-          // Dark glow background behind text for readability
-          ctx.shadowColor = "rgba(10, 5, 30, 1)";
-          ctx.shadowBlur = 8;
-          ctx.fillStyle = "rgba(255, 255, 240, " + Math.min(ss.life * 1.2, 1) + ")";
-          ctx.fillText(ss.wishText, textX, textY);
+          var textX = ss.x + 16 * dpr;
+          var textY = ss.y - 10 * dpr - (lines.length - 1) * fontSize * 0.6;
+
+          for (var li = 0; li < lines.length; li++) {
+            // Dark shadow behind for readability
+            ctx.shadowColor = "rgba(5, 2, 20, 1)";
+            ctx.shadowBlur = 6;
+            ctx.fillStyle = "rgba(255, 255, 240, " + Math.min(ss.life * 1.3, 1) + ")";
+            ctx.fillText(lines[li].trim(), textX, textY + li * fontSize * 1.25);
+          }
 
           ctx.restore();
         }
