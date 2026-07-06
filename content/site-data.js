@@ -112,6 +112,11 @@ window.NADIA_DATA = {
         num: "08", emoji: "🌠", title: "Make a Wish",
         text: "Whisper a wish to the shooting stars. Every wish becomes a star in your own constellation.",
         href: "./wish.html"
+      },
+      {
+        num: "09", emoji: "👗", title: "Nadia's Closet",
+        text: "Style inspo for every mood — sweet, spicy, sporty, glam, princess, and more. Find your next look ♡",
+        href: "./closet.html"
       }
     ]
   },
