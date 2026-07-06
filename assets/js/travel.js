@@ -180,7 +180,55 @@
     TV:{n:"Tuvalu",f:"🇹🇻",c:"Funafuti",l:"Tuvaluan",cu:"AUD",p:"0.01M",t:"One of smallest countries, .tv domain, sinking nation"},
     NR:{n:"Nauru",f:"🇳🇷",c:"Yaren",l:"Nauruan",cu:"AUD",p:"0.01M",t:"Smallest island nation, phosphate, no official capital"},
     CK:{n:"Cook Islands",f:"🇨🇰",c:"Avarua",l:"English",cu:"NZD",p:"0.02M",t:"Aitutaki lagoon, hibiscus, free association with NZ"},
-    NC:{n:"New Caledonia",f:"🇳🇨",c:"Noumea",l:"French",cu:"XPF",p:"0.29M",t:"Largest lagoon, Kanak culture, French Pacific"}
+    NC:{n:"New Caledonia",f:"🇳🇨",c:"Noumea",l:"French",cu:"XPF",p:"0.29M",t:"Largest lagoon, Kanak culture, French Pacific"},
+    /* Missing countries */
+    CV:{n:"Cape Verde",f:"🇨🇻",c:"Praia",l:"Portuguese",cu:"CVE",p:"0.59M",t:"Volcanic islands, morna music, warm Atlantic paradise"},
+    BH:{n:"Bahrain",f:"🇧🇭",c:"Manama",l:"Arabic",cu:"BHD",p:"1.5M",t:"F1 night race, pearls, ancient Dilmun civilization"},
+    KW:{n:"Kuwait",f:"🇰🇼",c:"Kuwait City",l:"Arabic",cu:"KWD",p:"4.3M",t:"Oil wealth, dhows, Kuwait Towers, desert"},
+    DJ:{n:"Djibouti",f:"🇩🇯",c:"Djibouti",l:"French",cu:"DJF",p:"1M",t:"Lake Assal (lowest in Africa), whale sharks, salt"},
+    KM:{n:"Comoros",f:"🇰🇲",c:"Moroni",l:"Comorian",cu:"KMF",p:"0.85M",t:"Perfume islands, volcanoes, ylang-ylang, vanilla"},
+    GM:{n:"Gambia",f:"🇬🇲",c:"Banjul",l:"English",cu:"GMD",p:"2.7M",t:"Smiling coast of Africa, river safari, birds"},
+    GW:{n:"Guinea-Bissau",f:"🇬🇼",c:"Bissau",l:"Portuguese",cu:"XOF",p:"2.1M",t:"Bijagos Islands, cashew nuts, untamed wilderness"},
+    GN:{n:"Guinea",f:"🇬🇳",c:"Conakry",l:"French",cu:"GNF",p:"14M",t:"Fouta Djallon highlands, bauxite, drumming traditions"},
+    SL:{n:"Sierra Leone",f:"🇸🇱",c:"Freetown",l:"English",cu:"SLL",p:"8.6M",t:"Rice coast, diamond mines, beaches, resilience"},
+    LR:{n:"Liberia",f:"🇱🇷",c:"Monrovia",l:"English",cu:"LRD",p:"5.4M",t:"Founded by freed slaves, rubber, rainforests"},
+    TG:{n:"Togo",f:"🇹🇬",c:"Lome",l:"French",cu:"XOF",p:"8.7M",t:"Voodoo birthplace, markets, palm beaches"},
+    BJ:{n:"Benin",f:"🇧🇯",c:"Porto-Novo",l:"French",cu:"XOF",p:"13M",t:"Voodoo origins, Ouidah slave history, stilt villages"},
+    BF:{n:"Burkina Faso",f:"🇧🇫",c:"Ouagadougou",l:"French",cu:"XOF",p:"23M",t:"FESPACO film festival, mud architecture, masks"},
+    NE:{n:"Niger",f:"🇳🇪",c:"Niamey",l:"French",cu:"XOF",p:"27M",t:"Air Mountains, Tuareg caravans, uranium"},
+    TD:{n:"Chad",f:"🇹🇩",c:"N'Djamena",l:"French",cu:"XAF",p:"18M",t:"Lake Chad, Sahara, Zakouma elephants"},
+    CF:{n:"Central African Republic",f:"🇨🇫",c:"Bangui",l:"French",cu:"XAF",p:"6.1M",t:"Dzanga bai forest elephants, diamonds, raw beauty"},
+    CG:{n:"Republic of Congo",f:"🇨🇬",c:"Brazzaville",l:"French",cu:"XAF",p:"6M",t:"Congo River, sapeur fashion, gorillas"},
+    GA:{n:"Gabon",f:"🇬🇦",c:"Libreville",l:"French",cu:"XAF",p:"2.4M",t:"Loango national park, gorillas, surfing hippos"},
+    GQ:{n:"Equatorial Guinea",f:"🇬🇶",c:"Malabo",l:"Spanish",cu:"XAF",p:"1.6M",t:"Only Spanish-speaking country in Africa, oil, Bioko"},
+    LS:{n:"Lesotho",f:"🇱🇸",c:"Maseru",l:"Sesotho",cu:"LSL",p:"2.3M",t:"Kingdom in the sky, blanket culture, mountain ponies"},
+    SZ:{n:"Eswatini",f:"🇸🇿",c:"Mbabane",l:"Swazi",cu:"SZL",p:"1.2M",t:"Last absolute monarchy in Africa, Reed Dance, wildlife"},
+    KM2:{n:"Comoros",f:"🇰🇲",c:"Moroni",l:"Comorian",cu:"KMF",p:"0.85M",t:"Perfume islands, volcanoes, ylang-ylang"},
+    ST:{n:"Sao Tome & Principe",f:"🇸🇹",c:"Sao Tome",l:"Portuguese",cu:"STN",p:"0.23M",t:"Chocolate paradise, rainforests, equatorial beauty"},
+    MR:{n:"Mauritania",f:"🇲🇷",c:"Nouakchott",l:"Arabic",cu:"MRU",p:"4.9M",t:"Iron ore train, Sahara, ancient cities"},
+    SS:{n:"South Sudan",f:"🇸🇸",c:"Juba",l:"English",cu:"SSP",p:"11M",t:"Newest country in the world, Nile, wildlife migrations"},
+    RE:{n:"Reunion",f:"🇷🇪",c:"Saint-Denis",l:"French",cu:"EUR",p:"0.9M",t:"Volcano island, cirques, French tropical paradise"},
+    YT:{n:"Mayotte",f:"🇾🇹",c:"Mamoudzou",l:"French",cu:"EUR",p:"0.32M",t:"Lagoon, baobabs, French overseas department"},
+    FO:{n:"Faroe Islands",f:"🇫🇴",c:"Torshavn",l:"Faroese",cu:"DKK",p:"0.05M",t:"Sheep islands, cliffs, Viking heritage, waterfalls"},
+    GL:{n:"Greenland",f:"🇬🇱",c:"Nuuk",l:"Greenlandic",cu:"DKK",p:"0.06M",t:"Ice sheet, Northern Lights, Inuit culture, icebergs"},
+    AW:{n:"Aruba",f:"🇦🇼",c:"Oranjestad",l:"Dutch",cu:"AWG",p:"0.12M",t:"Eagle Beach, flamingos, Dutch Caribbean paradise"},
+    CW:{n:"Curacao",f:"🇨🇼",c:"Willemstad",l:"Dutch",cu:"ANG",p:"0.16M",t:"Colorful Dutch colonial, diving, Blue Curacao"},
+    SX:{n:"Sint Maarten",f:"🇸🇽",c:"Philipsburg",l:"Dutch",cu:"ANG",p:"0.04M",t:"Half Dutch half French, beaches, airplanes at Maho"},
+    BM:{n:"Bermuda",f:"🇧🇲",c:"Hamilton",l:"English",cu:"BMD",p:"0.06M",t:"Pink sand beaches, Bermuda Triangle, shorts!"},
+    KY:{n:"Cayman Islands",f:"🇰🇾",c:"George Town",l:"English",cu:"KYD",p:"0.07M",t:"Stingray City, diving, offshore banking"},
+    VI:{n:"US Virgin Islands",f:"🇻🇬",c:"Charlotte Amalie",l:"English",cu:"USD",p:"0.1M",t:"Magens Bay, coral reefs, Caribbean paradise"},
+    VG:{n:"British Virgin Islands",f:"🇻🇬",c:"Road Town",l:"English",cu:"USD",p:"0.03M",t:"Sailing capital, Bitter End, pristine coves"},
+    KN:{n:"St Kitts & Nevis",f:"🇰🇳",c:"Basseterre",l:"English",cu:"XCD",p:"0.05M",t:"Smallest in Americas, sugar city, green vervet monkeys"},
+    LC:{n:"St Lucia",f:"🇱🇨",c:"Castries",l:"English",cu:"XCD",p:"0.18M",t:"Pitons, sulfur springs, honeymoon paradise"},
+    VC:{n:"St Vincent & Grenadines",f:"🇻🇨",c:"Kingstown",l:"English",cu:"XCD",p:"0.11M",t:"Pirates of Caribbean filmed here, Tobago Cays"},
+    GD:{n:"Grenada",f:"🇬🇩",c:"St George's",l:"English",cu:"XCD",p:"0.13M",t:"Spice island, nutmeg, underwater sculpture park"},
+    DM:{n:"Dominica",f:"🇩🇲",c:"Roseau",l:"English",cu:"XCD",p:"0.07M",t:"Nature island, boiling lake, 365 rivers"},
+    AG:{n:"Antigua & Barbuda",f:"🇦🇬",c:"St John's",l:"English",cu:"XCD",p:"0.1M",t:"365 beaches, cricket, Nelson's Dockyard"},
+    BZ2:{n:"Belize",f:"🇧🇿",c:"Belmopan",l:"English",cu:"BZD",p:"0.4M",t:"Barrier reef, Mayan caves, Caribbean coast"},
+    GF:{n:"French Guiana",f:"🇬🇫",c:"Cayenne",l:"French",cu:"EUR",p:"0.3M",t:"Spaceport, rainforest, Devil's Island"},
+    MQ:{n:"Martinique",f:"🇲🇶",c:"Fort-de-France",l:"French",cu:"EUR",p:"0.37M",t:"Mount Pelee volcano, rum, French Caribbean"},
+    GP:{n:"Guadeloupe",f:"🇬🇵",c:"Basse-Terre",l:"French",cu:"EUR",p:"0.38M",t:"Butterfly island, volcano, Creole culture"},
+    FM2:{n:"Federated States of Micronesia",f:"🇫🇲",c:"Palikir",l:"English",cu:"USD",p:"0.12M",t:"607 islands, Nan Madol ruins, diving"}
   };
 
   /* ---- init jsVectorMap ---- */
@@ -189,6 +237,110 @@
 
   var visited = {};
   try { visited = JSON.parse(localStorage.getItem("nadia_visited") || "{}"); } catch(e) {}
+
+  /* ---- pinned countries (want to visit) ---- */
+  var pinned = {};
+  try { pinned = JSON.parse(localStorage.getItem("nadia_pinned") || "{}"); } catch(e) {}
+
+  var pins = {};  // DOM elements for pins
+  var mapSvg = null;
+
+  function getMapSvg() {
+    if (!mapSvg) mapSvg = mapEl.querySelector("svg");
+    return mapSvg;
+  }
+
+  function getRegionCenter(code) {
+    var svg = getMapSvg();
+    if (!svg) return null;
+    var path = svg.querySelector('[data-code="' + code + '"]') || svg.querySelector('path[data-code="' + code.toLowerCase() + '"]');
+    if (!path) {
+      // Try lowercase
+      var paths = svg.querySelectorAll("path");
+      for (var i = 0; i < paths.length; i++) {
+        if (paths[i].getAttribute("data-code") === code || paths[i].getAttribute("data-code") === code.toLowerCase()) {
+          path = paths[i]; break;
+        }
+      }
+    }
+    if (!path) return null;
+    var bbox = path.getBBox();
+    return { x: bbox.x + bbox.width / 2, y: bbox.y + bbox.height / 2 };
+  }
+
+  function renderPins() {
+    var svg = getMapSvg();
+    if (!svg) return;
+
+    // Remove existing pins
+    Object.keys(pins).forEach(function (code) {
+      if (pins[code] && pins[code].parentNode) pins[code].remove();
+    });
+    pins = {};
+
+    Object.keys(pinned).forEach(function (code) {
+      var center = getRegionCenter(code);
+      if (!center) return;
+
+      var data = FACTS[code] || { n: code, f: "📍" };
+      var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      g.setAttribute("class", "travel-pin");
+      g.setAttribute("data-pin-code", code);
+      g.style.cursor = "pointer";
+
+      // Pin circle with emoji
+      var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      circle.setAttribute("cx", center.x);
+      circle.setAttribute("cy", center.y);
+      circle.setAttribute("r", "6");
+      circle.setAttribute("fill", "#e87fa3");
+      circle.setAttribute("stroke", "#fff");
+      circle.setAttribute("stroke-width", "1.5");
+      circle.style.filter = "drop-shadow(0 1px 3px rgba(0,0,0,0.3))";
+
+      // Pulse animation ring
+      var pulse = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      pulse.setAttribute("cx", center.x);
+      pulse.setAttribute("cy", center.y);
+      pulse.setAttribute("r", "6");
+      pulse.setAttribute("fill", "none");
+      pulse.setAttribute("stroke", "#e87fa3");
+      pulse.setAttribute("stroke-width", "2");
+      pulse.setAttribute("opacity", "0.5");
+      pulse.style.animation = "pin-pulse 2s ease-out infinite";
+
+      // Flag emoji text
+      var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      text.setAttribute("x", center.x);
+      text.setAttribute("y", center.y - 10);
+      text.setAttribute("text-anchor", "middle");
+      text.setAttribute("font-size", "12");
+      text.style.pointerEvents = "none";
+      text.textContent = data.f;
+
+      g.appendChild(pulse);
+      g.appendChild(circle);
+      g.appendChild(text);
+
+      // Double click to remove
+      g.addEventListener("dblclick", function (e) {
+        e.stopPropagation();
+        delete pinned[code];
+        try { localStorage.setItem("nadia_pinned", JSON.stringify(pinned)); } catch(e2) {}
+        renderPins();
+        updatePinCount();
+      });
+
+      svg.appendChild(g);
+      pins[code] = g;
+    });
+  }
+
+  function updatePinCount() {
+    var count = Object.keys(pinned).length;
+    var el = $("#pinnedCount");
+    if (el) el.textContent = count + " pinned 📍";
+  }
 
   new window.jsVectorMap({
     selector: "#worldMap",
@@ -216,11 +368,31 @@
     onRegionClick: function (event, code) {
       code = code.toUpperCase();
       var data = FACTS[code];
+      // Toggle pin
+      if (pinned[code]) {
+        delete pinned[code];
+      } else {
+        pinned[code] = true;
+      }
+      try { localStorage.setItem("nadia_pinned", JSON.stringify(pinned)); } catch(e2) {}
+      renderPins();
+      updatePinCount();
+
       if (data) {
         showCountry(data, code);
       } else {
         showUnknown(code);
       }
+    },
+    onRegionTooltip: function (event, tooltip, code) {
+      var data = FACTS[code.toUpperCase()];
+      var name = data ? data.f + " " + data.n : code;
+      var pin = pinned[code.toUpperCase()] ? " 📍" : "";
+      tooltip.html(name + pin);
+    },
+    onLoaded: function () {
+      setTimeout(renderPins, 300);
+      updatePinCount();
     }
   });
 
@@ -230,6 +402,7 @@
 
   function showCountry(data, code) {
     var isVisited = visited[code] ? "✅ Visited" : "🌙 Want to Visit";
+    var isPinned = pinned[code];
     modal.innerHTML =
       '<div class="country-modal-flag">' + data.f + '</div>' +
       '<h3>' + data.n + '</h3>' +
@@ -243,7 +416,9 @@
       '<div class="country-modal-actions">' +
         '<a href="' + TG_BOT + '" target="_blank" rel="noopener" class="country-modal-btn primary">✈️ Plan Trip</a>' +
         '<button class="country-modal-btn secondary" id="visitedToggle" type="button">' + isVisited + '</button>' +
-      '</div>';
+        (isPinned ? '<button class="country-modal-btn secondary" id="pinRemoveBtn" type="button">📍 Unpin</button>' : '') +
+      '</div>' +
+      '<p class="country-modal-hint">📍 click any country to pin/unpin · double-click pin to remove</p>';
     modalBg.classList.add("show");
 
     var vtBtn = $("#visitedToggle");
@@ -258,6 +433,17 @@
         }
         try { localStorage.setItem("nadia_visited", JSON.stringify(visited)); } catch(e) {}
         updateVisitedCount();
+      });
+    }
+
+    var pinBtn = $("#pinRemoveBtn");
+    if (pinBtn) {
+      pinBtn.addEventListener("click", function () {
+        delete pinned[code];
+        try { localStorage.setItem("nadia_pinned", JSON.stringify(pinned)); } catch(e2) {}
+        renderPins();
+        updatePinCount();
+        modalBg.classList.remove("show");
       });
     }
   }
