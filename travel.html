@@ -9,7 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Caveat:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/css/diary.css?v=20260706x" />
+    <link rel="stylesheet" href="./assets/css/diary.css?v=20260706y" />
+    <link rel="stylesheet" href="./assets/vendor/jsvectormap/jsvectormap.min.css" />
   </head>
   <body class="page-travel">
     <header class="site-header">
@@ -30,9 +31,10 @@
 
     <main>
       <section class="travel-hero">
-        <p class="eyebrow">✨ EXPLORE THE WORLD ✨</p>
+        <p class="eyebrow">✨ EXPLORE EVERY CORNER ✨</p>
         <h1>Travel Around the World 🌍</h1>
-        <p class="lede">Every country is a story waiting to be lived. Tap any country to discover its charm, then let our flight bot plan your next adventure. ♡</p>
+        <p class="lede">Click any country on the map to discover its magic — then let Aviva Flights Bot plan your adventure. ♡</p>
+        <p class="travel-counter" id="visitedCount">0 / 0 explored</p>
       </section>
 
       <!-- Flight bot banner -->
@@ -45,16 +47,12 @@
         <span class="bot-banner-arrow">→</span>
       </a>
 
-      <!-- Search -->
-      <div class="travel-search-wrap">
-        <input id="travelSearch" type="text" class="travel-search" placeholder="🔍 Search any country..." autocomplete="off" />
+      <!-- Interactive World Map -->
+      <div class="travel-map-container">
+        <div id="worldMap" class="world-map"></div>
       </div>
 
-      <!-- Continent tabs -->
-      <div class="travel-tabs" id="travelTabs"></div>
-
-      <!-- Country grid -->
-      <section class="travel-grid" id="travelGrid" aria-label="Countries"></section>
+      <p class="travel-hint">👆 Click any country to explore</p>
     </main>
 
     <!-- Country modal -->
@@ -65,7 +63,9 @@
     <footer id="siteFooter"></footer>
 
     <script src="./content/site-data.js?v=20260706k"></script>
+    <script src="./assets/vendor/jsvectormap/jsvectormap.min.js"></script>
+    <script src="./assets/vendor/jsvectormap/world.js"></script>
     <script src="./assets/js/magic.js?v=20260706s"></script>
-    <script src="./assets/js/travel.js?v=20260706x"></script>
+    <script src="./assets/js/travel.js?v=20260706y"></script>
   </body>
 </html>
