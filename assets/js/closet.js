@@ -269,5 +269,315 @@
            grad.indexOf("#0f3460") !== -1;
   }
 
+  /* ================================================================
+     LOCAL OUTFIT RECOMMENDER — no API, pure JS randomizer
+     ================================================================ */
+
+  /* ---- item pool per category ---- */
+  var itemPool = {
+    top: [
+      { t: "Floral midi dress with puff sleeves", style: "sweet" },
+      { t: "Oversized graphic tee or baby tee", style: "y2k" },
+      { t: "Chunky knit sweater in cream", style: "cozy" },
+      { t: "Silk slip dress in ivory", style: "glam" },
+      { t: "Off-shoulder tulle bodice top", style: "princess" },
+      { t: "Fitted sports bra + windbreaker", style: "sporty" },
+      { t: "Tea-length polka dot dress", style: "vintage" },
+      { t: "Bodycon mini in black", style: "spicy" },
+      { t: "Oversized bomber jacket, layered chains", style: "street" }
+    ],
+    bottom: [
+      { t: "High-waist biker shorts", style: "sporty" },
+      { t: "Low-rise baggy jeans", style: "y2k" },
+      { t: "Wide-leg corduroy pants in caramel", style: "cozy" },
+      { t: "Tailored trousers in navy", style: "glam" },
+      { t: "Tulle ball gown skirt", style: "princess" },
+      { t: "Cargo mini skirt", style: "y2k" },
+      { t: "Ripped wide-leg denim", style: "street" },
+      { t: "Fitted pencil skirt in black", style: "spicy" }
+    ],
+    shoes: [
+      { t: "White Mary Janes or ballet flats", style: "sweet" },
+      { t: "Stiletto heels", style: "spicy" },
+      { t: "Chunky white sneakers (AF1, Dunks)", style: "sporty" },
+      { t: "Espadrille wedges in tan", style: "vintage" },
+      { t: "Pointed-toe heels (Louboutin)", style: "glam" },
+      { t: "Glitter platform heels", style: "princess" },
+      { t: "Platform UGGs or sock boots", style: "cozy" },
+      { t: "Platform sandals or dad sneakers", style: "y2k" },
+      { t: "Jordans or Yeezys", style: "street" }
+    ],
+    hair: [
+      { t: "Half-up space buns with ribbon", style: "sweet" },
+      { t: "Sleek straight, middle part", style: "spicy" },
+      { t: "High ponytail with claw clip", style: "sporty" },
+      { t: "Victory rolls or finger waves", style: "vintage" },
+      { t: "Blowout with curtain bangs", style: "glam" },
+      { t: "Side-swept curls with baby's breath", style: "princess" },
+      { t: "Messy bun with face-framing pieces", style: "cozy" },
+      { t: "Pigtails with butterfly clips", style: "y2k" }
+    ],
+    accessories: [
+      { t: "Pearl hairpins, dainty heart necklace", style: "sweet" },
+      { t: "Gold chain necklace, hoop earrings", style: "spicy" },
+      { t: "Crossbody mini or belt bag", style: "sporty" },
+      { t: "Woven basket bag, cat-eye sunglasses", style: "vintage" },
+      { t: "Cartier Love bracelet, Rolex, Kelly bag", style: "glam" },
+      { t: "Crystal tiara, pearl headband", style: "princess" },
+      { t: "Knit beanie, round glasses, tote", style: "cozy" },
+      { t: "Butterfly clips, tinted sunglasses, jelly bag", style: "y2k" },
+      { t: "Snapback, Stussy shoulder bag", style: "street" }
+    ],
+    makeup: [
+      { t: "Dewy base, peach blush, glossy pink lips", style: "sweet" },
+      { t: "Winged liner, bold red lip, contour", style: "spicy" },
+      { t: "No-makeup makeup, SPF, lip balm", style: "sporty" },
+      { t: "Matte red lip, thin brows, cat-eye", style: "vintage" },
+      { t: "Glass skin, nude gloss, soft contour", style: "glam" },
+      { t: "Sparkly eyeshadow, rosy cheeks", style: "princess" },
+      { t: "Fresh-faced, minimal, warm tones", style: "cozy" },
+      { t: "Glossy lips, sticker gems, pastel shadow", style: "y2k" }
+    ]
+  };
+
+  var categoryIcons = {
+    top: "👗", bottom: "👖", shoes: "👟", hair: "💇‍♀️", accessories: "💍", makeup: "💄"
+  };
+
+  /* ---- current outfit state ---- */
+  var currentOutfit = {};
+
+  function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+  function generateOutfit(mood) {
+    var keys = Object.keys(itemPool);
+    var outfit = {};
+    keys.forEach(function (cat) {
+      var pool = mood ? itemPool[cat].filter(function (i) { return i.style === mood; }) : itemPool[cat];
+      if (!pool.length) pool = itemPool[cat];
+      var pick = pickRandom(pool);
+      outfit[cat] = { text: pick.t, style: pick.style };
+    });
+    return outfit;
+  }
+
+  /* ---- swap one item ---- */
+  function swapItem(category) {
+    var pool = itemPool[category];
+    var current = currentOutfit[category] ? currentOutfit[category].text : "";
+    var candidates = pool.filter(function (i) { return i.t !== current; });
+    var pick = pickRandom(candidates.length ? candidates : pool);
+    currentOutfit[category] = { text: pick.t, style: pick.style };
+    renderOutfitCard();
+  }
+
+  /* ---- elements ---- */
+  var btnPickOutfit = $("#btnPickOutfit");
+  var btnAgainOutfit = $("#btnAgainOutfit");
+  var outfitCard = $("#outfitCard");
+  var outfitLoading = $("#outfitLoading");
+
+  function renderOutfitCard() {
+    var keys = Object.keys(currentOutfit);
+    var piecesHTML = keys.map(function (cat) {
+      var item = currentOutfit[cat];
+      return '<div class="outfit-piece">' +
+        '<span class="outfit-piece-cat">' + (categoryIcons[cat] || "✨") + " " + cat + "</span>" +
+        '<span class="outfit-piece-item">' + item.text + "</span>" +
+        '<button class="outfit-swap-btn" data-cat="' + cat + '" type="button" title="swap this item">🔄</button>' +
+        "</div>";
+    }).join("");
+    $("#outfitPieces").innerHTML = piecesHTML;
+
+    // wire swap buttons
+    $$(".outfit-swap-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var cat = btn.dataset.cat;
+        btn.style.transform = "rotate(360deg)";
+        btn.style.transition = "transform 0.4s ease";
+        setTimeout(function () { btn.style.transform = ""; }, 400);
+        swapItem(cat);
+      });
+    });
+  }
+
+  function showOutfit(mood) {
+    currentOutfit = generateOutfit(mood);
+    var styleMatch = styles.filter(function (s) { return s.id === mood; })[0];
+    if (styleMatch) {
+      $("#outfitEmoji").textContent = styleMatch.emoji;
+      $("#outfitStyleName").textContent = styleMatch.tag;
+      $("#outfitMood").textContent = styleMatch.vibe;
+      $("#outfitSwatches").innerHTML = styleMatch.colorPalette.map(function (c) {
+        return '<span class="outfit-swatch" style="background:' + c + '"></span>';
+      }).join("");
+      $("#outfitWhy").textContent = styleMatch.tagline;
+      $("#outfitTip").textContent = "Tap 🔄 on any item to swap it for something new!";
+      $("#outfitSweet").textContent = "You look amazing ♡";
+    } else {
+      var rs = pickRandom(styles);
+      $("#outfitEmoji").textContent = rs.emoji;
+      $("#outfitStyleName").textContent = "Surprise Mix";
+      $("#outfitMood").textContent = "mixed & matched";
+      $("#outfitSwatches").innerHTML = rs.colorPalette.map(function (c) {
+        return '<span class="outfit-swatch" style="background:' + c + '"></span>';
+      }).join("");
+      $("#outfitWhy").textContent = "A fun mashup of different vibes — because why choose just one?";
+      $("#outfitTip").textContent = "Tap 🔄 on any item to swap it!";
+      $("#outfitSweet").textContent = "Confidence is your best accessory ♡";
+    }
+
+    renderOutfitCard();
+    outfitLoading.classList.add("hidden");
+    outfitCard.classList.remove("hidden");
+    outfitCard.style.animation = "none";
+    void outfitCard.offsetWidth;
+    outfitCard.style.animation = "";
+  }
+
+  function pickOutfit() {
+    btnPickOutfit.disabled = true;
+    outfitCard.classList.add("hidden");
+    outfitLoading.classList.remove("hidden");
+    setTimeout(function () {
+      showOutfit(selectedMood || null);
+      btnAgainOutfit.classList.remove("hidden");
+      btnPickOutfit.disabled = false;
+    }, 600);
+  }
+
+  /* ---- mood pills ---- */
+  var selectedMood = "";
+  var moodPills = $$(".closet-mood-pill");
+  moodPills.forEach(function (pill) {
+    pill.addEventListener("click", function () {
+      moodPills.forEach(function (p) { p.classList.remove("active"); });
+      pill.classList.add("active");
+      selectedMood = pill.dataset.mood;
+    });
+  });
+
+  btnPickOutfit.addEventListener("click", pickOutfit);
+  btnAgainOutfit.addEventListener("click", pickOutfit);
+
+  /* Auto-pick on first visit */
+  pickOutfit();
+
+  /* ================================================================
+     AI CHAT STYLIST — keyword-based outfit suggestions
+     ================================================================ */
+
+  var chatToggle = $("#chatToggle");
+  var chatBox = $("#chatBox");
+  var chatClose = $("#chatClose");
+  var chatMessages = $("#chatMessages");
+  var chatInput = $("#chatInput");
+  var chatSend = $("#chatSend");
+
+  function addChatMsg(text, who) {
+    var msg = document.createElement("div");
+    msg.className = "chat-msg " + (who === "user" ? "chat-user" : "chat-bot");
+    msg.textContent = text;
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function chatReply(input) {
+    var q = input.toLowerCase();
+    var reply = "";
+    var matched = [];
+
+    // Check for style keywords
+    var styleKeywords = {
+      sweet: ["sweet", "cute", "หวาน", "น่ารัก", "pink", "pastel", "floral"],
+      spicy: ["spicy", "hot", "แซ่บ", "sexy", "bold", "red", "fierce"],
+      sporty: ["sport", "athletic", "สปอร์ต", "gym", "active", "comfy", "sneaker"],
+      vintage: ["vintage", "retro", "วินเทจ", "classic", "old"],
+      glam: ["glam", "hiso", "รวย", "luxury", "elegant", "fancy", "expensive"],
+      princess: ["princess", "disney", "เจ้าหญิง", "fairytale", "ball gown", "tiara"],
+      cozy: ["cozy", "warm", "อบอุ่น", "comfy", "lazy", "sweater", "knit"],
+      y2k: ["y2k", "2000", "butterfly", "retro 2000", "low rise"],
+      street: ["street", "urban", "สตรีท", "cool", "skater", "baggy"]
+    };
+
+    Object.keys(styleKeywords).forEach(function (style) {
+      styleKeywords[style].forEach(function (kw) {
+        if (q.indexOf(kw) !== -1) matched.push(style);
+      });
+    });
+
+    // Check for category swaps
+    var swapKeywords = {
+      shoes: ["shoes", "รองเท้า", "sneaker", "heels", "boots", "flats"],
+      top: ["top", "เสื้อ", "dress", "ชุด", "shirt", "tee"],
+      hair: ["hair", "ผม", "ทรงผม", "hairstyle"],
+      accessories: ["accessories", "เครื่องประดับ", "bag", "กระเป๋า", "hat", "หมวก", "jewelry"],
+      makeup: ["makeup", "เมคอัพ", "ลิป", "lipstick", "cosmetics"],
+      bottom: ["bottom", "กางเกง", "pants", "skirt", "ขายาว"]
+    };
+
+    var swapCat = null;
+    Object.keys(swapKeywords).forEach(function (cat) {
+      swapKeywords[cat].forEach(function (kw) {
+        if (q.indexOf(kw) !== -1) swapCat = cat;
+      });
+    });
+
+    if (q.indexOf("swap") !== -1 || q.indexOf("change") !== -1 || q.indexOf("เปลี่ยน") !== -1 || q.indexOf("หนึ่ง") !== -1) {
+      if (swapCat) {
+        swapItem(swapCat);
+        reply = "สลับ " + swapCat + " ใหม่ให้แล้วค่ะ! 🔄 ดูด้านบนนะ — ลองอันอื่นเพิ่มเติมได้น้า ♡";
+      } else {
+        reply = "อยากเปลี่ยนอะไรเป็นพิเศษไหม? บอกได้เลย เช่น 'เปลี่ยนรองเท้า' หรือ 'swap hair' 🔄";
+      }
+    } else if (q.indexOf("help") !== -1 || q.indexOf("ช่วย") !== -1 || q === "") {
+      reply = "บอกได้เลยว่าอยากได้สไตล์อะไร — เช่น 'sweet', 'glam', 'sporty', 'vintage' หรือบอกว่าไม่ชอบชิ้นไหน เดี๋ยวสลับให้! 🔄";
+    } else if (matched.length > 0) {
+      var mood = matched[0];
+      selectedMood = mood;
+      moodPills.forEach(function (p) {
+        p.classList.toggle("active", p.dataset.mood === mood);
+      });
+      showOutfit(mood);
+      var styleObj = styles.filter(function (s) { return s.id === mood; })[0];
+      reply = styleObj.emoji + " " + styleObj.tag + " — " + styleObj.tagline + " ลองดูแล้วกด 🔄 ถ้าอยากเปลี่ยนชิ้นไหนนะ ♡";
+    } else if (q.indexOf("random") !== -1 || q.indexOf("surprise") !== -1 || q.indexOf("สุ่ม") !== -1 || q.indexOf("เซอร์ไพรส์") !== -1) {
+      showOutfit(null);
+      reply = "สุ่มลุคใหม่ให้แล้วค่ะ! 🎲✨";
+    } else {
+      reply = "ลองบอกสไตล์ที่ชอบดูสิ — เช่น 'sweet', 'spicy', 'glam', 'street' หรือบอกว่าอยากเปลี่ยนชิ้นไหน 🔄";
+    }
+
+    return reply;
+  }
+
+  function sendChat() {
+    var text = chatInput.value.trim();
+    if (!text) return;
+    addChatMsg(text, "user");
+    chatInput.value = "";
+    setTimeout(function () {
+      var reply = chatReply(text);
+      addChatMsg(reply, "bot");
+    }, 400);
+  }
+
+  chatSend.addEventListener("click", sendChat);
+  chatInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") { e.preventDefault(); sendChat(); }
+  });
+
+  chatToggle.addEventListener("click", function () {
+    chatBox.classList.toggle("open");
+    chatToggle.classList.toggle("open");
+  });
+  chatClose.addEventListener("click", function () {
+    chatBox.classList.remove("open");
+    chatToggle.classList.remove("open");
+  });
+
+  /* Welcome message */
+  addChatMsg("สวัสดีค่ะ! 🎀 เป็นสไตล์ลิสต์ส่วนตัวของ Nadia บอกได้เลยว่าอยากได้ลุคแบบไหน — sweet, spicy, glam, sporty? หรืออยากเปลี่ยนชิ้นไหนในชุดบอกได้เลยน้า ♡", "bot");
+
   renderGrid(null);
 })();

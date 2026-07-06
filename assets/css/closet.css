@@ -1,0 +1,327 @@
+/* ================================================================
+   CLOSET AI — Outfit Recommender Styles
+   ================================================================ */
+
+/* Section container */
+.closet-ai {
+  max-width: 680px;
+  width: 100%;
+  margin: 0 auto 2rem;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, rgba(255,240,245,0.6) 0%, rgba(255,228,235,0.3) 100%);
+  border-radius: 24px;
+  box-shadow: 0 4px 24px rgba(232,127,163,0.08);
+}
+
+.closet-ai-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.closet-ai-header h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.6rem;
+  margin: 0;
+  color: #c4527a;
+}
+.closet-ai-header p {
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem;
+  color: #d4839a;
+  margin: 0.25rem 0 0;
+}
+
+/* Mood pills */
+.closet-mood-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.closet-mood-pill {
+  padding: 0.5rem 1rem;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.7);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #8a6a78;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.closet-mood-pill:hover {
+  background: rgba(255,255,255,0.95);
+  transform: translateY(-1px);
+}
+.closet-mood-pill.active {
+  background: linear-gradient(135deg, #ffafcc, #ffc8dd);
+  color: #fff;
+  border-color: #e87fa3;
+  box-shadow: 0 2px 8px rgba(232,127,163,0.25);
+}
+
+/* Loading */
+.outfit-loading {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+.outfit-loading p {
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem;
+  color: #c4527a;
+}
+.outfit-loading-spinner {
+  width: 44px;
+  height: 44px;
+  border: 4px solid rgba(232,127,163,0.15);
+  border-top-color: #e87fa3;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  animation: outfit-spin 0.8s linear infinite;
+}
+@keyframes outfit-spin { to { transform: rotate(360deg); } }
+
+/* Outfit Card */
+.outfit-card {
+  position: relative;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(196,82,122,0.12);
+  animation: outfit-reveal 0.5s ease;
+}
+@keyframes outfit-reveal {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.outfit-card-glow {
+  position: absolute;
+  top: -40%;
+  left: -20%;
+  width: 140%;
+  height: 80%;
+  background: radial-gradient(ellipse at center, rgba(255,175,204,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Card header */
+.outfit-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  position: relative;
+  flex-wrap: wrap;
+}
+.outfit-emoji-big {
+  font-size: 2.8rem;
+  line-height: 1;
+}
+.outfit-card-header h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.4rem;
+  margin: 0;
+  color: #3a2a30;
+  word-break: break-word;
+}
+.outfit-mood-line {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.85rem;
+  color: #b09098;
+  margin: 0.15rem 0 0;
+}
+
+/* Pieces */
+.outfit-pieces {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+  width: 100%;
+}
+.outfit-piece {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.6rem 0.8rem;
+  background: rgba(255,240,245,0.5);
+  border-radius: 12px;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.outfit-piece-cat {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #e87fa3;
+  min-width: 70px;
+  flex-shrink: 0;
+}
+.outfit-piece-item {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.9rem;
+  color: #5a4a50;
+  word-break: break-word;
+  flex: 1;
+}
+
+/* Palette */
+.outfit-palette-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(232,127,163,0.1);
+}
+.outfit-palette-label {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #c0a0a8;
+}
+.outfit-swatches {
+  display: flex;
+  gap: 0.4rem;
+}
+.outfit-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+/* Why + tip */
+.outfit-why p {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.9rem;
+  color: #6a5a60;
+  font-style: italic;
+  margin: 0 0 0.75rem;
+}
+.outfit-tip {
+  padding: 0.75rem;
+  background: rgba(255,228,235,0.3);
+  border-radius: 12px;
+  margin-bottom: 0.75rem;
+}
+.outfit-tip-label {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #e87fa3;
+}
+.outfit-tip p {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.85rem;
+  color: #5a4a50;
+  margin: 0.25rem 0 0;
+}
+
+/* Sweet note */
+.outfit-sweet {
+  text-align: center;
+  padding: 0.75rem;
+}
+.outfit-sweet p {
+  font-family: 'Caveat', cursive;
+  font-size: 1.15rem;
+  color: #c4527a;
+  margin: 0;
+}
+
+/* Buttons */
+.outfit-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+.outfit-btn {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 16px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.outfit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.outfit-btn-primary {
+  background: linear-gradient(135deg, #ffafcc, #e87fa3);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(232,127,163,0.3);
+}
+.outfit-btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(232,127,163,0.4);
+}
+.outfit-btn-secondary {
+  background: #fff;
+  color: #e87fa3;
+  border: 2px solid #ffc8dd;
+}
+.outfit-btn-secondary:hover:not(:disabled) {
+  background: rgba(255,240,245,0.8);
+  transform: translateY(-1px);
+}
+
+/* Divider */
+.closet-divider {
+  text-align: center;
+  margin: 2rem 0;
+  position: relative;
+}
+.closet-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: rgba(232,127,163,0.15);
+}
+.closet-divider span {
+  position: relative;
+  background: var(--diary-bg, #fff5f8);
+  padding: 0 1rem;
+  font-family: 'Caveat', cursive;
+  font-size: 1.1rem;
+  color: #c0a0a8;
+}
+
+/* Hidden utility */
+.hidden { display: none !important; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .closet-ai { padding: 1.25rem 0.75rem; max-width: 100%; }
+  .outfit-card { padding: 1.25rem 0.75rem; }
+  .outfit-piece {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .outfit-piece-cat { min-width: auto; }
+  .outfit-emoji-big { font-size: 2.2rem; }
+  .outfit-card-header h3 { font-size: 1.2rem; }
+  .closet-mood-pill { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+}
+
+@media (max-width: 380px) {
+  .closet-ai { padding: 1rem 0.5rem; border-radius: 16px; }
+  .outfit-card { padding: 1rem 0.5rem; }
+  .closet-mood-pill { padding: 0.35rem 0.6rem; font-size: 0.75rem; }
+}

@@ -9,7 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Caveat:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/css/diary.css?v=20260706k" />
+    <link rel="stylesheet" href="./assets/css/diary.css?v=20260706m" />
+    <link rel="stylesheet" href="./assets/css/closet.css?v=20260706b" />
   </head>
   <body class="page-closet">
     <header class="site-header">
@@ -31,8 +32,72 @@
       <section class="closet-hero">
         <p class="eyebrow">✨ STYLE INSPO FOR EVERY MOOD ✨</p>
         <h1>Nadia's Closet 👗</h1>
-        <p class="lede">A little wardrobe of looks for every version of you — sweet, bold, sporty, glamorous, and everything in between. Tap any style to see the full look ♡</p>
+        <p class="lede">A little wardrobe of looks for every version of you — sweet, bold, sporty, glamorous, and everything in between.</p>
       </section>
+
+      <!-- AI Outfit Recommender -->
+      <section class="closet-ai">
+        <div class="closet-ai-header">
+          <h2>✨ AI Outfit of the Day</h2>
+          <p>Let AI pick a look for you ♡</p>
+        </div>
+
+        <!-- Mood selector -->
+        <div class="closet-mood-row" id="closetMoodRow">
+          <button class="closet-mood-pill active" data-mood="" type="button">🎲 Surprise Me</button>
+          <button class="closet-mood-pill" data-mood="sweet and cute" type="button">🌸 Sweet</button>
+          <button class="closet-mood-pill" data-mood="bold and confident" type="button">🔥 Bold</button>
+          <button class="closet-mood-pill" data-mood="cozy and lazy" type="button">🧸 Cozy</button>
+          <button class="closet-mood-pill" data-mood="glamorous and fancy" type="button">💎 Glam</button>
+          <button class="closet-mood-pill" data-mood="sporty and active" type="button">⚽ Sporty</button>
+        </div>
+
+        <!-- Loading -->
+        <div id="outfitLoading" class="outfit-loading hidden">
+          <div class="outfit-loading-spinner"></div>
+          <p>Styling the perfect look for you… 👗</p>
+        </div>
+
+        <!-- AI Outfit Card -->
+        <div id="outfitCard" class="outfit-card hidden">
+          <div class="outfit-card-glow"></div>
+          <div class="outfit-card-header">
+            <span class="outfit-emoji-big" id="outfitEmoji">👗</span>
+            <div>
+              <h3 id="outfitStyleName">—</h3>
+              <p class="outfit-mood-line"><span id="outfitMood">—</span> · <span id="outfitOccasion">—</span></p>
+            </div>
+          </div>
+          <div class="outfit-pieces" id="outfitPieces"></div>
+          <div class="outfit-palette-row">
+            <span class="outfit-palette-label">PALETTE</span>
+            <div class="outfit-swatches" id="outfitSwatches"></div>
+          </div>
+          <div class="outfit-why">
+            <p id="outfitWhy">—</p>
+          </div>
+          <div class="outfit-tip">
+            <span class="outfit-tip-label">💡 Style Tip</span>
+            <p id="outfitTip">—</p>
+          </div>
+          <div class="outfit-sweet">
+            <p id="outfitSweet">—</p>
+          </div>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="outfit-actions">
+          <button id="btnPickOutfit" class="outfit-btn outfit-btn-primary" type="button">
+            <span>👗 Pick My Look</span>
+          </button>
+          <button id="btnAgainOutfit" class="outfit-btn outfit-btn-secondary hidden" type="button">
+            <span>🔄 Another Look</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Divider -->
+      <div class="closet-divider"><span>or browse all styles</span></div>
 
       <!-- Style filter pills -->
       <div class="closet-filters" id="closetFilters"></div>
@@ -41,10 +106,24 @@
       <section class="closet-grid" id="closetGrid" aria-label="Style recommendations"></section>
     </main>
 
+    <!-- AI Chat Stylist floating button + panel -->
+    <button id="chatToggle" class="chat-toggle" type="button" aria-label="Open stylist chat">👗</button>
+    <div id="chatBox" class="chat-box">
+      <div class="chat-header">
+        <span>🎀 Stylist Chat</span>
+        <button id="chatClose" class="chat-close" type="button">✕</button>
+      </div>
+      <div id="chatMessages" class="chat-messages"></div>
+      <div class="chat-input-row">
+        <input id="chatInput" type="text" class="chat-input" placeholder="ask for a style..." autocomplete="off" />
+        <button id="chatSend" class="chat-send" type="button">→</button>
+      </div>
+    </div>
+
     <footer id="siteFooter"></footer>
 
     <script src="./content/site-data.js?v=20260706k"></script>
     <script src="./assets/js/magic.js?v=20260706k"></script>
-    <script src="./assets/js/closet.js?v=20260706k"></script>
+    <script src="./assets/js/closet.js?v=20260706m"></script>
   </body>
 </html>
