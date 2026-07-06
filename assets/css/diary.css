@@ -5880,6 +5880,12 @@ body.page-wish .brand {
   -webkit-backdrop-filter: blur(10px);
 }
 
+/* ---- Skip reveal animation on wish page (conflicts with passcode gate) ---- */
+body.page-wish .reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 /* ---- Mobile ---- */
 @media (max-width: 768px) {
   .moon { top: 70px; right: 10px; }
