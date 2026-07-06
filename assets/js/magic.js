@@ -581,6 +581,8 @@
     if (window.matchMedia("(hover: none)").matches) return;
 
     $$(".preview-link-card").forEach((card) => {
+      if (card.dataset.tilted) return;
+      card.dataset.tilted = "1";
       card.addEventListener("mousemove", (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left, y = e.clientY - rect.top;
@@ -603,6 +605,8 @@
     if (window.matchMedia("(hover: none)").matches) return;
 
     $$(".site-header nav a").forEach((pill) => {
+      if (pill.dataset.magnetic) return;
+      pill.dataset.magnetic = "1";
       pill.addEventListener("mousemove", (e) => {
         const rect = pill.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
@@ -622,6 +626,9 @@
     if (reducedMotion) return;
     const hero = $("main .hero h1, main .hero-copy h1, main section h1, main > div:first-child h1");
     if (!hero) return;
+    // Guard: skip if already animated (called from home.js after dynamic render)
+    if (hero.dataset.entranced) return;
+    hero.dataset.entranced = "1";
     hero.style.opacity = "0";
     hero.style.transform = "translateY(30px) scaleX(0.85)";
     hero.style.transition = "none";
@@ -721,6 +728,9 @@
     initSparkles();
     initCardGlow();
     initCursorTrail();
+    init3DTilt();
+    initMagneticPills();
+    initHeroEntrance();
     initWishBubbles();
     initParallax();
     initMusic();
