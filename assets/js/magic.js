@@ -551,6 +551,113 @@
     }
   }
 
+  /* ------------------------------------------------- sparkle cursor trail */
+  function initCursorTrail() {
+    if (reducedMotion) return;
+    if (window.matchMedia("(hover: none)").matches) return; // skip touch devices
+    let lastX = 0, lastY = 0;
+    const symbols = ["✦", "✧", "♡", "⋆", "·"];
+    let throttle = 0;
+
+    document.addEventListener("mousemove", (e) => {
+      throttle++;
+      if (throttle % 3 !== 0) return; // every 3rd move event
+      const dx = e.clientX - lastX, dy = e.clientY - lastY;
+      if (Math.abs(dx) + Math.abs(dy) < 8) return; // skip tiny moves
+      lastX = e.clientX; lastY = e.clientY;
+
+      const dot = el("span", "cursor-sparkle");
+      dot.textContent = symbols[(Math.random() * symbols.length) | 0];
+      dot.style.left = e.clientX + "px";
+      dot.style.top = e.clientY + "px";
+      document.body.appendChild(dot);
+      setTimeout(() => dot.remove(), 900);
+    });
+  }
+
+  /* ----------------------------------------------- 3D tilt on preview cards */
+  function init3DTilt() {
+    if (reducedMotion) return;
+    if (window.matchMedia("(hover: none)").matches) return;
+
+    $$(".preview-link-card").forEach((card) => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left, y = e.clientY - rect.top;
+        const cx = rect.width / 2, cy = rect.height / 2;
+        const rotateX = ((y - cy) / cy) * -6; // max 6deg
+        const rotateY = ((x - cx) / cx) * 6;
+        card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        card.style.transition = "transform 0.08s ease-out";
+      });
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "";
+        card.style.transition = "transform 0.5s cubic-bezier(.25,.8,.25,1)";
+      });
+    });
+  }
+
+  /* ----------------------------------------------- magnetic nav pills */
+  function initMagneticPills() {
+    if (reducedMotion) return;
+    if (window.matchMedia("(hover: none)").matches) return;
+
+    $$(".site-header nav a").forEach((pill) => {
+      pill.addEventListener("mousemove", (e) => {
+        const rect = pill.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        pill.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) scale(1.06)`;
+        pill.style.transition = "transform 0.15s ease-out";
+      });
+      pill.addEventListener("mouseleave", () => {
+        pill.style.transform = "";
+        pill.style.transition = "transform 0.4s cubic-bezier(.25,.8,.25,1)";
+      });
+    });
+  }
+
+  /* ----------------------------------------------- hero ribbon entrance */
+  function initHeroEntrance() {
+    if (reducedMotion) return;
+    const hero = $("main .hero-section h1, main section:first-of-type h1");
+    if (!hero) return;
+    hero.style.opacity = "0";
+    hero.style.transform = "translateY(30px) scaleX(0.85)";
+    hero.style.transition = "none";
+
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        hero.style.transition = "opacity 0.9s cubic-bezier(.22,1,.36,1), transform 0.9s cubic-bezier(.22,1,.36,1)";
+        hero.style.opacity = "1";
+        hero.style.transform = "translateY(0) scaleX(1)";
+      }, 600); // after passcode unlocked + confetti
+    });
+  }
+
+  /* ----------------------------------------------- floating wish bubbles */
+  function initWishBubbles() {
+    if (reducedMotion) return;
+    if (!document.body.classList.contains("page-wish")) return;
+
+    const container = el("div", "wish-bubble-layer");
+    document.body.prepend(container);
+
+    for (let i = 0; i < 12; i++) {
+      const b = el("div", "wish-bubble");
+      const size = 20 + Math.random() * 50;
+      const dur = 8 + Math.random() * 12;
+      b.style.width = size + "px";
+      b.style.height = size + "px";
+      b.style.left = Math.random() * 100 + "%";
+      b.style.bottom = "-60px";
+      b.style.animationDuration = dur + "s";
+      b.style.animationDelay = Math.random() * dur + "s";
+      b.style.opacity = 0.15 + Math.random() * 0.35;
+      container.appendChild(b);
+    }
+  }
+
   /* ------------------------------------------------------------- expose */
   window.DiaryMagic = {
     $, $$, el, escapeHtml,
@@ -610,6 +717,11 @@
     initPageTransitions();
     initSparkles();
     initCardGlow();
+    initCursorTrail();
+    init3DTilt();
+    initMagneticPills();
+    initHeroEntrance();
+    initWishBubbles();
     initParallax();
     initMusic();
     initBalloons();
