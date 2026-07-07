@@ -242,7 +242,11 @@
 
   /* ---- init jsVectorMap ---- */
   var mapEl = $("#worldMap");
-  if (!mapEl || typeof window.jsVectorMap === "undefined") return;
+  console.log('[TRAVEL] init - mapEl:', !!mapEl, 'jsVectorMap:', typeof window.jsVectorMap);
+  if (!mapEl || typeof window.jsVectorMap === "undefined") {
+    console.log('[TRAVEL] ABORT: missing mapEl or jsVectorMap');
+    return;
+  }
 
   var visited = {};
   try { visited = JSON.parse(localStorage.getItem("nadia_visited") || "{}"); } catch(e) {}
@@ -453,9 +457,15 @@
     regionsSelectable: false,
     onRegionClick: function (event, code) {
       code = code.toUpperCase();
+      console.log('[TRAVEL] clicked region:', code);
       var data = FACTS[code];
-      if (data) showCountry(data, code);
-      else showUnknown(code);
+      if (data) {
+        console.log('[TRAVEL] showing country:', data.n);
+        showCountry(data, code);
+      } else {
+        console.log('[TRAVEL] no data for:', code);
+        showUnknown(code);
+      }
     },
     onRegionTooltip: function (event, tooltip, code) {
       var data = FACTS[code.toUpperCase()];
@@ -477,6 +487,7 @@
   var modal = $("#travelModal");
 
   function showCountry(data, code) {
+    console.log('[TRAVEL] showCountry called:', code, data.n, 'modalBg:', !!modalBg, 'modal:', !!modal);
     var isVisited = visited[code] ? "✅ Visited" : "🌙 Want to Visit";
     var isPinned = pinned[code];
     modal.innerHTML =
