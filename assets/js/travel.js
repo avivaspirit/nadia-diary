@@ -3,7 +3,13 @@
    ================================================================ */
 (function () {
   "use strict";
-  var $ = function (s) { return document.querySelector(s); };
+
+  var $ = function (sel, root) {
+    return (root || document).querySelector(sel);
+  };
+  var $$ = function (sel, root) {
+    return Array.from((root || document).querySelectorAll(sel));
+  };
   var TG_BOT = "https://t.me/avivaflightsbot";
 
   /* ---- country quick facts (ISO code → data) ---- */
