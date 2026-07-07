@@ -894,6 +894,212 @@
     });
   }
 
+  /* ========================================== ORIGINKIT-INSPIRED EFFECTS == */
+
+  /* ----------------------------------------------- rose petal fall (birthday) */
+  // Originkit "Snow Fall" adapted: canvas petals drift down with sway + spin
+  function initRosePetals() {
+    if (reducedMotion) return;
+    if (!/birthday\.html/.test(location.pathname)) return;
+
+    var canvas = document.createElement("canvas");
+    canvas.className = "petal-canvas";
+    canvas.style.cssText = "position:fixed;inset:0;pointer-events:none;z-index:60;";
+    document.body.appendChild(canvas);
+    var ctx = canvas.getContext("2d");
+
+    var W, H, dpr;
+    function resize() {
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width = W + "px";
+      canvas.style.height = H + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    window.addEventListener("resize", resize);
+
+    var PETAL_COLORS = [
+      "rgba(255,143,163,0.85)",  // pink
+      "rgba(255,182,193,0.80)",  // light pink
+      "rgba(255,200,160,0.75)",  // peach
+      "rgba(255,230,180,0.70)",  // cream-gold
+      "rgba(255,105,135,0.80)",  // deep rose
+    ];
+
+    var COUNT = 28;
+    var petals = [];
+    for (var i = 0; i < COUNT; i++) {
+      petals.push({
+        x: Math.random() * W,
+        y: Math.random() * H - H,
+        size: 6 + Math.random() * 10,
+        speedY: 0.4 + Math.random() * 1.2,
+        speedX: -0.3 + Math.random() * 0.6,
+        swayAmp: 0.5 + Math.random() * 1.5,
+        swayPhase: Math.random() * Math.PI * 2,
+        swaySpeed: 0.01 + Math.random() * 0.02,
+        rotation: Math.random() * Math.PI * 2,
+        rotSpeed: -0.02 + Math.random() * 0.04,
+        color: PETAL_COLORS[(Math.random() * PETAL_COLORS.length) | 0],
+        opacity: 0.5 + Math.random() * 0.4,
+      });
+    }
+
+    function drawPetal(p) {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rotation);
+      ctx.globalAlpha = p.opacity;
+      ctx.fillStyle = p.color;
+      // Petal shape: teardrop ellipse
+      ctx.beginPath();
+      ctx.ellipse(0, 0, p.size * 0.6, p.size, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Highlight
+      ctx.globalAlpha = p.opacity * 0.3;
+      ctx.fillStyle = "rgba(255,255,255,0.8)";
+      ctx.beginPath();
+      ctx.ellipse(-p.size * 0.15, -p.size * 0.3, p.size * 0.15, p.size * 0.3, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    var frameCount = 0;
+    function animate() {
+      ctx.clearRect(0, 0, W, H);
+      frameCount++;
+      for (var i = 0; i < petals.length; i++) {
+        var p = petals[i];
+        p.y += p.speedY;
+        p.swayPhase += p.swaySpeed;
+        p.x += p.speedX + Math.sin(p.swayPhase) * p.swayAmp * 0.3;
+        p.rotation += p.rotSpeed;
+        // Recycle when off-screen
+        if (p.y > H + 20) {
+          p.y = -20;
+          p.x = Math.random() * W;
+        }
+        if (p.x < -30) p.x = W + 30;
+        if (p.x > W + 30) p.x = -30;
+        drawPetal(p);
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+  }
+
+  /* ----------------------------------------------- glitter wrap (all pages) */
+  // Originkit "Glitter Wrap" adapted: ambient gold sparkle canvas overlay
+  function initGlitterWrap() {
+    if (reducedMotion) return;
+    // Skip on gallery (too many images already)
+    if (/gallery\.html/.test(location.pathname)) return;
+
+    var canvas = document.createElement("canvas");
+    canvas.className = "glitter-canvas";
+    canvas.style.cssText = "position:fixed;inset:0;pointer-events:none;z-index:58;mix-blend-mode:screen;";
+    document.body.appendChild(canvas);
+    var ctx = canvas.getContext("2d");
+
+    var W, H, dpr;
+    function resize() {
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width = W + "px";
+      canvas.style.height = H + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    window.addEventListener("resize", resize);
+
+    var COUNT = 45;
+    var sparkles = [];
+    for (var i = 0; i < COUNT; i++) {
+      sparkles.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        size: 0.5 + Math.random() * 1.8,
+        twinklePhase: Math.random() * Math.PI * 2,
+        twinkleSpeed: 0.02 + Math.random() * 0.04,
+        driftX: -0.15 + Math.random() * 0.3,
+        driftY: -0.1 + Math.random() * 0.2,
+        baseOpacity: 0.3 + Math.random() * 0.5,
+        // Color: gold, rose-gold, or white
+        hue: Math.random() < 0.5 ? 42 + Math.random() * 18 : (Math.random() < 0.5 ? 340 + Math.random() * 20 : 0),
+        sat: Math.random() < 0.3 ? 0 : 70 + Math.random() * 30,
+      });
+    }
+
+    function drawSparkle(s) {
+      var opacity = s.baseOpacity * (0.3 + Math.abs(Math.sin(s.twinklePhase)) * 0.7);
+      if (opacity < 0.02) return;
+      ctx.save();
+      ctx.globalAlpha = opacity;
+
+      // Glow halo
+      var glowSize = s.size * 4;
+      var grad = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, glowSize);
+      var color = s.sat === 0
+        ? "rgba(255,255,255,1)"
+        : "hsla(" + s.hue + "," + s.sat + "%,75%,1)";
+      grad.addColorStop(0, color);
+      grad.addColorStop(0.4, s.sat === 0
+        ? "rgba(255,255,255,0.3)"
+        : "hsla(" + s.hue + "," + s.sat + "%,70%,0.3)");
+      grad.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, glowSize, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Core dot
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Cross sparkle lines for larger dots
+      if (s.size > 1.2 && opacity > 0.4) {
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 0.5;
+        ctx.globalAlpha = opacity * 0.6;
+        var r = s.size * 3;
+        ctx.beginPath();
+        ctx.moveTo(s.x - r, s.y);
+        ctx.lineTo(s.x + r, s.y);
+        ctx.moveTo(s.x, s.y - r);
+        ctx.lineTo(s.x, s.y + r);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < sparkles.length; i++) {
+        var s = sparkles[i];
+        s.twinklePhase += s.twinkleSpeed;
+        s.x += s.driftX;
+        s.y += s.driftY;
+        // Wrap around
+        if (s.x < -10) s.x = W + 10;
+        if (s.x > W + 10) s.x = -10;
+        if (s.y < -10) s.y = H + 10;
+        if (s.y > H + 10) s.y = -10;
+        drawSparkle(s);
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     initNavToggle();
     initPasscode();
@@ -910,6 +1116,8 @@
     initMusic();
     initBalloons();
     initPhotoEditor();
+    initRosePetals();
+    initGlitterWrap();
     // initReveals is called by each page AFTER it renders dynamic content
   });
 })();
