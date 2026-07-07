@@ -885,13 +885,13 @@
       "#ffc0cb",  // pale pink
     ];
 
-    var COUNT = 22;
+    var COUNT = 30;
     var petals = [];
     for (var i = 0; i < COUNT; i++) {
       petals.push({
         x: Math.random() * W,
         y: Math.random() * H - H,
-        size: 10 + Math.random() * 12,
+        size: 14 + Math.random() * 16,
         speedY: 0.5 + Math.random() * 1.0,
         speedX: -0.4 + Math.random() * 0.8,
         swayAmp: 0.8 + Math.random() * 2,
@@ -1057,6 +1057,13 @@
       ctx.restore();
     }
 
+    // Fade out after 6 seconds, remove after 8
+    setTimeout(function() {
+      canvas.style.transition = "opacity 2s ease-out";
+      canvas.style.opacity = "0";
+      setTimeout(function() { canvas.remove(); }, 2000);
+    }, 6000);
+
     function animate() {
       ctx.clearRect(0, 0, W, H);
       for (var i = 0; i < sparkles.length; i++) {
@@ -1070,7 +1077,7 @@
         if (s.y > H + 10) s.y = -10;
         drawSparkle(s);
       }
-      requestAnimationFrame(animate);
+      if (canvas.parentNode) requestAnimationFrame(animate);
     }
     animate();
   }
@@ -1102,21 +1109,28 @@
     window.addEventListener("resize", resize);
 
     // Radial spokes from bottom-center
-    var SPOKES = 24;
+    var SPOKES = 30;
     var spokeParticles = [];
     for (var i = 0; i < SPOKES; i++) {
-      var angle = -Math.PI / 2 + (-0.6 + (i / (SPOKES - 1)) * 1.2); // fan upward
-      for (var j = 0; j < 8; j++) {
+      var angle = -Math.PI / 2 + (-0.7 + (i / (SPOKES - 1)) * 1.4); // wider fan upward
+      for (var j = 0; j < 12; j++) {
         spokeParticles.push({
           angle: angle,
-          dist: 50 + j * 40 + Math.random() * 30,
-          speed: 0.3 + Math.random() * 0.5,
-          size: 1 + Math.random() * 2.5,
+          dist: 30 + j * 35 + Math.random() * 25,
+          speed: 0.4 + Math.random() * 0.6,
+          size: 1.5 + Math.random() * 3.5,
           phase: Math.random() * Math.PI * 2,
           twinkleSpeed: 0.02 + Math.random() * 0.03,
         });
       }
     }
+
+    // Fade out after 8 seconds, remove after 10
+    setTimeout(function() {
+      canvas.style.transition = "opacity 2s ease-out";
+      canvas.style.opacity = "0";
+      setTimeout(function() { canvas.remove(); }, 2000);
+    }, 8000);
 
     var frameNum = 0;
     function animate() {
@@ -1127,13 +1141,13 @@
       var cy = H + 20; // bottom center
 
       // Central glow bloom
-      var bloomGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 200);
-      bloomGrad.addColorStop(0, "rgba(255,200,80,0.15)");
-      bloomGrad.addColorStop(0.4, "rgba(255,180,60,0.06)");
+      var bloomGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 300);
+      bloomGrad.addColorStop(0, "rgba(255,200,80,0.25)");
+      bloomGrad.addColorStop(0.3, "rgba(255,180,60,0.1)");
       bloomGrad.addColorStop(1, "rgba(255,150,50,0)");
       ctx.fillStyle = bloomGrad;
       ctx.beginPath();
-      ctx.arc(cx, cy, 200, 0, Math.PI * 2);
+      ctx.arc(cx, cy, 300, 0, Math.PI * 2);
       ctx.fill();
 
       // Spoke particles
@@ -1169,7 +1183,7 @@
         ctx.fill();
       }
 
-      requestAnimationFrame(animate);
+      if (canvas.parentNode) requestAnimationFrame(animate);
     }
     animate();
   }
