@@ -854,7 +854,7 @@
   /* ----------------------------------------------- rose petal fall (birthday) */
   function initRosePetals() {
     if (reducedMotion) return;
-    if (!/birthday\.html/.test(location.pathname)) return;
+    if (!/birthday/.test(location.pathname)) return;
 
     var canvas = document.createElement("canvas");
     canvas.className = "petal-canvas";
@@ -958,7 +958,7 @@
   // Bold gold/rose sparkles visible on light backgrounds
   function initGlitterWrap() {
     if (reducedMotion) return;
-    if (/gallery\.html/.test(location.pathname)) return;
+    if (/gallery/.test(location.pathname)) return;
 
     var canvas = document.createElement("canvas");
     canvas.className = "glitter-canvas";
@@ -1086,7 +1086,7 @@
   // Golden radial glow emanating from bottom-center
   function initStarBurst() {
     if (reducedMotion) return;
-    if (!/story\.html|index\.html|\/$/.test(location.pathname)) return;
+    if (!/story|index|^\//.test(location.pathname)) return;
 
     var canvas = document.createElement("canvas");
     canvas.className = "starburst-canvas";
