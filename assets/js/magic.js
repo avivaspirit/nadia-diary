@@ -1204,9 +1204,10 @@
     initMusic();
     initBalloons();
     initPhotoEditor();
-    initRosePetals();
-    initGlitterWrap();
-    initStarBurst();
+    // Originkit-inspired effects — wrapped in try-catch so one failure doesn't block others
+    try { initRosePetals(); } catch(e) { console.warn("petals:", e.message); }
+    try { initGlitterWrap(); } catch(e) { console.warn("glitter:", e.message); }
+    try { initStarBurst(); } catch(e) { console.warn("starburst:", e.message); }
     // initReveals is called by each page AFTER it renders dynamic content
   });
 })();
