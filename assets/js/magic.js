@@ -621,23 +621,67 @@
     });
   }
 
+  /* ----------------------------------------------- scramble text effect */
+  // Originkit-inspired: scramble random chars then lock-in left to right
+  var SCRAMBLE_CHARS = "♡✧⭐🎀💕♡✦⋆❀♡☆♥✿❤♦✦♢♡abcdefghijklmnopqrstuvwxyz";
+  function scrambleText(node, finalText, opts) {
+    opts = opts || {};
+    if (reducedMotion) { node.textContent = finalText; return; }
+    var duration = opts.duration || 1100;
+    var interval = opts.interval || 35;
+    var scramblePool = opts.chars || SCRAMBLE_CHARS;
+    var target = finalText != null ? finalText : node.textContent;
+    if (!target) return;
+    var chars = target.split("");
+    var startTime = Date.now();
+
+    function frame() {
+      var elapsed = Date.now() - startTime;
+      var progress = Math.min(1, elapsed / duration);
+      // Each character locks when progress covers its position
+      var lockThreshold = chars.length > 1 ? progress * (chars.length + 3) : progress;
+      var display = chars.map(function(ch, i) {
+        if (ch === " ") return " ";
+        if (i < lockThreshold) return ch;
+        return scramblePool[Math.floor(Math.random() * scramblePool.length)];
+      }).join("");
+      node.textContent = display;
+
+      if (progress < 1) {
+        setTimeout(frame, interval);
+      } else {
+        node.textContent = target;
+      }
+    }
+    node.style.opacity = "1";
+    frame();
+  }
+
   /* ----------------------------------------------- hero ribbon entrance */
   function initHeroEntrance() {
     if (reducedMotion) return;
-    const hero = $("main .hero h1, main .hero-copy h1, main section h1, main > div:first-child h1");
+    var hero = $("main .hero h1, main .hero-copy h1, main section h1, main > div:first-child h1");
     if (!hero) return;
     // Guard: skip if already animated (called from home.js after dynamic render)
     if (hero.dataset.entranced) return;
     hero.dataset.entranced = "1";
+
+    var finalText = hero.textContent;
+    // Scramble-in + lift: scramble first, then settle into fade-up
     hero.style.opacity = "0";
-    hero.style.transform = "translateY(30px) scaleX(0.85)";
+    hero.style.transform = "translateY(30px) scaleX(0.92)";
     hero.style.transition = "none";
 
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        hero.style.transition = "opacity 0.9s cubic-bezier(.22,1,.36,1), transform 0.9s cubic-bezier(.22,1,.36,1)";
+    requestAnimationFrame(function() {
+      setTimeout(function() {
+        hero.style.transition = "opacity 0.5s cubic-bezier(.22,1,.36,1), transform 0.9s cubic-bezier(.22,1,.36,1)";
         hero.style.opacity = "1";
-        hero.style.transform = "translateY(0) scaleX(1)";
+        // Start scramble as hero becomes visible
+        scrambleText(hero, finalText, { duration: 1100, interval: 34 });
+        // Settle transform slightly after scramble starts
+        setTimeout(function() {
+          hero.style.transform = "translateY(0) scaleX(1)";
+        }, 100);
       }, 600);
     });
   }
@@ -673,6 +717,7 @@
     init3DTilt,
     initMagneticPills,
     initHeroEntrance,
+    scrambleText,
     applyOverrides,
     lightbox,
     burstConfetti,
