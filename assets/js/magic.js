@@ -1079,7 +1079,7 @@
   // Golden radial glow emanating from bottom-center
   function initStarBurst() {
     if (reducedMotion) return;
-    if (!/story\.html|index\.html/.test(location.pathname)) return;
+    if (!/story\.html|index\.html|\/$/.test(location.pathname)) return;
 
     var canvas = document.createElement("canvas");
     canvas.className = "starburst-canvas";
