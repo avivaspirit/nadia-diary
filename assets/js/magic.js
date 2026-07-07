@@ -933,6 +933,13 @@
       ctx.restore();
     }
 
+    // Fade out after 12 seconds, remove after 14
+    setTimeout(function() {
+      canvas.style.transition = "opacity 2.5s ease-out";
+      canvas.style.opacity = "0";
+      setTimeout(function() { canvas.remove(); }, 2500);
+    }, 12000);
+
     function animate() {
       ctx.clearRect(0, 0, W, H);
       for (var i = 0; i < petals.length; i++) {
@@ -949,7 +956,7 @@
         if (p.x > W + 40) p.x = -40;
         drawPetal(p);
       }
-      requestAnimationFrame(animate);
+      if (canvas.parentNode) requestAnimationFrame(animate);
     }
     animate();
   }
