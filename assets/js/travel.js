@@ -436,6 +436,16 @@
     selector: "#worldMap",
     map: "world",
     backgroundColor: "transparent",
+    draggable: true,
+    zoomButtons: true,
+    zoomOnScroll: true,
+    zoomOnScrollSpeed: 3,
+    zoomMax: 12,
+    zoomMin: 1,
+    zoomAnimate: true,
+    zoomStep: 1.5,
+    bindTouchEvents: true,
+    showTooltip: true,
     regionStyle: {
       initial: {
         fill: "#e8d5e0",
