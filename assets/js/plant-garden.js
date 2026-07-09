@@ -27,6 +27,12 @@
     peony:     { name: "Peony",     emoji: "🌸" },
     dandelion: { name: "Dandelion", emoji: "🌾" },
     bamboo:    { name: "Bamboo",    emoji: "🎋" },
+    sunrose:   { name: "Sun Rose",  emoji: "🌅" },
+    mushroom:  { name: "Mushroom",  emoji: "🍄" },
+    clover:    { name: "Clover",    emoji: "🍀" },
+    crystal:   { name: "Crystal",   emoji: "💎" },
+    bonsai:    { name: "Bonsai",    emoji: "🪴" },
+    sunsprout: { name: "Sprout",    emoji: "🌱" },
   };
 
   var VW = 200, VH = 320; /* SVG viewBox dimensions */
@@ -506,6 +512,254 @@
         '<rect x="78" y="260" width="6" height="50" rx="2" fill="#7ab87a"/>' +
         '<ellipse cx="81" cy="258" rx="8" ry="3" fill="#8ac88a" transform="rotate(-15 81 258)"/>';
       return { svg: svg, anchors: [{x:100,y:40},{x:130,y:55},{x:70,y:105},{x:68,y:140}] };
+    },
+
+    /* SUN ROSE — warm sunset-gradient bloom, very romantic */
+    sunrose: function () {
+      var svg =
+        ground(100, 310, 40) +
+        stem("M100 310 Q98 220 100 130", 3.5, "#6a8a5a") +
+        '<ellipse cx="72" cy="230" rx="16" ry="8" fill="#5a9a5a" transform="rotate(-30 72 230)"/>' +
+        '<ellipse cx="130" cy="200" rx="16" ry="8" fill="#5a9a5a" transform="rotate(35 130 200)"/>' +
+        leaf(88, 180, 10, 4, "#8ac88a", -20) +
+        leaf(112, 160, 10, 4, "#8ac88a", 20) +
+        '<g transform="translate(100,100)">' +
+          /* Layered sunset petals — peach to coral to pink */
+          petals(0, 0, 12, 30, 12, "#ffd4a8", 0.7) +
+          petals(0, 0, 10, 26, 11, "#ffb080", 0.8) +
+          petals(0, 0, 9, 22, 10, "#ff8a60", 0.85) +
+          petals(0, 0, 8, 18, 9, "#ff6b8a", 0.9) +
+          petals(0, 0, 6, 13, 7, "#e85070") +
+          /* Glowing center */
+          circle(0, 0, 7, "#ffd966") +
+          circle(0, 0, 4, "#ffe8a0") +
+          dot(0, 0, 2, "#ffd966") +
+        "</g>" +
+        /* Small side bud */
+        '<g transform="translate(72,165)">' +
+          petals(0, 0, 5, 12, 6, "#ffb080", 0.8) +
+          circle(0, 0, 5, "#ff8a60") +
+        "</g>";
+      return { svg: svg, anchors: [{x:100,y:100},{x:72,y:165},{x:130,y:200},{x:72,y:230}] };
+    },
+
+    /* MUSHROOM — cute red toadstool with white dots */
+    mushroom: function () {
+      var svg =
+        ground(100, 310, 50) +
+        /* Stem */
+        '<rect x="88" y="180" width="24" height="120" rx="8" fill="#f8e8d0"/>' +
+        '<rect x="90" y="182" width="20" height="116" rx="6" fill="#fdf0e0" opacity="0.5"/>' +
+        /* Cap shadow */
+        '<ellipse cx="100" cy="175" rx="58" ry="10" fill="#d4a4a4" opacity="0.2"/>' +
+        /* Cap — big red dome */
+        '<path d="M40 175 Q40 100 100 85 Q160 100 160 175 Q160 185 100 185 Q40 185 40 175 Z" fill="#e84a5e"/>' +
+        '<path d="M45 170 Q48 110 100 90 Q152 110 155 170 Q140 160 100 155 Q60 160 45 170 Z" fill="#f0607a" opacity="0.5"/>' +
+        '<path d="M55 140 Q60 105 100 90 Q120 88 130 95" stroke="#ff8aa0" stroke-width="3" fill="none" opacity="0.4"/>' +
+        /* White dots */
+        circle(100, 120, 8, "#ffffff") +
+        circle(78, 140, 6, "#ffffff") +
+        circle(125, 135, 7, "#ffffff") +
+        circle(92, 155, 5, "#ffffff") +
+        circle(115, 160, 4, "#ffffff") +
+        circle(68, 160, 4, "#ffffff") +
+        circle(140, 158, 4, "#ffffff") +
+        /* Tiny flower next to mushroom */
+        '<g transform="translate(55,280)">' +
+          petals(0, 0, 5, 6, 3, "#ffd966") +
+          circle(0, 0, 2, "#e6b84d") +
+        "</g>" +
+        /* Grass tufts */
+        '<path d="M120 300 Q123 285 126 300" stroke="#7ab87a" stroke-width="2" fill="none"/>' +
+        '<path d="M130 302 Q134 288 138 302" stroke="#7ab87a" stroke-width="2" fill="none"/>';
+      return { svg: svg, anchors: [{x:100,y:120},{x:78,y:140},{x:125,y:135},{x:100,y:155}] };
+    },
+
+    /* CLOVER — lucky four-leaf cluster */
+    clover: function () {
+      var cloverLeaf = function (cx, cy, angle, sz) {
+        return '<g transform="translate(' + cx + ',' + cy + ') rotate(' + angle + ')">' +
+          '<ellipse cx="0" cy="' + (-sz*0.7) + '" rx="' + (sz*0.6) + '" ry="' + sz + '" fill="#5a9a5a"/>' +
+          '<ellipse cx="0" cy="' + (-sz*0.7) + '" rx="' + (sz*0.45) + '" ry="' + (sz*0.8) + '" fill="#6ab87a" opacity="0.5"/>' +
+          /* Heart notch at top */
+          '<path d="M0 ' + (-sz*1.3) + ' Q-' + (sz*0.2) + ' ' + (-sz*1.1) + ' 0 ' + (-sz*0.9) + ' Q' + (sz*0.2) + ' ' + (-sz*1.1) + ' 0 ' + (-sz*1.3) + ' Z" fill="#5a9a5a"/>' +
+          /* White line down center */
+          '<line x1="0" y1="0" x2="0" y2="' + (-sz*1.2) + '" stroke="#8acc8a" stroke-width="0.8" opacity="0.5"/>' +
+          '</g>';
+      };
+      var svg =
+        ground(100, 310, 50) +
+        stem("M100 310 Q100 250 100 180", 3, "#5a8a4a") +
+        /* Side leaves on stem */
+        leaf(80, 260, 8, 4, "#7ab87a", -30) +
+        leaf(118, 250, 8, 4, "#7ab87a", 30) +
+        '<ellipse cx="70" cy="280" rx="18" ry="6" fill="#5a9a5a" transform="rotate(-15 70 280)" opacity="0.7"/>' +
+        '<ellipse cx="130" cy="282" rx="18" ry="6" fill="#5a9a5a" transform="rotate(15 130 282)" opacity="0.7"/>' +
+        /* Four-leaf clover at top */
+        cloverLeaf(100, 160, 0, 18) +
+        cloverLeaf(100, 160, 90, 18) +
+        cloverLeaf(100, 160, 180, 18) +
+        cloverLeaf(100, 160, 270, 18) +
+        /* Center knot */
+        circle(100, 160, 5, "#4a8a3a") +
+        dot(100, 160, 2, "#3a7a2a") +
+        /* Second smaller clover */
+        cloverLeaf(65, 220, 0, 12) +
+        cloverLeaf(65, 220, 90, 12) +
+        cloverLeaf(65, 220, 180, 12) +
+        cloverLeaf(65, 220, 270, 12) +
+        circle(65, 220, 3, "#4a8a3a") +
+        /* Sparkle dots */
+        dot(140, 150, 2, "#ffd966", 0.8) +
+        dot(145, 170, 1.5, "#ffd966", 0.6) +
+        dot(60, 190, 1.5, "#ffd966", 0.7);
+      return { svg: svg, anchors: [{x:100,y:140},{x:65,y:200},{x:130,y:282},{x:100,y:260}] };
+    },
+
+    /* CRYSTAL — magical crystal flower, sparkly and pink */
+    crystal: function () {
+      var svg =
+        ground(100, 310, 45) +
+        /* Sparkly stem */
+        stem("M100 310 Q98 230 100 150", 3, "#b8a0d4") +
+        '<ellipse cx="75" cy="230" rx="12" ry="6" fill="#c8b0d4" transform="rotate(-25 75 230)" opacity="0.6"/>' +
+        '<ellipse cx="128" cy="215" rx="12" ry="6" fill="#c8b0d4" transform="rotate(25 128 215)" opacity="0.6"/>' +
+        /* Crystal cluster base — growing from ground */
+        '<polygon points="82,310 78,280 85,275 88,310" fill="#d4a0e0" opacity="0.7"/>' +
+        '<polygon points="112,310 116,285 110,280 108,310" fill="#d4a0e0" opacity="0.6"/>' +
+        /* Main crystal bloom — faceted gem flower */
+        '<g transform="translate(100,110)">' +
+          /* Outer crystal petals */
+          '<polygon points="0,-35 -20,-15 -28,5 0,-5 28,5 20,-15" fill="#e4b0f0" opacity="0.5"/>' +
+          '<polygon points="0,-32 -18,-12 -25,8 0,-2 25,8 18,-12" fill="#d490e8" opacity="0.7"/>' +
+          '<polygon points="0,-28 -15,-10 -20,10 0,2 20,10 15,-10" fill="#c870e0" opacity="0.85"/>' +
+          /* Faceted center */
+          '<polygon points="0,-18 -10,-5 -12,8 0,4 12,8 10,-5" fill="#b850d8"/>' +
+          '<polygon points="0,-12 -6,-3 -7,5 0,3 7,5 6,-3" fill="#a838c8"/>' +
+          /* Shine */
+          '<polygon points="0,-15 -4,-8 -2,0 2,-2 0,-15" fill="#ffffff" opacity="0.4"/>' +
+          '<polygon points="-6,-3 -8,2 -4,1 -6,-3" fill="#ffffff" opacity="0.3"/>' +
+        "</g>" +
+        /* Smaller crystal buds */
+        '<g transform="translate(70,170)">' +
+          '<polygon points="0,-14 -8,-4 -10,5 0,2 10,5 8,-4" fill="#d490e8" opacity="0.8"/>' +
+          '<polygon points="0,-8 -4,-2 -5,3 0,1 5,3 4,-2" fill="#c870e0"/>' +
+        "</g>" +
+        '<g transform="translate(128,155)">' +
+          '<polygon points="0,-12 -7,-3 -8,4 0,2 8,4 7,-3" fill="#d490e8" opacity="0.7"/>' +
+        "</g>" +
+        /* Sparkles around */
+        function () {
+          var s = "";
+          var sp = [[135,100],[65,130],[140,140],[55,170],[145,180],[60,200]];
+          sp.forEach(function (p) {
+            s += '<g transform="translate(' + p[0] + ',' + p[1] + ')">' +
+              '<path d="M0,-4 L1,-1 L4,0 L1,1 L0,4 L-1,1 L-4,0 L-1,-1 Z" fill="#ffffff" opacity="0.7"/>' +
+              '</g>';
+          });
+          return s;
+        }();
+      return { svg: svg, anchors: [{x:100,y:110},{x:70,y:170},{x:128,y:155},{x:100,y:230}] };
+    },
+
+    /* BONSAI — miniature tree with twisted trunk */
+    bonsai: function () {
+      var svg =
+        ground(100, 310, 50) +
+        /* Pot */
+        '<path d="M65 290 L135 290 L130 310 L70 310 Z" fill="#a67c5a"/>' +
+        '<path d="M68 292 L132 292 L128 308 L72 308 Z" fill="#b88c6a" opacity="0.4"/>' +
+        '<rect x="63" y="286" width="74" height="6" rx="2" fill="#956a4a"/>' +
+        /* Twisted trunk */
+        '<path d="M100 286 C95 250 110 230 85 200 C80 185 95 170 80 150" stroke="#8B6F47" stroke-width="6" fill="none" stroke-linecap="round"/>' +
+        '<path d="M95 280 C92 255 105 235 82 205" stroke="#9B7F57" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.5"/>' +
+        /* Branch */
+        '<path d="M88 195 Q110 185 130 170" stroke="#8B6F47" stroke-width="4" fill="none" stroke-linecap="round"/>' +
+        '<path d="M85 160 Q70 145 58 130" stroke="#8B6F47" stroke-width="3.5" fill="none" stroke-linecap="round"/>' +
+        /* Foliage clouds — dense green clusters */
+        '<g transform="translate(80,145)">' +
+          circle(0, 0, 16, "#4a8a3a") +
+          circle(-8, -5, 12, "#5a9a4a") +
+          circle(8, -3, 13, "#5a9a4a") +
+          circle(-5, 6, 11, "#6aaa5a") +
+          circle(6, 5, 12, "#6aaa5a") +
+          circle(0, -8, 10, "#7aba6a") +
+        "</g>" +
+        '<g transform="translate(130,165)">' +
+          circle(0, 0, 14, "#4a8a3a") +
+          circle(-6, -4, 10, "#5a9a4a") +
+          circle(6, -2, 11, "#6aaa5a") +
+          circle(0, -6, 9, "#7aba6a") +
+        "</g>" +
+        '<g transform="translate(55,128)">' +
+          circle(0, 0, 12, "#4a8a3a") +
+          circle(-5, -3, 9, "#5a9a4a") +
+          circle(4, -2, 10, "#6aaa5a") +
+        "</g>" +
+        '<g transform="translate(100,185)">' +
+          circle(0, 0, 10, "#4a8a3a") +
+          circle(-4, -2, 8, "#5a9a4a") +
+        "</g>" +
+        /* Tiny pink blossoms on foliage */
+        dot(74, 138, 2, "#ffb0c8") +
+        dot(86, 142, 2, "#ffb0c8") +
+        dot(82, 150, 1.5, "#ffb0c8") +
+        dot(128, 160, 2, "#ffb0c8") +
+        dot(135, 168, 1.5, "#ffb0c8") +
+        dot(52, 125, 2, "#ffb0c8");
+      return { svg: svg, anchors: [{x:80,y:145},{x:130,y:165},{x:55,y:128},{x:100,y:185}] };
+    },
+
+    /* SPROUT — tiny cute baby plant with a happy face */
+    sunsprout: function () {
+      var svg =
+        ground(100, 310, 45) +
+        /* Soil mound */
+        '<ellipse cx="100" cy="305" rx="35" ry="10" fill="#a67c5a" opacity="0.6"/>' +
+        '<ellipse cx="100" cy="302" rx="28" ry="7" fill="#b88c6a" opacity="0.4"/>' +
+        /* Short stem */
+        stem("M100 300 Q100 270 100 230", 4, "#6aaa5a") +
+        /* Two big baby leaves */
+        '<g transform="translate(72,240)">' +
+          '<ellipse cx="0" cy="0" rx="20" ry="14" fill="#7aba6a" transform="rotate(-25)"/>' +
+          '<ellipse cx="2" cy="-1" rx="16" ry="10" fill="#8aca7a" transform="rotate(-25)" opacity="0.4"/>' +
+          /* Leaf vein */
+          '<line x1="-15" y1="2" x2="15" y2="-4" stroke="#9ada8a" stroke-width="0.8" opacity="0.5"/>' +
+        "</g>" +
+        '<g transform="translate(128,240)">' +
+          '<ellipse cx="0" cy="0" rx="20" ry="14" fill="#7aba6a" transform="rotate(25)"/>' +
+          '<ellipse cx="-2" cy="-1" rx="16" ry="10" fill="#8aca7a" transform="rotate(25)" opacity="0.4"/>' +
+          '<line x1="15" y1="2" x2="-15" y2="-4" stroke="#9ada8a" stroke-width="0.8" opacity="0.5"/>' +
+        "</g>" +
+        /* Heart-shaped top sprout */
+        '<g transform="translate(100,210)">' +
+          '<path d="M0,-20 Q-14,-18 -14,-6 Q-14,4 0,10 Q14,4 14,-6 Q14,-18 0,-20 Z" fill="#7aba6a"/>' +
+          '<path d="M0,-15 Q-8,-13 -8,-5 Q-8,2 0,6 Q8,2 8,-5 Q8,-13 0,-15 Z" fill="#8aca7a" opacity="0.4"/>' +
+          /* Cute face — two tiny eyes and a smile */
+          dot(-5, -4, 1.5, "#3a5a2a") +
+          dot(5, -4, 1.5, "#3a5a2a") +
+          '<path d="M-4,3 Q0,6 4,3" stroke="#3a5a2a" stroke-width="1.2" fill="none" stroke-linecap="round"/>' +
+          /* Blush cheeks */
+          circle(-8, 1, 2.5, "#ffb0c8", 0.5) +
+          circle(8, 1, 2.5, "#ffb0c8", 0.5) +
+        "</g>" +
+        /* Sparkle stars */
+        function () {
+          var s = "";
+          var sp = [[70,180],[135,200],[60,210],[140,225],[80,160]];
+          sp.forEach(function (p) {
+            s += '<g transform="translate(' + p[0] + ',' + p[1] + ')">' +
+              '<path d="M0,-5 L1.5,-1.5 L5,0 L1.5,1.5 L0,5 L-1.5,1.5 L-5,0 L-1.5,-1.5 Z" fill="#ffe88a" opacity="0.8"/>' +
+              '</g>';
+          });
+          return s;
+        }() +
+        /* Small flower bud at base */
+        '<g transform="translate(65,290)">' +
+          petals(0, 0, 5, 5, 2.5, "#ffd966") +
+          dot(0, 0, 1.5, "#e6b84d") +
+        "</g>";
+      return { svg: svg, anchors: [{x:100,y:210},{x:72,y:240},{x:128,y:240},{x:100,y:270}] };
     },
   };
 
