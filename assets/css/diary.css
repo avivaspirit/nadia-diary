@@ -1931,6 +1931,14 @@ footer::before {
   transition: transform 0.5s ease;
 }
 .gallery-item:hover img { transform: scale(1.08); }
+.gallery-item video, .gallery-card video {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 16px;
+  background: #1a0a0a;
+  cursor: pointer;
+}
 .gallery-caption {
   position: absolute;
   bottom: 0; left: 0; right: 0;

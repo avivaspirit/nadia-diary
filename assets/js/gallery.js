@@ -239,7 +239,11 @@
           card.style.transform = `rotate(${rotation}deg)`;
         }
         const imgWrap = el("div", "fc-img-wrap");
-        imgWrap.innerHTML = `<img src="${escapeHtml(eff.src)}" alt="${escapeHtml(eff.alt || "")}" loading="lazy" decoding="async" />`;
+        if (photo.isVideo) {
+          imgWrap.innerHTML = `<video src="${escapeHtml(eff.src)}" alt="${escapeHtml(eff.alt || "")}" loading="lazy" muted playsinline controls preload="none"></video>`;
+        } else {
+          imgWrap.innerHTML = `<img src="${escapeHtml(eff.src)}" alt="${escapeHtml(eff.alt || "")}" loading="lazy" decoding="async" />`;
+        }
         const cap = el("div", "fc-caption");
         cap.textContent = eff.caption || "";
         card.appendChild(imgWrap);
@@ -254,7 +258,11 @@
         item.setAttribute("role", "button");
         item.setAttribute("tabindex", "0");
         item.setAttribute("aria-label", `Photo: ${eff.caption || eff.alt || "memory"}`);
-        item.innerHTML = `<img src="${escapeHtml(eff.src)}" alt="${escapeHtml(eff.alt || "")}" loading="lazy" decoding="async" /><span class="gallery-caption">${escapeHtml(eff.caption || "")}</span>`;
+        if (photo.isVideo) {
+          item.innerHTML = `<video src="${escapeHtml(eff.src)}" alt="${escapeHtml(eff.alt || "")}" loading="lazy" muted playsinline controls preload="none"></video><span class="gallery-caption">${escapeHtml(eff.caption || "")}</span>`;
+        } else {
+          item.innerHTML = `<img src="${escapeHtml(eff.src)}" alt="${escapeHtml(eff.alt || "")}" loading="lazy" decoding="async" /><span class="gallery-caption">${escapeHtml(eff.caption || "")}</span>`;
+        }
         if (!editMode) {
           item.addEventListener("click", () => lightbox.open(gallery.photos, i));
         }
