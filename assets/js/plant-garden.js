@@ -21,6 +21,12 @@
     hibiscus:  { name: "Hibiscus",  emoji: "🌺" },
     lotus:     { name: "Lotus",     emoji: "🪷" },
     bouquet:   { name: "Bouquet",   emoji: "💐" },
+    lavender:  { name: "Lavender",  emoji: "💜" },
+    cactus:    { name: "Cactus",    emoji: "🌵" },
+    orchid:    { name: "Orchid",    emoji: "orchid" },
+    peony:     { name: "Peony",     emoji: "🌸" },
+    dandelion: { name: "Dandelion", emoji: "🌾" },
+    bamboo:    { name: "Bamboo",    emoji: "🎋" },
   };
 
   var VW = 200, VH = 320; /* SVG viewBox dimensions */
@@ -265,6 +271,241 @@
           circle(0, 0, 5, "#e58aa0") + circle(0, 0, 2.5, "#d4647a") +
         "</g>";
       return { svg: svg, anchors: [{x:100,y:105},{x:78,y:128},{x:122,y:138},{x:100,y:285}] };
+    },
+
+    /* LAVENDER — tall stalks with purple flower spikes */
+    lavender: function () {
+      var svg =
+        ground(100, 310, 40) +
+        stem("M85 310 Q83 240 82 160 Q82 120 80 80", 2.5, "#6a8a5a") +
+        stem("M100 310 Q100 220 100 130 Q100 90 98 55", 2.5, "#6a8a5a") +
+        stem("M115 310 Q117 240 118 160 Q118 120 120 85", 2.5, "#6a8a5a") +
+        leaf(75, 240, 8, 3, "#7a9a6a", -35) +
+        leaf(125, 240, 8, 3, "#7a9a6a", 35) +
+        leaf(92, 200, 7, 2.5, "#8aaa7a", -20) +
+        /* Spike flowers — clusters of tiny purple dots */
+        function () {
+          var s = "";
+          var spikes = [{x:80,y:80},{x:98,y:55},{x:120,y:85}];
+          spikes.forEach(function (sp) {
+            for (var i = 0; i < 8; i++) {
+              var fy = sp.y - i * 7;
+              var cnt = Math.max(2, 4 - Math.floor(i / 2));
+              for (var j = 0; j < cnt; j++) {
+                var fx = sp.x + (j - cnt / 2 + 0.5) * 7;
+                s += circle(fx, fy, 2.5, i % 2 ? "#9b7ec8" : "#b395d9", 0.85);
+              }
+            }
+          });
+          return s;
+        }() +
+        /* Small leaves at base */
+        leaf(85, 280, 10, 4, "#8aaa7a", -15) +
+        leaf(115, 280, 10, 4, "#8aaa7a", 15);
+      return { svg: svg, anchors: [{x:98,y:55},{x:80,y:80},{x:120,y:85},{x:85,y:240}] };
+    },
+
+    /* CACTUS — rounded body with spikes and a flower on top */
+    cactus: function () {
+      var svg =
+        ground(100, 310, 45) +
+        /* Main body */
+        '<rect x="78" y="90" width="44" height="210" rx="22" fill="#5a9a4a"/>' +
+        '<rect x="80" y="92" width="40" height="206" rx="20" fill="#6aaa5a" opacity="0.5"/>' +
+        /* Left arm */
+        '<path d="M78 200 Q55 200 50 180 L50 130 Q50 115 60 115 Q70 115 70 130 L70 200" fill="#5a9a4a"/>' +
+        '<path d="M80 202 Q58 202 53 182 L53 132 Q53 118 62 118 Q70 118 70 132 L70 200" fill="#6aaa5a" opacity="0.4"/>' +
+        /* Right arm */
+        '<path d="M122 220 Q145 220 150 200 L150 160 Q150 145 140 145 Q130 145 130 160 L130 220" fill="#5a9a4a"/>' +
+        '<path d="M120 222 Q143 222 148 202 L148 162 Q148 148 138 148 Q130 148 130 162 L130 220" fill="#6aaa5a" opacity="0.4"/>' +
+        /* Spikes — small dots */
+        function () {
+          var s = "";
+          var pts = [
+            [88,120],[95,110],[102,130],[110,115],[118,125],
+            [88,160],[95,150],[108,165],[115,155],
+            [90,210],[100,230],[110,210],
+            [62,135],[68,150],[58,165],
+            [138,158],[142,172],[132,185]
+          ];
+          pts.forEach(function (p) {
+            s += dot(p[0], p[1], 1, "#3a6a2a");
+          });
+          return s;
+        }() +
+        /* Flower on top */
+        '<g transform="translate(100,80)">' +
+          petals(0, 0, 8, 16, 7, "#ff6b8a", 0.9) +
+          petals(0, 0, 6, 11, 5, "#ff8aa0") +
+          circle(0, 0, 5, "#ffd966") +
+          dot(0, 0, 2, "#e6b84d") +
+        "</g>";
+      return { svg: svg, anchors: [{x:100,y:80},{x:55,y:160},{x:150,y:175},{x:100,y:200}] };
+    },
+
+    /* ORCHID — elegant stem with exotic bloom */
+    orchid: function () {
+      var br = "#4a7a3a";
+      var svg =
+        ground(100, 310, 38) +
+        stem("M100 310 Q98 220 102 140 Q100 100 98 70", 3, br) +
+        /* Long slender leaves */
+        '<ellipse cx="75" cy="240" rx="6" ry="30" fill="#5a8a4a" transform="rotate(-28 75 240)" opacity="0.8"/>' +
+        '<ellipse cx="128" cy="240" rx="6" ry="30" fill="#5a8a4a" transform="rotate(28 128 240)" opacity="0.8"/>' +
+        leaf(90, 190, 8, 3, "#6a9a5a", -15) +
+        /* Side bud */
+        '<g transform="translate(105,120)">' +
+          '<ellipse cx="0" cy="0" rx="4" ry="7" fill="#c77dba" opacity="0.7"/>' +
+        "</g>" +
+        /* Main orchid flower */
+        '<g transform="translate(98,60)">' +
+          /* Lateral petals — large side wings */
+          '<ellipse cx="-16" cy="2" rx="14" ry="8" fill="#d486c4" transform="rotate(-25 -16 2)"/>' +
+          '<ellipse cx="16" cy="2" rx="14" ry="8" fill="#d486c4" transform="rotate(25 16 2)"/>' +
+          /* Dorsal sepal — top */
+          '<ellipse cx="0" cy="-14" rx="8" ry="12" fill="#c77dba"/>' +
+          '<ellipse cx="-10" cy="-8" rx="6" ry="10" fill="#c77dba" transform="rotate(-20 -10 -8)"/>' +
+          '<ellipse cx="10" cy="-8" rx="6" ry="10" fill="#c77dba" transform="rotate(20 10 -8)"/>' +
+          /* Lip — bottom petal */
+          '<path d="M-12 6 Q0 20 12 6 Q8 14 0 16 Q-8 14 -12 6 Z" fill="#a85a98"/>' +
+          '<path d="M-6 8 Q0 14 6 8 Q4 12 0 12 Q-4 12 -6 8 Z" fill="#8a4282"/>' +
+          /* Center column */
+          circle(0, 0, 4, "#ffd966") +
+          dot(0, -1, 2, "#e6b84d") +
+        "</g>" +
+        /* Second smaller bloom */
+        '<g transform="translate(108,100)">' +
+          '<ellipse cx="-8" cy="0" rx="7" ry="5" fill="#d486c4" transform="rotate(-20)"/>' +
+          '<ellipse cx="8" cy="0" rx="7" ry="5" fill="#d486c4" transform="rotate(20)"/>' +
+          '<ellipse cx="0" cy="-7" rx="5" ry="7" fill="#c77dba"/>' +
+          '<path d="M-6 3 Q0 10 6 3 Q3 7 0 8 Q-3 7 -6 3 Z" fill="#a85a98"/>' +
+          circle(0, 0, 2.5, "#ffd966") +
+        "</g>";
+      return { svg: svg, anchors: [{x:98,y:60},{x:108,y:100},{x:75,y:240},{x:128,y:240}] };
+    },
+
+    /* PEONY — large lush ruffled bloom */
+    peony: function () {
+      var svg =
+        ground(100, 310, 42) +
+        stem("M100 310 Q98 230 100 140", 4, "#5a8a4a") +
+        /* Large leaves */
+        '<ellipse cx="72" cy="220" rx="14" ry="24" fill="#6a9a5a" transform="rotate(-30 72 220)"/>' +
+        '<ellipse cx="128" cy="220" rx="14" ry="24" fill="#6a9a5a" transform="rotate(30 128 220)"/>' +
+        leaf(88, 180, 12, 5, "#7ab87a", -20) +
+        leaf(112, 165, 12, 5, "#7ab87a", 20) +
+        /* Huge ruffled bloom — many layers of petals */
+        '<g transform="translate(100,110)">' +
+          /* Outer layer — large soft petals */
+          petals(0, 0, 10, 32, 13, "#f8c8d8", 0.7) +
+          petals(0, 0, 9, 28, 12, "#f4b0c8", 0.8) +
+          /* Middle layer */
+          petals(0, 0, 8, 23, 11, "#f098b8", 0.85) +
+          petals(0, 0, 7, 19, 10, "#ec80a8", 0.9) +
+          /* Inner layer */
+          petals(0, 0, 6, 14, 8, "#e86a98") +
+          petals(0, 0, 5, 10, 6, "#e0508a") +
+          /* Center */
+          circle(0, 0, 5, "#ffd966") +
+          dot(0, 0, 2, "#e6b84d") +
+          dot(3, 2, 1.5, "#e6b84d") +
+          dot(-3, 2, 1.5, "#e6b84d") +
+          dot(2, -3, 1.5, "#e6b84d") +
+          dot(-2, -3, 1.5, "#e6b84d") +
+        "</g>" +
+        /* Side bud — half-open */
+        '<g transform="translate(70,160)">' +
+          petals(0, 0, 5, 14, 7, "#f4b0c8", 0.8) +
+          circle(0, 0, 6, "#ec80a8") +
+        "</g>";
+      return { svg: svg, anchors: [{x:100,y:110},{x:70,y:160},{x:72,y:220},{x:128,y:220}] };
+    },
+
+    /* DANDELION — fluffy white seed head */
+    dandelion: function () {
+      var fluff = function (cx, cy, r) {
+        var s = "";
+        var n = 18;
+        for (var i = 0; i < n; i++) {
+          var a = (360 / n * i) * Math.PI / 180;
+          var x1 = cx + Math.cos(a) * r;
+          var y1 = cy + Math.sin(a) * r;
+          var x2 = cx + Math.cos(a) * (r - 4);
+          var y2 = cy + Math.sin(a) * (r - 4);
+          s += '<line x1="' + x1.toFixed(1) + '" y1="' + y1.toFixed(1) +
+            '" x2="' + x2.toFixed(1) + '" y2="' + y2.toFixed(1) +
+            '" stroke="#ffffff" stroke-width="0.8" opacity="0.7"/>';
+          s += dot(x1, y1, 1.2, "#ffffff", 0.9);
+        }
+        return s;
+      };
+      var svg =
+        ground(100, 310, 35) +
+        stem("M100 310 Q97 200 100 90", 2.5, "#5a8a4a") +
+        /* Narrow jagged leaves at base */
+        '<path d="M100 285 L82 270 L88 260 L75 250 L85 245 L80 235" stroke="#7ab87a" stroke-width="2" fill="none" opacity="0.7"/>' +
+        '<path d="M100 285 L118 270 L112 260 L125 250 L115 245 L120 235" stroke="#7ab87a" stroke-width="2" fill="none" opacity="0.7"/>' +
+        leaf(85, 200, 5, 3, "#8ac88a", -30) +
+        leaf(112, 180, 5, 3, "#8ac88a", 25) +
+        /* Main fluffy seed head */
+        circle(100, 90, 22, "#ffffff", 0.15) +
+        circle(100, 90, 18, "#ffffff", 0.2) +
+        fluff(100, 90, 24) +
+        /* Inner detail */
+        circle(100, 90, 6, "#d4c890", 0.5) +
+        dot(100, 90, 3, "#c4b880") +
+        /* A few floating seeds */
+        '<g opacity="0.6">' +
+          dot(135, 70, 1.5, "#ffffff") +
+          '<line x1="135" y1="70" x2="140" y2="65" stroke="#ffffff" stroke-width="0.5" opacity="0.5"/>' +
+          dot(65, 100, 1.5, "#ffffff") +
+          '<line x1="65" y1="100" x2="60" y2="95" stroke="#ffffff" stroke-width="0.5" opacity="0.5"/>' +
+          dot(145, 110, 1, "#ffffff") +
+          '<line x1="145" y1="110" x2="150" y2="107" stroke="#ffffff" stroke-width="0.4" opacity="0.4"/>' +
+          dot(55, 130, 1, "#ffffff") +
+          '<line x1="55" y1="130" x2="50" y2="128" stroke="#ffffff" stroke-width="0.4" opacity="0.4"/>' +
+        "</g>";
+      return { svg: svg, anchors: [{x:100,y:90},{x:55,y:130},{x:145,y:110},{x:85,y:200}] };
+    },
+
+    /* BAMBOO — tall stalks with leaves */
+    bamboo: function () {
+      var svg =
+        ground(100, 310, 45) +
+        /* Main stalk */
+        '<rect x="93" y="40" width="14" height="270" rx="3" fill="#6a9a5a"/>' +
+        '<rect x="95" y="40" width="10" height="270" rx="2" fill="#7ab87a" opacity="0.4"/>' +
+        /* Node lines */
+        '<line x1="93" y1="100" x2="107" y2="100" stroke="#4a7a3a" stroke-width="2.5"/>' +
+        '<line x1="93" y1="160" x2="107" y2="160" stroke="#4a7a3a" stroke-width="2.5"/>' +
+        '<line x1="93" y1="220" x2="107" y2="220" stroke="#4a7a3a" stroke-width="2.5"/>' +
+        '<line x1="93" y1="275" x2="107" y2="275" stroke="#4a7a3a" stroke-width="2.5"/>' +
+        /* Side stalk — shorter */
+        '<rect x="120" y="120" width="11" height="190" rx="3" fill="#5a8a4a"/>' +
+        '<line x1="120" y1="170" x2="131" y2="170" stroke="#3a6a2a" stroke-width="2"/>' +
+        '<line x1="120" y1="230" x2="131" y2="230" stroke="#3a6a2a" stroke-width="2"/>' +
+        /* Leaves — blade-like */
+        function () {
+          var s = "";
+          var blades = [
+            [70, 70, -35], [130, 55, 30], [75, 105, -20], [135, 95, 25],
+            [68, 140, -40], [140, 145, 35], [72, 185, -25], [138, 195, 28],
+            [70, 240, -30], [130, 255, 25]
+          ];
+          blades.forEach(function (b) {
+            s += '<ellipse cx="' + b[0] + '" cy="' + b[1] +
+              '" rx="14" ry="4" fill="#7ab87a" transform="rotate(' +
+              b[2] + " " + b[0] + " " + b[1] + ')"/>';
+            s += '<ellipse cx="' + (b[0]+1) + '" cy="' + b[1] +
+              '" rx="12" ry="3" fill="#8ac88a" opacity="0.4" transform="rotate(' +
+              b[2] + " " + (b[0]+1) + " " + b[1] + ')"/>';
+          });
+          return s;
+        }() +
+        /* Small shoot at base */
+        '<rect x="78" y="260" width="6" height="50" rx="2" fill="#7ab87a"/>' +
+        '<ellipse cx="81" cy="258" rx="8" ry="3" fill="#8ac88a" transform="rotate(-15 81 258)"/>';
+      return { svg: svg, anchors: [{x:100,y:40},{x:130,y:55},{x:70,y:105},{x:68,y:140}] };
     },
   };
 
