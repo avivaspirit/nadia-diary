@@ -343,6 +343,13 @@ window.NADIA_DATA = {
       { src: "./assets/uploads/img_6851.jpg", alt: "Nadia candid latest", caption: "candid and cute 🐰", tags: ["me"] },
       { src: "./assets/uploads/img_photobooth.jpg", alt: "Photobooth strip", caption: "photo booth memories 🎞️", tags: ["moments"] },
       { src: "./assets/uploads/img_plushies.jpg", alt: "Plushie collection", caption: "our fluffy family 🧸", tags: ["moments"] },
+      /* --- Added Jul 10: new photos from Nadia 🐰 Google Photos album --- */
+      { src: "./assets/uploads/album-may21-shy-smile.jpg", alt: "Couple shy smile selfie", caption: "that shy smile tho 🌷", tags: ["us"] },
+      { src: "./assets/uploads/album-may21-rooftof-couple.jpg", alt: "Couple rooftop selfie", caption: "rooftop cuddles 🌆", tags: ["us"] },
+      { src: "./assets/uploads/album-may21-bench-together.jpg", alt: "Couple sitting close together", caption: "bench date vibes ♡", tags: ["us"] },
+      { src: "./assets/uploads/album-may21-gift-flowers.jpg", alt: "Mac giving Nadia flowers", caption: "flowers for my girl 💐", tags: ["us"] },
+      { src: "./assets/uploads/album-may21-playful.jpg", alt: "Couple playful with bouquet", caption: "playful and happy 🌸", tags: ["us"] },
+      { src: "./assets/uploads/album-may21-radiant-bouquet.jpg", alt: "Nadia radiant with bouquet", caption: "radiant as always ✨💐", tags: ["us"] },
     ]
   },
 
