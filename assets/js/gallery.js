@@ -221,7 +221,11 @@
       if (isDeleted && !editMode) return;
 
       /* Category filter */
-      if (activeFilter !== "all") {
+      if (activeFilter === "photos") {
+        if (photo.isVideo) return;
+      } else if (activeFilter === "videos") {
+        if (!photo.isVideo) return;
+      } else if (activeFilter !== "all") {
         const tags = photo.tags || [];
         if (!tags.includes(activeFilter)) return;
       }

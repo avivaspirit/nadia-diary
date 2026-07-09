@@ -778,11 +778,13 @@
     });
   }
 
-  /* Build gallery photo list from NADIA_DATA */
+  /* Build gallery photo list from NADIA_DATA — includes videos */
   function getGalleryPhotos() {
     var data = window.NADIA_DATA || window.siteData;
     if (data && data.gallery && data.gallery.photos) {
-      return data.gallery.photos.map(function (p) { return p.src; });
+      return data.gallery.photos.map(function (p) {
+        return { src: p.src, isVideo: !!p.isVideo };
+      });
     }
     return [];
   }
@@ -826,16 +828,34 @@
       if (photosPopulated) return;
       photosPopulated = true;
       var photos = getGalleryPhotos();
-      photos.forEach(function (src) {
+      photos.forEach(function (item) {
+        var src = item.src;
+        var isVideo = item.isVideo;
         var thumb = el("button", "photo-picker-thumb");
         thumb.setAttribute("type", "button");
-        thumb.style.backgroundImage = "url('" + src + "')";
+        if (isVideo) {
+          thumb.classList.add("is-video");
+          thumb.innerHTML = '<video src="' + src + '" muted preload="metadata"></video><span class="picker-video-badge">🎬</span>';
+        } else {
+          thumb.style.backgroundImage = "url('" + src + "')";
+        }
         thumb.addEventListener("click", function () {
           if (currentTargetImg) {
             var origSrc = currentTargetImg.getAttribute("data-original-src") || currentTargetImg.getAttribute("src");
             saveOverride(origSrc, src);
-            currentTargetImg.setAttribute("src", src);
-            currentTargetImg.setAttribute("data-original-src", origSrc);
+            if (isVideo) {
+              /* Replace img with video element */
+              var video = document.createElement("video");
+              video.src = src;
+              video.muted = true;
+              video.controls = true;
+              video.playsInline = true;
+              video.setAttribute("data-original-src", origSrc);
+              currentTargetImg.parentNode.replaceChild(video, currentTargetImg);
+            } else {
+              currentTargetImg.setAttribute("src", src);
+              currentTargetImg.setAttribute("data-original-src", origSrc);
+            }
           }
           picker.classList.remove("show");
         });

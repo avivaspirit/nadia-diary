@@ -3883,6 +3883,25 @@ body.photo-edit-mode img:hover {
   border-color: var(--blush-deep);
   transform: scale(1.05);
 }
+.photo-picker-thumb.is-video {
+  position: relative;
+  overflow: hidden;
+}
+.photo-picker-thumb.is-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.picker-video-badge {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  font-size: 14px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 4px;
+  padding: 1px 4px;
+}
 .photo-picker-hint {
   text-align: center;
   font-size: 0.82rem;
