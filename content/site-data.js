@@ -382,7 +382,19 @@ window.NADIA_DATA = {
       { src: "./assets/uploads/IMG_6534.JPG", alt: "Intimate selfie flowers", caption: "soft moment with flowers ✨", tags: ["us"] },
       { src: "./assets/uploads/IMG_6559.JPG", alt: "Kissing on cheek outdoors", caption: "cheek kiss 💋", tags: ["us"] },
 
-      /* --- Bulk add: remaining album photos --- */
+      
+      /* --- Previously skipped (PNG versions + extra dates) --- */
+      { src: "./assets/uploads/IMG_20260521_173612.jpg", alt: "Evening garden moment", caption: "garden evening 🌿", tags: ["us"] },
+      { src: "./assets/uploads/IMG_20260607_141821.jpg", alt: "June afternoon together", caption: "june afternoon ☀️", tags: ["us"] },
+      { src: "./assets/uploads/IMG_20260607_141823.jpg", alt: "June afternoon moment", caption: "june moments ♡", tags: ["us"] },
+      { src: "./assets/uploads/IMG_6519.PNG", alt: "Nadia memory", caption: "sweet capture 🌸", tags: ["me"] },
+      { src: "./assets/uploads/IMG_6544.PNG", alt: "Nadia lovely", caption: "lovely as always ✨", tags: ["me"] },
+      { src: "./assets/uploads/IMG_6545.PNG", alt: "Nadia portrait", caption: "beautiful moment 🌷", tags: ["me"] },
+      { src: "./assets/uploads/IMG_6546.PNG", alt: "Nadia candid", caption: "candid smile ♡", tags: ["me"] },
+      { src: "./assets/uploads/IMG_6599.PNG", alt: "Nadia glowing", caption: "that glow ✨", tags: ["me"] },
+      { src: "./assets/uploads/IMG_6600.PNG", alt: "Nadia stunning", caption: "stunning 🌹", tags: ["me"] },
+
+/* --- Bulk add: remaining album photos --- */
       { src: "./assets/uploads/2026-07-01(4).jpg", alt: "Nadia memory 4", caption: "our favorite memory", tags: ["me"] },
       { src: "./assets/uploads/2026-07-01(5).jpg", alt: "Nadia memory 5", caption: "beautiful as always ✨", tags: ["us"] },
       { src: "./assets/uploads/2026-07-01.jpg", alt: "Nadia memory 6", caption: "together 💑", tags: ["us"] },
