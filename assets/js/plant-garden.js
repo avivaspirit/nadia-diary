@@ -300,7 +300,7 @@
     }
 
     return {
-      svgInner: result.svg,
+      svgInner: '<svg viewBox="0 0 ' + VW + ' ' + VH + '" class="pg-plant-svg" xmlns="http://www.w3.org/2000/svg">' + result.svg + '</svg>',
       photoPins: photoPins,
     };
   }
@@ -391,7 +391,7 @@
     var rendered = generatePlant(plant.type, plant.photos);
 
     /* Card wrapper */
-    var card = el("div", "pg-plant-card reveal");
+    var card = el("div", "pg-plant-card reveal is-visible");
     card.dataset.id = plant.id;
     card.style.setProperty("--reveal-delay", (Math.min(idx * 0.06, 0.4)) + "s");
 
