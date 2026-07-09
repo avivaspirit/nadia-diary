@@ -272,29 +272,49 @@
      RENDER — build SVG + photo overlays for a plant
      ======================================================================== */
 
+  /* Max photos per plant */
+  var MAX_PHOTOS = 5;
+
   function generatePlant(type, photos) {
     var gen = GENERATORS[type] || GENERATORS.rose;
     var result = gen();
     var anchors = result.anchors;
     var photoPins = [];
 
-    if (photos && photos.length > 0) {
-      photos.forEach(function (src, i) {
+    /* Cap at MAX_PHOTOS */
+    var photoList = (photos || []).slice(0, MAX_PHOTOS);
+
+    if (photoList.length > 0) {
+      /* When we have more photos than anchors, distribute around the plant
+         using fixed offset positions that avoid overlap */
+      var offsetSlots = [
+        { dx: 0,   dy: 0   },   /* slot 0: exact anchor */
+        { dx: 30,  dy: 20  },   /* slot 1: right-down */
+        { dx: -30, dy: 20  },   /* slot 2: left-down */
+        { dx: 35,  dy: -15 },   /* slot 3: right-up */
+        { dx: -35, dy: -15 },   /* slot 4: left-up */
+      ];
+
+      photoList.forEach(function (src, i) {
         var anchor = anchors[i % anchors.length];
-        var leftPct = ((anchor.x / VW) * 100).toFixed(1);
-        var topPct = ((anchor.y / VH) * 100).toFixed(1);
-        /* If multiple photos share an anchor, offset slightly */
-        var sameAnchorCount = photos.filter(function (_, j) {
-          return j % anchors.length === i % anchors.length && j <= i;
-        }).length;
-        var offsetX = sameAnchorCount > 1 ? ((sameAnchorCount - 1) * 18 - 9) : 0;
-        var offsetY = sameAnchorCount > 1 ? ((sameAnchorCount - 1) * 8) : 0;
+        var slot = offsetSlots[Math.floor(i / anchors.length) % offsetSlots.length];
+
+        var px = anchor.x + slot.dx;
+        var py = anchor.y + slot.dy;
+
+        /* Clamp within viewBox */
+        px = Math.max(15, Math.min(VW - 15, px));
+        py = Math.max(15, Math.min(VH - 15, py));
+
+        var leftPct = ((px / VW) * 100).toFixed(1);
+        var topPct = ((py / VH) * 100).toFixed(1);
+
         photoPins.push({
           src: src,
           leftPct: leftPct,
           topPct: topPct,
-          offsetX: offsetX,
-          offsetY: offsetY,
+          offsetX: 0,
+          offsetY: 0,
         });
       });
     }
@@ -563,12 +583,19 @@
         renderPhotoList();
         return;
       }
+      /* Stop at MAX_PHOTOS */
+      if (editorState.photos.length >= MAX_PHOTOS) {
+        renderPhotoList();
+        return;
+      }
       var file = remaining[processed];
       processed++;
       if (!file.type.startsWith("image/")) { readNext(); return; }
       var reader = new FileReader();
       reader.onload = function (ev) {
-        editorState.photos.push(ev.target.result);
+        if (editorState.photos.length < MAX_PHOTOS) {
+          editorState.photos.push(ev.target.result);
+        }
         readNext();
       };
       reader.readAsDataURL(file);
@@ -607,7 +634,7 @@
         if (idx !== -1) {
           editorState.photos.splice(idx, 1);
           item.classList.remove("selected");
-        } else {
+        } else if (editorState.photos.length < MAX_PHOTOS) {
           editorState.photos.push(p.src);
           item.classList.add("selected");
         }
