@@ -448,10 +448,49 @@
   font-size: 0.85rem;
   color: #57534e;
   line-height: 1.4;
-  margin-top: auto;
-  padding-top: 0.5rem;
-  border-top: 1px dashed #ffedd5;
+  margin-bottom: 0.85rem;
 }
+
+/* Delivery & Map Search Buttons */
+.delivery-links {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px dashed #fed7aa;
+}
+.delivery-label {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #9a3412;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.delivery-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.del-btn {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.65rem;
+  border-radius: 20px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.del-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+}
+.del-btn.grab { background: #e6f4ea; color: #137333; border: 1px solid #ceead6; }
+.del-btn.maps { background: #feefc3; color: #b06000; border: 1px solid #fde293; }
+.del-btn.lineman { background: #fef7e0; color: #d97706; border: 1px solid #fef3c7; }
+.del-btn.shopee { background: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; }
 
 /* Floating Chef Chat Widget */
 .chat-toggle {

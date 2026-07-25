@@ -893,11 +893,41 @@ window.NADIA_DATA = {
       { id: "1U5Le5U3S1qUVOvO1orCtu", title: "Simple Things",      artist: "Lil Yachty" },
       { id: "2ZV2rFSeDr16cKMuSuXlGA", title: "UNDERDOGS",          artist: "Lil Yachty" },
       { id: "7tICCrK3CcyRFKza7yrR0z", title: "Homewrecker",        artist: "Olivia Rodrigo" },
-      { id: "1UNEuG9DYOWiikf00ayr52",     items: [
-      /* --- THAI --- */
+      { id: "1UNEuG9DYOWiikf00ayr52", title: "Love Me Not",        artist: "Flo Milli" },
+      { id: "7ogpGbKc4Io6NCU6ydxXwZ", title: "FEVER DREAM",        artist: "Lil Yachty" },
+      { id: "17LuVd2gBc7UvcgZbm1cFV", title: "To Love Somebody",   artist: "Bee Gees" },
+      { id: "4blARE63d5cQU3cdxCbrBa", title: "Turn The Page",      artist: "Metallica" },
+      { id: "6XcyAXAYKQD7FqCG2F2xOu", title: "Hot & Sexy",         artist: "Lino" },
+      { id: "7jXYuDIoG3mR4JEOzB9sXX", title: "DRENCH",             artist: "Lino" },
+      { id: "0IoD88QDxy5GPip9IzlzyI", title: "Certified",          artist: "Lil Yachty" },
+      { id: "3PkvYP6223QO3xlW2THd1x", title: "Would I Lie To You?",artist: "Eurythmics" },
+      { id: "4nZi6XNe36Ut4Nij3IQ1yC", title: "Silver Springs",     artist: "Fleetwood Mac" },
+      { id: "6ee04RfJraeyLWpKB4cgCZ", title: "No Gravity",         artist: "Lil Yachty" }
+    ]
+  },
+
+  /* -------------------------- HAPPY MEAL / FOOD DECIDER 🍽️ ------------------- */
+  happyMeal: {
+    eyebrow: "✨ WHAT SHOULD NADIA EAT TODAY? ✨",
+    headline: "Happy Meal 🍽️",
+    description: "Can't decide what to eat? Let's find the delicious craving made just for Nadia's mood today ♡",
+    categories: [
+      { id: "all", name: "🎲 ทั้งหมด All", icon: "🍱" },
+      { id: "thai", name: "🇹🇭 อาหารไทย (Thai)", icon: "🌶️" },
+      { id: "japanese", name: "🇯🇵 อาหารญี่ปุ่น (Japanese)", icon: "🍣" },
+      { id: "korean", name: "🇰🇷 อาหารเกาหลี (Korean)", icon: "🍗" },
+      { id: "chinese", name: "🇨🇳 อาหารจีน (Chinese)", icon: "🥟" },
+      { id: "indian", name: "🇮🇳 อาหารอินเดีย (Indian)", icon: "🥘" },
+      { id: "western", name: "🍝 ตะวันตก/อิตาเลียน (Western)", icon: "🥩" },
+      { id: "fusion", name: "🌮 ฟิวชั่น (Fusion)", icon: "🌮" },
+      { id: "desserts", name: "🍰 ขนม & เครื่องดื่ม (Desserts)", icon: "🧋" }
+    ],
+    items: [
+      /* --- THAI 🇹🇭 --- */
       {
         id: "t1",
         category: "thai",
+        nationality: "🇹🇭 อาหารไทย",
         nameEn: "Tom Yum Goong Jumbo",
         nameTh: "ต้มยำกุ้งแม่น้ำน้ำข้น",
         emoji: "🍲",
@@ -910,6 +940,7 @@ window.NADIA_DATA = {
       {
         id: "t2",
         category: "thai",
+        nationality: "🇹🇭 อาหารไทย",
         nameEn: "Khao Soi Gai Chiang Mai",
         nameTh: "ข้าวซอยไก่เชียงใหม่",
         emoji: "🍜",
@@ -922,6 +953,7 @@ window.NADIA_DATA = {
       {
         id: "t3",
         category: "thai",
+        nationality: "🇹🇭 อาหารไทย",
         nameEn: "Pad Thai Soft-Shell Crab",
         nameTh: "ผัดไทยปูนิ่มกรอบ",
         emoji: "🍝",
@@ -934,6 +966,7 @@ window.NADIA_DATA = {
       {
         id: "t4",
         category: "thai",
+        nationality: "🇹🇭 อาหารไทย",
         nameEn: "Som Tum Crab-Pla Ra & Gai Yang",
         nameTh: "ส้มตำปูปลาร้า & ไก่ย่างเขาสวนกวาง",
         emoji: "🥗",
@@ -946,6 +979,7 @@ window.NADIA_DATA = {
       {
         id: "t5",
         category: "thai",
+        nationality: "🇹🇭 อาหารไทย",
         nameEn: "Massaman Beef Shank Curry",
         nameTh: "มัสมั่นเนื้อน่องแก้ว",
         emoji: "🥘",
@@ -958,6 +992,7 @@ window.NADIA_DATA = {
       {
         id: "t6",
         category: "thai",
+        nationality: "🇹🇭 อาหารไทย",
         nameEn: "Crab Meat Omelette & Seafood Sauce",
         nameTh: "ไข่เจียวปูปูแน่นๆ & น้ำจิ้มซีฟู้ด",
         emoji: "🍳",
@@ -968,10 +1003,67 @@ window.NADIA_DATA = {
         whyForNadia: "Crispy outside, super fluffy inside and packed with premium crab!"
       },
 
-      /* --- CHINESE --- */
+      /* --- JAPANESE 🇯🇵 --- */
+      {
+        id: "j1",
+        category: "japanese",
+        nationality: "🇯🇵 อาหารญี่ปุ่น",
+        nameEn: "Premium Salmon & Foie Gras Don",
+        nameTh: "ข้าวหน้าแซลมอนลนไฟฟัวกราส์ไข่ดอง",
+        emoji: "🍱",
+        tags: ["Sushi Don", "Sashimi", "Japanese"],
+        spiceLevel: "🌶️0",
+        vibe: "Aburi salmon slices, rich seared foie gras, cured egg yolk & ikura salmon roe",
+        pairing: "🍵 Hot Green Tea",
+        whyForNadia: "Melt-in-your-mouth salmon with rich cured egg yolk over warm sushi rice!"
+      },
+      {
+        id: "j2",
+        category: "japanese",
+        nationality: "🇯🇵 อาหารญี่ปุ่น",
+        nameEn: "Tonkotsu Kurobuta Ramen",
+        nameTh: "ราเมงซุปกระดูกหมูเข้มข้นหมูชาชู",
+        emoji: "🍜",
+        tags: ["Ramen", "Hot Soup", "Rich"],
+        spiceLevel: "🌶️0",
+        vibe: "Rich 12-hour pork bone collagen broth, tender chashu pork, ajitsuke tamago egg & springy noodles",
+        pairing: "🥟 Crispy Gyoza Dumplings",
+        whyForNadia: "Hot, rich, comforting ramen bowl for rainy or cozy days!"
+      },
+
+      /* --- KOREAN 🇰🇷 --- */
+      {
+        id: "k1",
+        category: "korean",
+        nationality: "🇰🇷 อาหารเกาหลี",
+        nameEn: "Korean Garlic Soy Fried Chicken",
+        nameTh: "ไก่ทอดเกาหลีซอสการ์ลิคโชยุ",
+        emoji: "🍗",
+        tags: ["Crispy", "Korean BBQ", "Snack"],
+        spiceLevel: "🌶️",
+        vibe: "Double-fried crispy chicken wings coated in sweet garlic soy glaze",
+        pairing: "🍺 Cold Beverage & Pickled Radish",
+        whyForNadia: "Super satisfying crunch with sweet savory garlic soy glaze!"
+      },
+      {
+        id: "k2",
+        category: "korean",
+        nationality: "🇰🇷 อาหารเกาหลี",
+        nameEn: "Sundubu Jjigae (Spicy Tofu Stew)",
+        nameTh: "ซุปกิมจิเต้าหู้นิ่มหมูสามชั้น",
+        emoji: "🍲",
+        tags: ["Kimchi Stew", "Hot", "Spicy"],
+        spiceLevel: "🌶️🌶️",
+        vibe: "Bubbling hot kimchi soup, silken tofu, pork belly & fresh egg",
+        pairing: "🍚 Steamed Rice & Banchan Side Dishes",
+        whyForNadia: "Hot spicy kimchi stew to eat with warm rice on cozy nights!"
+      },
+
+      /* --- CHINESE 🇨🇳 --- */
       {
         id: "c1",
         category: "chinese",
+        nationality: "🇨🇳 อาหารจีน",
         nameEn: "Truffle Xiao Long Bao",
         nameTh: "เสี่ยวหลงเปาทรัฟเฟิล",
         emoji: "🥟",
@@ -984,6 +1076,7 @@ window.NADIA_DATA = {
       {
         id: "c2",
         category: "chinese",
+        nationality: "🇨🇳 อาหารจีน",
         nameEn: "Crispy Peking Duck Roll",
         nameTh: "เป็ดปักกิ่งหนังกรอบ",
         emoji: "🦆",
@@ -996,6 +1089,7 @@ window.NADIA_DATA = {
       {
         id: "c3",
         category: "chinese",
+        nationality: "🇨🇳 อาหารจีน",
         nameEn: "Sichuan Mapo Tofu & Wagyu",
         nameTh: "มาโปเต้าหู้หม่าล่าเนื้อวากิว",
         emoji: "🌶️",
@@ -1005,23 +1099,12 @@ window.NADIA_DATA = {
         pairing: "🍺 Cold Beverage or Steamed Rice",
         whyForNadia: "Numbing mala heat with silky smooth tofu that goes so fast with rice!"
       },
-      {
-        id: "c4",
-        category: "chinese",
-        nameEn: "Hong Kong BBQ Combo Rice",
-        nameTh: "ข้าวหน้าเฉโป (หมูกรอบ หมูแดง เป็ด่ย่าง)",
-        emoji: "🍱",
-        tags: ["BBQ", "Cantonese", "Crispy Pork"],
-        spiceLevel: "🌶️0",
-        vibe: "Crackling roast pork belly, honey-glazed char siu & roast duck over fragrant rice",
-        pairing: "🍵 Hot Milk Tea (HK Style)",
-        whyForNadia: "Crispy pork belly crackling sound with sweet glazed char siu!"
-      },
 
-      /* --- INDIAN --- */
+      /* --- INDIAN 🇮🇳 --- */
       {
         id: "i1",
         category: "indian",
+        nationality: "🇮🇳 อาหารอินเดีย",
         nameEn: "Butter Chicken & Garlic Cheese Naan",
         nameTh: "บัตเตอร์ชีสชิกเก้น & แป้งนานกระเทียมชีส",
         emoji: "🥘",
@@ -1034,6 +1117,7 @@ window.NADIA_DATA = {
       {
         id: "i2",
         category: "indian",
+        nationality: "🇮🇳 อาหารอินเดีย",
         nameEn: "Lamb Shank Dum Biryani",
         nameTh: "ข้าวหมกขาแกะอินเดีย (Lamb Biryani)",
         emoji: "🍚",
@@ -1043,23 +1127,12 @@ window.NADIA_DATA = {
         pairing: "🥛 Mint Raita & Masala Chai",
         whyForNadia: "Rich saffron basmati rice with fall-apart tender lamb!"
       },
-      {
-        id: "i3",
-        category: "indian",
-        nameEn: "Paneer Tikka & Samosa Chaat",
-        nameTh: "ปาเนียร์ทิกก้า & ซาโมซ่าชาต",
-        emoji: "🍢",
-        tags: ["Vegetarian", "Street Snack", "Tangy"],
-        spiceLevel: "🌶️🌶️",
-        vibe: "Char-grilled cottage cheese cubes with tangy tamarind & mint chutney",
-        pairing: "☕ Hot Masala Chai",
-        whyForNadia: "Tangy, smoky grilled paneer with sweet & spicy chutney drizzle!"
-      },
 
-      /* --- WESTERN --- */
+      /* --- WESTERN 🍝 --- */
       {
         id: "w1",
         category: "western",
+        nationality: "🍝 ตะวันตก/อิตาเลียน",
         nameEn: "Black Truffle Cream Fettuccine",
         nameTh: "เฟตตูชินี่ครีมซอสทรัฟเฟิลดำ",
         emoji: "🍝",
@@ -1072,6 +1145,7 @@ window.NADIA_DATA = {
       {
         id: "w2",
         category: "western",
+        nationality: "🍝 ตะวันตก/อิตาเลียน",
         nameEn: "Wagyu Ribeye Steak & Truffle Fries",
         nameTh: "สเต๊กเนื้อวากิวริบอาย & เฟรนช์ฟรายส์ทรัฟเฟิล",
         emoji: "🥩",
@@ -1084,6 +1158,7 @@ window.NADIA_DATA = {
       {
         id: "w3",
         category: "western",
+        nationality: "🍝 ตะวันตก/อิตาเลียน",
         nameEn: "Wood-Fired Truffle & Burrata Pizza",
         nameTh: "พิซซ่าเตาถ่านบูร์ราต้าทรัฟเฟิล",
         emoji: "🍕",
@@ -1093,23 +1168,12 @@ window.NADIA_DATA = {
         pairing: "🥂 Italian Prosecco",
         whyForNadia: "Break open the creamy fresh burrata cheese right over warm wood-fired pizza!"
       },
-      {
-        id: "w4",
-        category: "western",
-        nameEn: "Lobster Bisque & Garlic Bread",
-        nameTh: "ซุปล็อบสเตอร์บิสก์ & ขนมปังกระเทียม",
-        emoji: "🥣",
-        tags: ["Seafood", "Soup", "Cozy"],
-        spiceLevel: "🌶️0",
-        vibe: "Velvety roasted lobster cream soup served with toasted garlic sourdough",
-        pairing: "🥂 Chardonnay",
-        whyForNadia: "Warm, rich, seafood bisque to dip crunchy toasted garlic bread into!"
-      },
 
-      /* --- FUSION --- */
+      /* --- FUSION 🌮 --- */
       {
         id: "f1",
         category: "fusion",
+        nationality: "🌮 อาหารฟิวชั่น",
         nameEn: "Aburi Salmon Cheese & Foie Gras Roll",
         nameTh: "แซลมอนลนไฟฟัวกราส์ชีสโรลล์",
         emoji: "🍣",
@@ -1119,35 +1183,12 @@ window.NADIA_DATA = {
         pairing: "🍶 Cold Sake or Yuzu Soda",
         whyForNadia: "Smoky torched salmon with rich creamy foie gras — melts instantly on your tongue! 🍣"
       },
-      {
-        id: "f2",
-        category: "fusion",
-        nameEn: "Korean Bulgogi Tacos & Kimchi Slaw",
-        nameTh: "ทาโก้เนื้อบูลโกกิเกาหลี & กิมจิสลอว์",
-        emoji: "🌮",
-        tags: ["Korean Mex", "Tacos", "Fun"],
-        spiceLevel: "🌶️🌶️",
-        vibe: "Sweet savory marinaded beef, warm tortillas, crunch kimchi slaw & gochujang crema",
-        pairing: "🍹 Passionfruit Margarita or Yuzu Ale",
-        whyForNadia: "Fun, messy, super flavorful blend of sweet Korean BBQ beef and spicy taco crunch!"
-      },
-      {
-        id: "f3",
-        category: "fusion",
-        nameEn: "Spicy Tom Yum Carbonara Pasta",
-        nameTh: "สปาเก็ตตี้คาโบนาร่าต้มยำกุ้งสด",
-        emoji: "🍝",
-        tags: ["Pasta Fusion", "Spicy Cream", "Popular"],
-        spiceLevel: "🌶️🌶️",
-        vibe: "Rich egg-cream carbonara infused with lemongrass, kaffir lime & jumbo prawns",
-        pairing: "🥤 Iced Peach Tea",
-        whyForNadia: "The best of both worlds — rich creamy Italian carbonara with zesty Thai Tom Yum kick!"
-      },
 
-      /* --- DESSERTS & DRINKS --- */
+      /* --- DESSERTS 🍰 --- */
       {
         id: "d1",
         category: "desserts",
+        nationality: "🍰 ขนมหวาน & เครื่องดื่ม",
         nameEn: "Mango Sticky Rice & Coconut Cream",
         nameTh: "ข้าวเหนียวมะม่วงอกร่องทอง",
         emoji: "🥭",

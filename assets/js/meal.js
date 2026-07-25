@@ -68,6 +68,21 @@
     pickRandomMeal();
   }
 
+  function getDeliveryLinksHtml(dishName) {
+    const q = encodeURIComponent(dishName);
+    return `
+      <div class="delivery-links">
+        <span class="delivery-label">🔍 Order / Find Restaurant:</span>
+        <div class="delivery-btn-row">
+          <a class="del-btn grab" href="https://food.grab.com/th/th/restaurants?search=${q}" target="_blank" rel="noopener">🟢 GrabFood</a>
+          <a class="del-btn maps" href="https://www.google.com/maps/search/${q}%20ร้านอร่อย" target="_blank" rel="noopener">📍 Google Maps</a>
+          <a class="del-btn lineman" href="https://lineman.line.me/search?q=${q}" target="_blank" rel="noopener">🟡 LINE MAN</a>
+          <a class="del-btn shopee" href="https://shopee.co.th/search?keyword=${q}" target="_blank" rel="noopener">🟠 ShopeeFood</a>
+        </div>
+      </div>
+    `;
+  }
+
   function renderMealResultCard(item) {
     $("#mealEmoji").textContent = item.emoji || "🍽️";
     $("#mealTitleEn").textContent = item.nameEn;
@@ -77,7 +92,7 @@
     const badgeRow = $("#mealBadgeRow");
     if (badgeRow) {
       badgeRow.innerHTML = `
-        <span class="meal-badge">${item.category.toUpperCase()}</span>
+        <span class="meal-badge">${(item.nationality || item.category).toUpperCase()}</span>
         <span class="meal-badge badge-spice">${item.spiceLevel}</span>
         ${item.tags.map(t => `<span class="meal-badge">#${t}</span>`).join("")}
       `;
@@ -86,6 +101,16 @@
     $("#mealVibe").textContent = item.vibe;
     $("#mealPairing").textContent = item.pairing;
     $("#mealNote").textContent = item.whyForNadia;
+
+    // Delivery links in result card
+    let delContainer = $("#mealResultDelivery");
+    if (!delContainer) {
+      delContainer = document.createElement("div");
+      delContainer.id = "mealResultDelivery";
+      const card = $("#mealResultCard");
+      if (card) card.appendChild(delContainer);
+    }
+    delContainer.innerHTML = getDeliveryLinksHtml(item.nameTh);
   }
 
   /* -------------------------------------------------- Category & Food Grid */
@@ -134,25 +159,14 @@
             </button>
           </div>
           <div class="food-card-content">
-            <span class="food-card-category">${item.category} · ${item.spiceLevel}</span>
+            <span class="food-card-category">${item.nationality || item.category} · ${item.spiceLevel}</span>
             <h3 class="food-card-title">${item.nameEn}</h3>
             <p class="food-card-title-th">${item.nameTh}</p>
             <div class="food-card-tags">
               ${item.tags.map(t => `<span class="food-tag-pill">#${t}</span>`).join("")}
             </div>
             <p class="food-card-vibe">${item.vibe}</p>
-          </div>
-        </div>
-      `;
-    }).join("");
-          <div class="food-card-content">
-            <span class="food-card-category">${item.category} · ${item.spiceLevel}</span>
-            <h3 class="food-card-title">${item.nameEn}</h3>
-            <p class="food-card-title-th">${item.nameTh}</p>
-            <div class="food-card-tags">
-              ${item.tags.map(t => `<span class="food-tag-pill">#${t}</span>`).join("")}
-            </div>
-            <p class="food-card-vibe">${item.vibe}</p>
+            ${getDeliveryLinksHtml(item.nameTh)}
           </div>
         </div>
       `;
