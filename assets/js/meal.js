@@ -72,12 +72,6 @@
     $("#mealEmoji").textContent = item.emoji || "🍽️";
     $("#mealTitleEn").textContent = item.nameEn;
     $("#mealTitleTh").textContent = item.nameTh;
-    
-    const imgEl = $("#mealImagePreview");
-    if (imgEl) {
-      imgEl.src = item.image || "./assets/uploads/nadia_restaurant.jpg";
-      imgEl.alt = item.nameEn;
-    }
 
     // Badges
     const badgeRow = $("#mealBadgeRow");
@@ -133,13 +127,24 @@
       const isFav = favoriteFoodIds.has(item.id);
       return `
         <div class="food-card" data-id="${item.id}">
-          <div class="food-card-img-wrap">
-            <img class="food-card-img" src="${item.image || './assets/uploads/nadia_restaurant.jpg'}" alt="${item.nameEn}" loading="lazy" />
-            <span class="food-card-emoji-overlay">${item.emoji}</span>
+          <div class="food-card-banner">
+            <span class="food-card-emoji-icon">${item.emoji}</span>
             <button class="food-card-fav-btn ${isFav ? 'active' : ''}" type="button" aria-label="Favorite dish">
               ${isFav ? '❤️' : '🤍'}
             </button>
           </div>
+          <div class="food-card-content">
+            <span class="food-card-category">${item.category} · ${item.spiceLevel}</span>
+            <h3 class="food-card-title">${item.nameEn}</h3>
+            <p class="food-card-title-th">${item.nameTh}</p>
+            <div class="food-card-tags">
+              ${item.tags.map(t => `<span class="food-tag-pill">#${t}</span>`).join("")}
+            </div>
+            <p class="food-card-vibe">${item.vibe}</p>
+          </div>
+        </div>
+      `;
+    }).join("");
           <div class="food-card-content">
             <span class="food-card-category">${item.category} · ${item.spiceLevel}</span>
             <h3 class="food-card-title">${item.nameEn}</h3>
