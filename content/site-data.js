@@ -1217,8 +1217,78 @@ window.NADIA_DATA = {
         spiceLevel: "🌶️0",
         vibe: "Chilled organic acai smoothie base, fresh blueberries, kiwi, almond butter & cacao nibs",
         pairing: "☕ Cold Brew Coffee or Iced Oat Latte",
-        whyForNadia: "Refreshing, guilt-free, super antioxidant energy booster bowl!"
       }
+    ]
+  },
+
+  /* -------------------------- COSMIC VOYAGE / SPACE 🚀🌌 ------------------- */
+  space: {
+    eyebrow: "✨ NADIA'S COSMIC VOYAGE THROUGH THE STARS ✨",
+    headline: "Space Voyage 🚀",
+    description: "Build Nadia's custom spaceship, explore magical planets, and catch falling shooting stars in the galaxy ♡",
+    planets: [
+      {
+        id: "p1",
+        nameEn: "Planet Pink Nebula",
+        nameTh: "ดาวเคราะห์เนบิวล่าสีชมพู 🌸",
+        icon: "🪐",
+        color: "#ff75a0",
+        tag: "ROMANTIC NEBULA",
+        vibe: "A soft, glowing pink planet filled with stardust oceans and floating cloud islands.",
+        secretNote: "If stars could count how much joy Nadia brings, the universe wouldn't have enough stars! ♡✨",
+        sound: "✨ Stardust Resonance"
+      },
+      {
+        id: "p2",
+        nameEn: "Moon Cafe & Bakery",
+        nameTh: "สถานีคาเฟ่บนดวงจันทร์ ☕",
+        icon: "🌙",
+        color: "#fde047",
+        tag: "COZY ORBIT",
+        vibe: "A lunar station serving hot matcha lattes, soufflé pancakes, and zero-gravity croissants.",
+        secretNote: "Where Nadia sits by the crater window with her warm cup, watching Earth float by. ☕🥐",
+        sound: "☕ Lunar Lo-Fi Beats"
+      },
+      {
+        id: "p3",
+        nameEn: "Constellation of Smiles",
+        nameTh: "กลุ่มดาวแห่งรอยยิ้ม 🌠",
+        icon: "✨",
+        color: "#a855f7",
+        tag: "MEMORY STARLIGHT",
+        vibe: "A cluster of glowing stars where every star shines with a happy memory.",
+        secretNote: "Her smile is brighter than a supernova! ✨",
+        sound: "🎵 Starlight Chimes"
+      },
+      {
+        id: "p4",
+        nameEn: "Crystaloid Planet",
+        nameTh: "ดาวเคราะห์คริสตัลนำโชค 🔮",
+        icon: "🔮",
+        color: "#38bdf8",
+        tag: "LUCKY FORTUNE",
+        vibe: "A sparkling planet made of pure quartz crystals that grant wishes to passing astronauts.",
+        secretNote: "Wish granted: Unlimited happiness, sweet treats, and love for Nadia today! 🔮✨",
+        sound: "💎 Crystal Resonance"
+      },
+      {
+        id: "p5",
+        nameEn: "Saturn's Golden Ring Station",
+        nameTh: "สถานีวงแหวนดาวเสาร์ 🪐",
+        icon: "🛸",
+        color: "#fbbf24",
+        tag: "STARGAZING LOUNGE",
+        vibe: "A luxury orbital lounge built right on Saturn's golden ice rings.",
+        secretNote: "The prettiest view in the entire solar system is right here with Nadia. 🪐💖",
+        sound: "🌌 Ambient Solar Wind"
+      }
+    ],
+    fortunes: [
+      "✨ A shooting star just brought Nadia 10,000 points of pure luck today!",
+      "💖 Supernova Blessing: Nadia will eat something insanely delicious today!",
+      "🌌 Cosmic Secret: Nadia's smile makes the galaxy 100x brighter!",
+      "⭐ Starlight Wish: Your next trip will be full of magic & unforgettable photos!",
+      "🔮 Galaxy Fortune: Today is officially a 100/10 perfect day for Nadia!"
     ]
   }
 };

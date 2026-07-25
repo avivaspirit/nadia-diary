@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Space Voyage 🚀 | Nadia's Diary 🎀</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Caveat:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/diary.css?v=20260710k" />
+    <link rel="stylesheet" href="./assets/css/space.css?v=20260725b" />
+  </head>
+  <body class="page-space">
+    <!-- Starfield Canvas -->
+    <canvas id="spaceCanvas"></canvas>
+
+    <header class="site-header">
+      <a class="brand" href="./index.html" id="siteTitle">Nadia's Diary 🎀</a>
+      <nav aria-label="Main navigation">
+        <a href="./index.html">Dianeyy 🐰</a>
+        <a href="./collection.html">Nadia's Dolls 🧸</a>
+        <a href="./birthday.html">Happy Birthday 🎂</a>
+        <a href="./story.html">Our Story 💑</a>
+        <a href="./gallery.html">Gallery 📸</a>
+        <a href="./garden.html">Garden 🌿</a>
+        <a href="./games.html">Play & Movies 🎮</a>
+        <a href="./wish.html">Wish 🌠</a>
+        <a href="./closet.html">Closet 👗</a>
+        <a href="./meal.html">Happy Meal 🍽️</a>
+        <a aria-current="page" href="./space.html">Space Voyage 🚀</a>
+        <a href="./travel.html">Travel 🌍</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="space-hero">
+        <p class="eyebrow">✨ NADIA'S COSMIC VOYAGE THROUGH THE STARS ✨</p>
+        <h1>Space Voyage 🚀🌌</h1>
+        <p class="lede">Build Nadia's custom spaceship, explore magical planets, and catch falling shooting stars! ♡</p>
+      </section>
+
+      <!-- 1. Custom Rocket Builder Section -->
+      <section class="space-panel">
+        <div class="builder-header">
+          <h2>🚀 Build Nadia's Spaceship</h2>
+          <p>Customize your rocket style & blast off into the nebula! ♡</p>
+        </div>
+
+        <div class="rocket-stage">
+          <div class="rocket-preview floating" id="rocketPreview">
+            <!-- Rocket Body SVG -->
+            <svg class="rocket-body-svg" id="rocketBodySvg" viewBox="0 0 100 130">
+              <!-- Nose Cone -->
+              <path d="M50,10 C65,35 65,45 65,45 L35,45 C35,45 35,35 50,10 Z" fill="#f472b6" />
+              <!-- Main Body -->
+              <rect id="svgHull" x="35" y="45" width="30" height="55" rx="6" fill="#a855f7" />
+              <!-- Window -->
+              <circle cx="50" cy="65" r="8" fill="#38bdf8" stroke="#ffffff" stroke-width="2" />
+              <!-- Fins -->
+              <path d="M35,80 L20,100 L35,95 Z" fill="#ec4899" />
+              <path d="M65,80 L80,100 L65,95 Z" fill="#ec4899" />
+            </svg>
+            <span class="rocket-decal-icon" id="rocketDecalIcon">🎀</span>
+            <div class="rocket-flames" id="rocketFlames"></div>
+          </div>
+        </div>
+
+        <!-- Customizer Options -->
+        <div class="custom-group">
+          <span class="custom-label">1. ROCKET HULL COLOR</span>
+          <div class="custom-options">
+            <button class="opt-btn active" data-body-color="#a855f7" type="button">🔮 Nebula Purple</button>
+            <button class="opt-btn" data-body-color="#ec4899" type="button">💖 Starlight Pink</button>
+            <button class="opt-btn" data-body-color="#38bdf8" type="button">🌌 Cyan Aurora</button>
+            <button class="opt-btn" data-body-color="#fbbf24" type="button">🌟 Galaxy Gold</button>
+          </div>
+        </div>
+
+        <div class="custom-group">
+          <span class="custom-label">2. THRUSTER TRAIL</span>
+          <div class="custom-options">
+            <button class="opt-btn active" data-flame-color="#f472b6" type="button">💖 Cosmic Pink</button>
+            <button class="opt-btn" data-flame-color="#38bdf8" type="button">⚡ Plasma Blue</button>
+            <button class="opt-btn" data-flame-color="#fb923c" type="button">🔥 Solar Flare</button>
+            <button class="opt-btn" data-flame-color="#4ade80" type="button">✨ Emerald Glow</button>
+          </div>
+        </div>
+
+        <div class="custom-group">
+          <span class="custom-label">3. DECAL EMBLEM</span>
+          <div class="custom-options">
+            <button class="opt-btn active" data-decal="🎀" type="button">🎀 Pink Bow</button>
+            <button class="opt-btn" data-decal="🧸" type="button">🧸 Teddy Bear</button>
+            <button class="opt-btn" data-decal="💖" type="button">💖 Sweet Heart</button>
+            <button class="opt-btn" data-decal="⭐" type="button">⭐ Lucky Star</button>
+          </div>
+        </div>
+
+        <div class="launch-btn-wrap">
+          <button id="btnLaunchRocket" class="btn-launch" type="button">🚀 LAUNCH NADIA'S ROCKET ✨</button>
+        </div>
+      </section>
+
+      <!-- 2. Interactive Planetarium Section -->
+      <section class="space-panel" id="galaxySection">
+        <div class="builder-header">
+          <h2>🪐 Galaxy Planetarium</h2>
+          <p>Click any planet to discover secret cosmic notes & vibes ♡</p>
+        </div>
+
+        <div class="planets-grid" id="planetsGrid"></div>
+      </section>
+
+      <!-- 3. Shooting Star Catcher Game Section -->
+      <section class="space-panel" id="starCatcherSection">
+        <div class="builder-header">
+          <h2>💫 Shooting Star Catcher</h2>
+          <p>Tap falling stars to collect star gems & reveal lucky cosmic wishes! ♡</p>
+        </div>
+
+        <div class="star-game-wrap">
+          <div class="star-score-badge">
+            <span>✨ STAR SCORE:</span>
+            <span id="starScoreDisplay">0 PTS</span>
+          </div>
+
+          <div class="star-catcher-area" id="starCatcherArea"></div>
+
+          <div id="wishToast" class="wish-toast hidden"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Warp Animation Overlay -->
+    <div id="warpOverlay" class="warp-overlay">
+      <div class="warp-rocket">🚀✨</div>
+      <div class="warp-text">WARP SPEED TO PLANET PINK NEBULA!</div>
+    </div>
+
+    <!-- Planet Modal -->
+    <div id="planetModal" class="planet-modal">
+      <div class="modal-content">
+        <button id="modalCloseBtn" class="modal-close-btn" type="button">✕</button>
+        <div class="modal-icon" id="modalIcon">🪐</div>
+        <h3 class="modal-title" id="modalTitle">—</h3>
+        <p class="modal-vibe" id="modalVibe">—</p>
+        <div class="modal-note">
+          <p id="modalNote">—</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Radio Widget -->
+    <div class="radio-widget">
+      <button id="btnRadioToggle" class="radio-btn" type="button">▶</button>
+      <span id="radioStatusText">Cosmic Lo-Fi Radio</span>
+    </div>
+
+    <footer id="siteFooter"></footer>
+
+    <script src="./content/site-data.js?v=20260725b"></script>
+    <script src="./assets/js/magic.js?v=20260710k"></script>
+    <script src="./assets/js/space.js?v=20260725b"></script>
+  </body>
+</html>
