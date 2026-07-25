@@ -134,10 +134,29 @@
       </section>
     </main>
 
+    <!-- Space Flight Simulator Overlay Mode -->
+    <div id="spaceFlightMode" class="space-flight-overlay hidden">
+      <canvas id="flightCanvas"></canvas>
+      <div class="flight-hud">
+        <div class="hud-top">
+          <div class="hud-stat">✨ STARDUST: <span id="flightStardust">0</span></div>
+          <div class="hud-stat">🚀 SPEED: <span id="flightSpeed">800 km/h</span></div>
+        </div>
+        <div class="hud-instructions">
+          🖱️ Move Mouse / Drag to steer Nadia's Rocket! Collect Stars & Hearts! ♡
+        </div>
+        <div class="hud-actions">
+          <button id="btnNitroBoost" class="hud-btn nitro" type="button">⚡ HYPER BOOST</button>
+          <button id="btnExitFlight" class="hud-btn exit" type="button">🌌 LAND ROCKET</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Warp Animation Overlay -->
     <div id="warpOverlay" class="warp-overlay">
-      <div class="warp-rocket">🚀✨</div>
-      <div class="warp-text">WARP SPEED TO PLANET PINK NEBULA!</div>
+      <div class="warp-countdown" id="warpCountdown">3</div>
+      <div class="warp-rocket" id="warpRocketIcon">🚀✨</div>
+      <div class="warp-text" id="warpText">PREPARING HYPERDRIVE LAUNCH...</div>
     </div>
 
     <!-- Planet Modal -->
