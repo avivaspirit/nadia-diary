@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Happy Meal 🍽️ | Nadia's Diary 🎀</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Caveat:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/diary.css?v=20260710k" />
+    <link rel="stylesheet" href="./assets/css/meal.css?v=20260725a" />
+  </head>
+  <body class="page-meal">
+    <header class="site-header">
+      <a class="brand" href="./index.html" id="siteTitle">Nadia's Diary 🎀</a>
+      <nav aria-label="Main navigation">
+        <a href="./index.html">Dianeyy 🐰</a>
+        <a href="./collection.html">Nadia's Dolls 🧸</a>
+        <a href="./birthday.html">Happy Birthday 🎂</a>
+        <a href="./story.html">Our Story 💑</a>
+        <a href="./gallery.html">Gallery 📸</a>
+        <a href="./garden.html">Garden 🌿</a>
+        <a href="./games.html">Play & Movies 🎮</a>
+        <a href="./wish.html">Wish 🌠</a>
+        <a href="./closet.html">Closet 👗</a>
+        <a aria-current="page" href="./meal.html">Happy Meal 🍽️</a>
+        <a href="./travel.html">Travel 🌍</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="meal-hero">
+        <p class="eyebrow">✨ DELICIOUS INSPO FOR NADIA'S MOOD ✨</p>
+        <h1>Happy Meal 🍽️</h1>
+        <p class="lede">Can't decide what to eat today? Let's spin a delicious dish made just for Nadia! ♡</p>
+      </section>
+
+      <!-- Meal Picker / Decision Maker -->
+      <section class="meal-picker-section">
+        <div class="meal-picker-header">
+          <h2>✨ Meal of the Day</h2>
+          <p>Pick a craving or let's spin a surprise ♡</p>
+        </div>
+
+        <!-- Craving Pills -->
+        <div class="meal-cravings-row" id="mealCravingsRow">
+          <button class="meal-craving-pill active" data-craving="" type="button">🎲 Surprise Me</button>
+          <button class="meal-craving-pill" data-craving="spicy" type="button">🌶️ Spicy Cravings</button>
+          <button class="meal-craving-pill" data-craving="comforting" type="button">🍜 Warm & Comforting</button>
+          <button class="meal-craving-pill" data-craving="healthy" type="button">🥗 Light & Healthy</button>
+          <button class="meal-craving-pill" data-craving="sweet" type="button">🍰 Sweet Tooth</button>
+          <button class="meal-craving-pill" data-craving="romantic" type="button">🍷 Dinner Date</button>
+          <button class="meal-craving-pill" data-craving="crispy" type="button">🍗 Extra Crispy</button>
+        </div>
+
+        <!-- Loading -->
+        <div id="mealLoading" class="meal-loading hidden">
+          <div class="meal-loading-spinner"></div>
+          <p>Cooking up the perfect meal idea for Nadia… 🍳✨</p>
+        </div>
+
+        <!-- Result Card -->
+        <div id="mealResultCard" class="meal-result-card hidden">
+          <div class="meal-card-header">
+            <span class="meal-emoji-big" id="mealEmoji">🍽️</span>
+            <div class="meal-card-titles">
+              <h3 id="mealTitleEn">—</h3>
+              <p class="meal-name-th" id="mealTitleTh">—</p>
+            </div>
+          </div>
+
+          <img id="mealImagePreview" class="meal-card-img-preview" src="./assets/uploads/nadia_restaurant.jpg" alt="Dish preview" />
+
+          <div class="meal-badge-row" id="mealBadgeRow"></div>
+
+          <div class="meal-vibe-box">
+            <span id="mealVibe">—</span>
+          </div>
+
+          <div class="meal-pairing-box">
+            <span class="meal-pairing-label">🍹 PERFECT PAIRING:</span>
+            <span id="mealPairing">—</span>
+          </div>
+
+          <div class="meal-sweet-note">
+            <p id="mealNote">—</p>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="meal-actions">
+          <button id="btnPickMeal" class="meal-btn meal-btn-primary" type="button">
+            <span>🍽️ Pick Nadia's Meal</span>
+          </button>
+          <button id="btnAgainMeal" class="meal-btn meal-btn-secondary hidden" type="button">
+            <span>🔄 Another Dish</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Divider -->
+      <div class="meal-divider"><span>or browse all categories</span></div>
+
+      <!-- Category Filter Tabs -->
+      <section class="meal-category-section">
+        <div class="meal-category-tabs" id="mealCategoryTabs"></div>
+      </section>
+
+      <!-- Food Cards Grid -->
+      <section class="meal-grid" id="mealGrid" aria-label="Food menu recommendations"></section>
+    </main>
+
+    <!-- Floating Chef / Food Assistant Chat Widget -->
+    <button id="chatToggle" class="chat-toggle" type="button" aria-label="Open food assistant chat">🍽️</button>
+    <div id="chatBox" class="chat-box">
+      <div class="chat-header">
+        <span>👩‍🍳 Chef Assistant Chat</span>
+        <button id="chatClose" class="chat-close" type="button">✕</button>
+      </div>
+      <div id="chatMessages" class="chat-messages"></div>
+      <div class="chat-input-row">
+        <input id="chatInput" type="text" class="chat-input" placeholder="ask what to eat..." autocomplete="off" />
+        <button id="chatSend" class="chat-send" type="button">→</button>
+      </div>
+    </div>
+
+    <footer id="siteFooter"></footer>
+
+    <script src="./content/site-data.js?v=20260725a"></script>
+    <script src="./assets/js/magic.js?v=20260710k"></script>
+    <script src="./assets/js/meal.js?v=20260725a"></script>
+  </body>
+</html>

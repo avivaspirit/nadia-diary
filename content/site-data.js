@@ -904,5 +904,376 @@ window.NADIA_DATA = {
       { id: "4nZi6XNe36Ut4Nij3IQ1yC", title: "Silver Springs",     artist: "Fleetwood Mac" },
       { id: "6ee04RfJraeyLWpKB4cgCZ", title: "No Gravity",         artist: "Lil Yachty" }
     ]
+  },
+
+  /* -------------------------- HAPPY MEAL / FOOD DECIDER 🍽️ ------------------- */
+  happyMeal: {
+    eyebrow: "✨ WHAT SHOULD NADIA EAT TODAY? ✨",
+    headline: "Happy Meal 🍽️",
+    description: "Can't decide what to eat? Let's find the delicious craving made just for Nadia's mood today ♡",
+    categories: [
+      { id: "all", name: "🎲 All / Surprise", icon: "🍱" },
+      { id: "thai", name: "🇹🇭 Thai", icon: "🌶️" },
+      { id: "chinese", name: "🇨🇳 Chinese", icon: "🥟" },
+      { id: "indian", name: "🇮🇳 Indian", icon: "🥘" },
+      { id: "western", name: "🍝 Western", icon: "🥩" },
+      { id: "fusion", name: "🍣 Fusion", icon: "🌮" },
+      { id: "desserts", name: "🍰 Desserts & Drinks", icon: "🧋" },
+      { id: "others", name: "🍱 Others & Hotpot", icon: "🍲" }
+    ],
+    items: [
+      /* --- THAI --- */
+      {
+        id: "t1",
+        category: "thai",
+        nameEn: "Tom Yum Goong Jumbo",
+        nameTh: "ต้มยำกุ้งแม่น้ำน้ำข้น",
+        emoji: "🍲",
+        image: "./assets/uploads/nadia_restaurant.jpg",
+        tags: ["Spicy", "Soup", "Signature"],
+        spiceLevel: "🌶️🌶️🌶️",
+        vibe: "Rich, aromatic, comforting spicy soup",
+        pairing: "🧋 Thai Iced Milk Tea & Jasmine Rice",
+        whyForNadia: "Hot, creamy, zesty soup with huge prawns — perfect for when Nadia wants something punchy & cozy! ♡"
+      },
+      {
+        id: "t2",
+        category: "thai",
+        nameEn: "Khao Soi Gai Chiang Mai",
+        nameTh: "ข้าวซอยไก่เชียงใหม่",
+        emoji: "🍜",
+        image: "./assets/uploads/nadia-note-2.jpg",
+        tags: ["Comforting", "Noodles", "Northern"],
+        spiceLevel: "🌶️🌶️",
+        vibe: "Crispy noodles, tender chicken & rich coconut curry broth",
+        pairing: "🥤 Iced Lime Tea & Pickled Mustard Greens",
+        whyForNadia: "Soft chicken leg that melts off the bone with rich Northern Thai curry spices!"
+      },
+      {
+        id: "t3",
+        category: "thai",
+        nameEn: "Pad Thai Soft-Shell Crab",
+        nameTh: "ผัดไทยปูนิ่มกรอบ",
+        emoji: "🍝",
+        image: "./assets/uploads/nadia_smile_drink.jpg",
+        tags: ["Sweet & Sour", "Street Food", "Seafood"],
+        spiceLevel: "🌶️",
+        vibe: "Chewy rice noodles, tamarind sauce & crunchy crab",
+        pairing: "🥥 Fresh Young Coconut",
+        whyForNadia: "Classic Pad Thai elevated with golden crispy soft-shell crab!"
+      },
+      {
+        id: "t4",
+        category: "thai",
+        nameEn: "Som Tum Crab-Pla Ra & Gai Yang",
+        nameTh: "ส้มตำปูปลาร้า & ไก่ย่างเขาสวนกวาง",
+        emoji: "🥗",
+        image: "./assets/uploads/nadia-cabinet-hero.jpg",
+        tags: ["Spicy & Zesty", "Isan", "Favorite"],
+        spiceLevel: "🌶️🌶️🌶️🌶️",
+        vibe: "Super fiery papaya salad with juicy grilled chicken & sticky rice",
+        pairing: "🥤 Iced Chrysanthemum Tea",
+        whyForNadia: "The ultimate Isan feast when Nadia craves max spice & bold flavors!"
+      },
+      {
+        id: "t5",
+        category: "thai",
+        nameEn: "Massaman Beef Shank Curry",
+        nameTh: "มัสมั่นเนื้อน่องแก้ว",
+        emoji: "🥘",
+        image: "./assets/uploads/nadia-note-1.jpg",
+        tags: ["Rich", "Royal Thai", "Aromatic"],
+        spiceLevel: "🌶️",
+        vibe: "Tender beef shank, potatoes, peanuts & mild aromatic cinnamon curry",
+        pairing: "🍞 Roti Bread or Steamed Rice",
+        whyForNadia: "Voted world's best food! Deeply rich, sweet-savory, and warm."
+      },
+      {
+        id: "t6",
+        category: "thai",
+        nameEn: "Crab Meat Omelette & Seafood Sauce",
+        nameTh: "ไข่เจียวปูปูแน่นๆ & น้ำจิ้มซีฟู้ด",
+        emoji: "🍳",
+        image: "./assets/uploads/nadia-note-3.jpg",
+        tags: ["Crispy", "Seafood", "Simple"],
+        spiceLevel: "🌶️🌶️",
+        vibe: "Fluffy 3D golden omelette packed with lump crab meat",
+        pairing: "🍚 Jasmine Rice",
+        whyForNadia: "Crispy outside, super fluffy inside and packed with premium crab!"
+      },
+
+      /* --- CHINESE --- */
+      {
+        id: "c1",
+        category: "chinese",
+        nameEn: "Truffle Xiao Long Bao",
+        nameTh: "เสี่ยวหลงเปาทรัฟเฟิล",
+        emoji: "🥟",
+        image: "./assets/uploads/nadia_with_plushie.jpg",
+        tags: ["Dim Sum", "Soup Dumpling", "Luxury"],
+        spiceLevel: "🌶️0",
+        vibe: "Steaming hot pork & black truffle broth wrapped in delicate dough",
+        pairing: "☕ Hot Jasmine Tea",
+        whyForNadia: "Pop the hot soup dumpling into your spoon with ginger vinegar — pure bliss!"
+      },
+      {
+        id: "c2",
+        category: "chinese",
+        nameEn: "Crispy Peking Duck Roll",
+        nameTh: "เป็ดปักกิ่งหนังกรอบ",
+        emoji: "🦆",
+        image: "./assets/uploads/nadia_wink_peace.jpg",
+        tags: ["Crispy", "Festive", "Classic"],
+        spiceLevel: "🌶️0",
+        vibe: "Thin steamed pancake, sweet hoisin sauce, cucumber, scallions & glass-crisp duck skin",
+        pairing: "🍵 Oolong Tea",
+        whyForNadia: "Crispy, sweet, and incredibly satisfying pancake rolls!"
+      },
+      {
+        id: "c3",
+        category: "chinese",
+        nameEn: "Sichuan Mapo Tofu & Wagyu",
+        nameTh: "มาโปเต้าหู้หม่าล่าเนื้อวากิว",
+        emoji: "🌶️",
+        image: "./assets/uploads/nadia-note-4.jpg",
+        tags: ["Mala Spicy", "Sichuan", "Hot"],
+        spiceLevel: "🌶️🌶️🌶️",
+        vibe: "Silken tofu, minced wagyu, peppercorns & numbing mala oil",
+        pairing: "🍺 Cold Beverage or Steamed Rice",
+        whyForNadia: "Numbing mala heat with silky smooth tofu that goes so fast with rice!"
+      },
+      {
+        id: "c4",
+        category: "chinese",
+        nameEn: "Hong Kong BBQ Combo Rice",
+        nameTh: "ข้าวหน้าเฉโป (หมูกรอบ หมูแดง เป็ด่ย่าง)",
+        emoji: "🍱",
+        image: "./assets/uploads/nadia-cabinet-hero.jpg",
+        tags: ["BBQ", "Cantonese", "Crispy Pork"],
+        spiceLevel: "🌶️0",
+        vibe: "Crackling roast pork belly, honey-glazed char siu & roast duck over fragrant rice",
+        pairing: "🍵 Hot Milk Tea (HK Style)",
+        whyForNadia: "Crispy pork belly crackling sound with sweet glazed char siu!"
+      },
+
+      /* --- INDIAN --- */
+      {
+        id: "i1",
+        category: "indian",
+        nameEn: "Butter Chicken & Garlic Cheese Naan",
+        nameTh: "บัตเตอร์ชีสชิกเก้น & แป้งนานกระเทียมชีส",
+        emoji: "🥘",
+        image: "./assets/uploads/nadia_restaurant.jpg",
+        tags: ["Creamy", "Curry", "Must Try"],
+        spiceLevel: "🌶️",
+        vibe: "Velvety tomato-butter gravy, tandoori chicken chunks & fluffy melted cheese naan",
+        pairing: "🥛 Mango Lassi",
+        whyForNadia: "Dip warm garlic cheese naan into smooth velvety butter chicken gravy! So comforting! ♡"
+      },
+      {
+        id: "i2",
+        category: "indian",
+        nameEn: "Lamb Shank Dum Biryani",
+        nameTh: "ข้าวหมกขาแกะอินเดีย (Lamb Biryani)",
+        emoji: "🍚",
+        image: "./assets/uploads/nadia-note-1.jpg",
+        tags: ["Aromatic", "Basmati", "Rich"],
+        spiceLevel: "🌶️🌶️",
+        vibe: "Fragrant basmati rice layered with slow-cooked tender lamb shank & saffron",
+        pairing: "🥛 Mint Raita & Masala Chai",
+        whyForNadia: "Rich saffron basmati rice with fall-apart tender lamb!"
+      },
+      {
+        id: "i3",
+        category: "indian",
+        nameEn: "Paneer Tikka & Samosa Chaat",
+        nameTh: "ปาเนียร์ทิกก้า & ซาโมซ่าชาต",
+        emoji: "🍢",
+        image: "./assets/uploads/nadia-note-2.jpg",
+        tags: ["Vegetarian", "Street Snack", "Tangy"],
+        spiceLevel: "🌶️🌶️",
+        vibe: "Char-grilled cottage cheese cubes with tangy tamarind & mint chutney",
+        pairing: "☕ Hot Masala Chai",
+        whyForNadia: "Tangy, smoky grilled paneer with sweet & spicy chutney drizzle!"
+      },
+
+      /* --- WESTERN --- */
+      {
+        id: "w1",
+        category: "western",
+        nameEn: "Black Truffle Cream Fettuccine",
+        nameTh: "เฟตตูชินี่ครีมซอสทรัฟเฟิลดำ",
+        emoji: "🍝",
+        image: "./assets/uploads/nadia-mac-pov-collage.jpg",
+        tags: ["Truffle", "Pasta", "Romantic"],
+        spiceLevel: "🌶️0",
+        vibe: "Al dente egg pasta tossed in thick black truffle cream & parmigiano reggiano",
+        pairing: "🍷 Sparkling Rosé or White Wine",
+        whyForNadia: "Intense truffle aroma, super creamy, luxurious pasta night for Nadia! 🍝✨"
+      },
+      {
+        id: "w2",
+        category: "western",
+        nameEn: "Wagyu Ribeye Steak & Truffle Fries",
+        nameTh: "สเต๊กเนื้อวากิวริบอาย & เฟรนช์ฟรายส์ทรัฟเฟิล",
+        emoji: "🥩",
+        image: "./assets/uploads/nadia_smile_drink.jpg",
+        tags: ["Steak", "Wagyu", "Dinner Date"],
+        spiceLevel: "🌶️0",
+        vibe: "Seared medium-rare wagyu steak, red wine jus, garlic butter & crispy parmesan fries",
+        pairing: "🍷 Cabernet Sauvignon",
+        whyForNadia: "Juicy, tender wagyu beef that melts in your mouth with garlic butter finish!"
+      },
+      {
+        id: "w3",
+        category: "western",
+        nameEn: "Wood-Fired Truffle & Burrata Pizza",
+        nameTh: "พิซซ่าเตาถ่านบูร์ราต้าทรัฟเฟิล",
+        emoji: "🍕",
+        image: "./assets/uploads/nadia-note-3.jpg",
+        tags: ["Pizza", "Burrata", "Italian"],
+        spiceLevel: "🌶️0",
+        vibe: "Neapolitan leopard-spotted crust, fresh creamy burrata ball, prosciutto & truffle oil",
+        pairing: "🥂 Italian Prosecco",
+        whyForNadia: "Break open the creamy fresh burrata cheese right over warm wood-fired pizza!"
+      },
+      {
+        id: "w4",
+        category: "western",
+        nameEn: "Lobster Bisque & Garlic Bread",
+        nameTh: "ซุปล็อบสเตอร์บิสก์ & ขนมปังกระเทียม",
+        emoji: "🥣",
+        image: "./assets/uploads/nadia_restaurant.jpg",
+        tags: ["Seafood", "Soup", "Cozy"],
+        spiceLevel: "🌶️0",
+        vibe: "Velvety roasted lobster cream soup served with toasted garlic sourdough",
+        pairing: "🥂 Chardonnay",
+        whyForNadia: "Warm, rich, seafood bisque to dip crunchy toasted garlic bread into!"
+      },
+
+      /* --- FUSION --- */
+      {
+        id: "f1",
+        category: "fusion",
+        nameEn: "Aburi Salmon Cheese & Foie Gras Roll",
+        nameTh: "แซลมอนลนไฟฟัวกราส์ชีสโรลล์",
+        emoji: "🍣",
+        image: "./assets/uploads/nadia_with_plushie.jpg",
+        tags: ["Sushi", "Torched", "Japanese Fusion"],
+        spiceLevel: "🌶️",
+        vibe: "Torched fatty salmon, seared foie gras, spicy mayo, unagi sauce & crispy tempura flakes",
+        pairing: "🍶 Cold Sake or Yuzu Soda",
+        whyForNadia: "Smoky torched salmon with rich creamy foie gras — melts instantly on your tongue! 🍣"
+      },
+      {
+        id: "f2",
+        category: "fusion",
+        nameEn: "Korean Bulgogi Tacos & Kimchi Slaw",
+        nameTh: "ทาโก้เนื้อบูลโกกิเกาหลี & กิมจิสลอว์",
+        emoji: "🌮",
+        image: "./assets/uploads/nadia_wink_peace.jpg",
+        tags: ["Korean Mex", "Tacos", "Fun"],
+        spiceLevel: "🌶️🌶️",
+        vibe: "Sweet savory marinaded beef, warm tortillas, crunch kimchi slaw & gochujang crema",
+        pairing: "🍹 Passionfruit Margarita or Yuzu Ale",
+        whyForNadia: "Fun, messy, super flavorful blend of sweet Korean BBQ beef and spicy taco crunch!"
+      },
+      {
+        id: "f3",
+        category: "fusion",
+        nameEn: "Spicy Tom Yum Carbonara Pasta",
+        nameTh: "สปาเก็ตตี้คาโบนาร่าต้มยำกุ้งสด",
+        emoji: "🍝",
+        image: "./assets/uploads/nadia-note-4.jpg",
+        tags: ["Pasta Fusion", "Spicy Cream", "Popular"],
+        spiceLevel: "🌶️🌶️",
+        vibe: "Rich egg-cream carbonara infused with lemongrass, kaffir lime & jumbo prawns",
+        pairing: "🥤 Iced Peach Tea",
+        whyForNadia: "The best of both worlds — rich creamy Italian carbonara with zesty Thai Tom Yum kick!"
+      },
+
+      /* --- DESSERTS & DRINKS --- */
+      {
+        id: "d1",
+        category: "desserts",
+        nameEn: "Mango Sticky Rice & Coconut Cream",
+        nameTh: "ข้าวเหนียวมะม่วงอกร่องทอง",
+        emoji: "🥭",
+        image: "./assets/uploads/nadia-note-1.jpg",
+        tags: ["Sweet", "Thai Dessert", "Iconic"],
+        spiceLevel: "🌶️0",
+        vibe: "Ripe sweet yellow mango slices, warm coconut butterfly pea sticky rice & crispy mung beans",
+        pairing: "☕ Warm Jasmine Tea",
+        whyForNadia: "Warm sweet coconut rice with ice-cold sweet ripe mango — Nadia's forever dessert! 🥭"
+      },
+      {
+        id: "d2",
+        category: "desserts",
+        nameEn: "Fluffy Strawberry Soufflé Pancakes",
+        nameTh: "ซูเฟล่แพนเค้กสตรอว์เบอร์รี่สด",
+        emoji: "🥞",
+        image: "./assets/uploads/nadia-note-2.jpg",
+        tags: ["Fluffy", "Japanese Dessert", "Cute"],
+        spiceLevel: "🌶️0",
+        vibe: "Jiggly souffle pancake stack, fresh strawberries, vanilla chantilly cream & maple drizzle",
+        pairing: "🧋 Iced Matcha Latte",
+        whyForNadia: "Soft, pillowy, fluffy cloud pancakes that melt in your mouth! So cute & sweet ♡"
+      },
+      {
+        id: "d3",
+        category: "desserts",
+        nameEn: "Matcha Bingsu & Red Bean Mochi",
+        nameTh: "บิงซูมัจฉะถั่วแดงโมจินุ่ม",
+        emoji: "🍧",
+        image: "./assets/uploads/nadia-note-3.jpg",
+        tags: ["Shaved Ice", "Korean", "Refreshing"],
+        spiceLevel: "🌶️0",
+        vibe: "Snowy milk shaved ice, premium Uji matcha sauce, chewy dango mochi & sweet red bean",
+        pairing: "🍵 Hot Green Tea",
+        whyForNadia: "Super refreshing, cool matcha shaved ice with chewy homemade mochi!"
+      },
+
+      /* --- OTHERS & HOTPOT --- */
+      {
+        id: "o1",
+        category: "others",
+        nameEn: "Haidilao Shabu-Shabu Hotpot",
+        nameTh: "ชาบูหมาล่าไฮตี่เลา (Haidilao Hotpot)",
+        emoji: "🍲",
+        image: "./assets/uploads/nadia_restaurant.jpg",
+        tags: ["Hotpot", "Mala & Bone Broth", "Social"],
+        spiceLevel: "🌶️🌶️🌶️",
+        vibe: "Split pot with Mala soup & Collagen Bone broth, sliced A5 Wagyu, shrimp paste & custom dipping sauce",
+        pairing: "🧋 Plum Juice or Milk Tea",
+        whyForNadia: "Dancing noodles, DIY sauce bar, and hot bubbling soup — fun dining night with Nadia! 🍲✨"
+      },
+      {
+        id: "o2",
+        category: "others",
+        nameEn: "Korean Fried Chicken & Beer (Chimeg)",
+        nameTh: "ไก่ทอดเกาหลีซอสซอยการ์ลิค & ช็องยัง",
+        emoji: "🍗",
+        image: "./assets/uploads/nadia_smile_drink.jpg",
+        tags: ["Korean", "Crispy", "Comfort Food"],
+        spiceLevel: "🌶️🌶️",
+        vibe: "Double-fried extra crispy chicken wings glazed in garlic soy & spicy honey mustard",
+        pairing: "🍺 Cold Draft Beer or Pickled Radish",
+        whyForNadia: "Extra crunch sound on every bite with sweet garlic glaze!"
+      },
+      {
+        id: "o3",
+        category: "others",
+        nameEn: "Acai Berry Superfood Bowl",
+        nameTh: "อะซาอิโบลว์ผลไม้สด & กราโนล่า",
+        emoji: "🫐",
+        image: "./assets/uploads/nadia_wink_peace.jpg",
+        tags: ["Healthy", "Cafe", "Fresh"],
+        spiceLevel: "🌶️0",
+        vibe: "Chilled organic acai smoothie base, fresh blueberries, kiwi, almond butter & cacao nibs",
+        pairing: "☕ Cold Brew Coffee or Iced Oat Latte",
+        whyForNadia: "Refreshing, guilt-free, super antioxidant energy booster bowl!"
+      }
+    ]
   }
 };
+
