@@ -117,6 +117,11 @@ window.NADIA_DATA = {
         num: "09", emoji: "👗", title: "Nadia's Closet",
         text: "Style inspo for every mood — sweet, spicy, sporty, glam, princess, and more. Find your next look ♡",
         href: "./closet.html"
+      },
+      {
+        num: "10", emoji: "📔", title: "My Little Journal",
+        text: "Write down where you went and what you did — add photos, pick a mood, and keep every little day forever.",
+        href: "./journal.html"
       }
     ]
   },

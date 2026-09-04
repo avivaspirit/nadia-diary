@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Little Journal 📔 | Nadia's Diary 🎀</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Caveat:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/diary.css?v=20260904a" />
+  </head>
+  <body class="page-journal">
+    <header class="site-header">
+      <a class="brand" href="./index.html" id="siteTitle">Nadia's Diary 🎀</a>
+      <nav aria-label="Main navigation">
+        <a href="./index.html">Dianeyy 🐰</a>
+        <a href="./collection.html">Nadia's Dolls 🧸</a>
+        <a href="./birthday.html">Happy Birthday 🎂</a>
+        <a href="./story.html">Our Story 💑</a>
+        <a href="./gallery.html">Gallery 📸</a>
+        <a href="./garden.html">Garden 🌿</a>
+        <a href="./games.html">Play & Movies 🎮</a>
+        <a href="./wish.html">Wish 🌠</a>
+        <a href="./closet.html">Closet 👗</a>
+        <a href="./meal.html">Happy Meal 🍽️</a>
+        <a href="./space.html">Space Voyage 🚀</a>
+        <a href="./travel.html">Travel 🌍</a>
+        <a aria-current="page" href="./journal.html">Journal 📔</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="journal-page">
+        <div class="journal-hero reveal">
+          <p class="eyebrow">Nadia's Little Journal 📔</p>
+          <h1>Where did the day take you? ♡</h1>
+          <p class="lede">Write down where you went and what you did — add pretty photos, pick a mood, and keep every little day safe forever. 🌸</p>
+        </div>
+
+        <div class="journal-layout reveal">
+          <!-- ============ TIMELINE ============ -->
+          <div class="journal-timeline-col">
+            <div class="journal-timeline-head">
+              <h2>Your days 🌷</h2>
+              <div class="journal-filter-bar">
+                <button class="journal-filter-pill active" data-filter="all" type="button">All ♡</button>
+                <button class="journal-filter-pill" data-filter="photo" type="button">With photos 📸</button>
+                <button class="journal-filter-pill" data-filter="place" type="button">Went out 📍</button>
+              </div>
+            </div>
+            <div class="journal-timeline" id="journalTimeline"></div>
+            <div class="journal-empty" id="journalEmpty">
+              <div class="journal-empty-icon">📔</div>
+              <p>No pages in your journal yet ♡</p>
+              <p class="journal-empty-sub">Write about your first day — where you went, what you did, and a photo or two!</p>
+            </div>
+          </div>
+
+          <!-- ============ COMPOSER SIDE PANEL ============ -->
+          <aside class="journal-compose" id="journalCompose">
+            <div class="journal-compose-card">
+              <div class="journal-compose-head">
+                <span class="journal-compose-icon">✏️</span>
+                <h2>Today's page</h2>
+                <button class="journal-compose-close" id="journalComposeClose" type="button" aria-label="Close">✕</button>
+              </div>
+              <p class="journal-compose-date" id="journalDateLabel"></p>
+
+              <label class="journal-label">Where did you go? 📍</label>
+              <div class="journal-place-picker" id="journalPlacePicker"></div>
+              <input type="text" class="journal-place-input" id="journalPlaceInput" placeholder="…or type somewhere else ♡" maxlength="40" />
+
+              <label class="journal-label">What did you do today? 🌷</label>
+              <textarea class="journal-textarea" id="journalText" rows="5" maxlength="800" placeholder="Went to the café with the wobbly chair, shared one strawberry cake…"></textarea>
+              <div class="journal-count"><span id="journalCharCount">0</span>/800</div>
+
+              <label class="journal-label">How did the day feel? ☁️</label>
+              <div class="journal-mood-row" id="journalMoodRow"></div>
+
+              <label class="journal-label">Weather of the day ⛅</label>
+              <div class="journal-weather-row" id="journalWeatherRow"></div>
+
+              <label class="journal-label">Photos 📸 <span class="journal-hint">(up to 4)</span></label>
+              <div class="journal-photo-actions">
+                <button class="journal-photo-btn" id="journalUploadBtn" type="button"><span>📷</span> Upload</button>
+                <button class="journal-photo-btn" id="journalGalleryBtn" type="button"><span>🖼️</span> From gallery</button>
+              </div>
+              <input type="file" id="journalFileInput" accept="image/*" multiple style="position:absolute;width:0;height:0;opacity:0;overflow:hidden;border:0;" />
+              <div class="journal-gallery-grid" id="journalGalleryGrid" style="display:none;"></div>
+              <div class="journal-photo-list" id="journalPhotoList"></div>
+
+              <button class="journal-save-btn" id="journalSaveBtn" type="button">🔖 Save this day</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p class="footer-text" id="footerText"></p>
+    </footer>
+
+    <!-- Entry detail popup -->
+    <div class="journal-detail" id="journalDetail">
+      <div class="journal-detail-inner" id="journalDetailInner"></div>
+    </div>
+
+    <script src="./content/site-data.js?v=20260904a"></script>
+    <script src="./assets/js/magic.js?v=20260904a"></script>
+    <script src="./assets/js/journal.js?v=20260904a"></script>
+    <script>document.getElementById("codeTitle").textContent = "Nadia's Diary 🎀";</script>
+  </body>
+</html>
