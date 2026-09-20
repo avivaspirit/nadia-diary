@@ -122,7 +122,72 @@ window.NADIA_DATA = {
         num: "10", emoji: "📔", title: "My Little Journal",
         text: "Write down where you went and what you did — add photos, pick a mood, and keep every little day forever.",
         href: "./journal.html"
+      },
+      {
+        num: "11", emoji: "💗", title: "Happy Anniversary",
+        text: "One year of us — a love letter, our favorite moments, and every day counted, saved forever. ♡",
+        href: "./anniversary.html"
       }
+    ]
+  },
+
+  /* ---------------------------- ANNIVERSARY ----------------------------- */
+  anniversary: {
+    /* Hero + love timer run automatically from site.firstDay. */
+    miniCard: {
+      lines: [
+        "Happy Anniversary, my Boozy Pace 🥂 ♡",
+        "Let's keep on making wonderful boozy moments together 🍷 ✨",
+        "I love you from Pizza Planet to Mochi Planet 🍕 💫 🍡"
+      ]
+    },
+    letters: [
+      {
+        seal: "\ud83d\udc8c",
+        sticker: "\ud83d\udc8d",
+        title: "One whole year of us",
+        paragraphs: [
+          "365 days ago you said yes to being mine, and you've made every single one of those days feel like a little gift. One whole year of your laugh, your voice notes, your good-morning texts — one whole year of being the luckiest person alive.",
+          "Thank you for choosing us, again and again, on the easy days and the hard ones. You make love feel effortless and warm, and I fall for you a little more every morning.",
+          "Happy first anniversary, my Nadia. This is only chapter one of our forever. \u2661"
+        ],
+        photos: [
+          { src: "./assets/uploads/img_6539.jpg", alt: "Where it all began", caption: "where it all began \u2661" },
+          { src: "./assets/uploads/img_first_flowers.jpg", alt: "The first flowers", caption: "the first flowers \ud83c\udf39" }
+        ]
+      },
+      {
+        seal: "\ud83d\udc97",
+        sticker: "\ud83d\udc1d",
+        title: "The next forever",
+        paragraphs: [
+          "If year one was this sweet, I can't even imagine what year two has planned for us. More caf\u00e9s with wobbly chairs, more late-night movies, more little adventures with you holding the map upside-down.",
+          "Whatever it brings, I want all of it with you — the cozy Sundays, the big trips, the tiny everyday miracles in between.",
+          "Here's to the next forever, my love. I'm not going anywhere. \u2661"
+        ],
+        photos: [
+          { src: "./assets/uploads/img_2333.jpg", alt: "My favorite face", caption: "my favorite face" },
+          { src: "./assets/uploads/img_photobooth.jpg", alt: "Photo booth strip", caption: "booth strip memories \ud83c\udf9e\ufe0f" }
+        ]
+      }
+    ],
+    reasons: [
+      { emoji: "\u2600\ufe0f", text: "You make ordinary days feel like little celebrations." },
+      { emoji: "\ud83e\udd70", text: "Your laugh is still my favorite sound in the whole world." },
+      { emoji: "\ud83d\udcaa", text: "You're strong in the quiet ways nobody else sees." },
+      { emoji: "\u2615", text: "Every caf\u00e9 feels like home when you're across the table." },
+      { emoji: "\u2728", text: "You believe in me even when I forget to believe in myself." },
+      { emoji: "\ud83d\uddfa\ufe0f", text: "You turn every errand into a tiny adventure." },
+      { emoji: "\ud83d\udc30", text: "You love little treasures the way I love loving you." },
+      { emoji: "\ud83c\udf19", text: "Falling asleep next to you is my favorite end to any day." }
+    ],
+    photos: [
+      { src: "./assets/uploads/img_6539.jpg", alt: "Where it all began", caption: "where it all began \u2661" },
+      { src: "./assets/uploads/img_first_flowers.jpg", alt: "The first flowers", caption: "the first flowers \ud83c\udf39" },
+      { src: "./assets/uploads/img_2333.jpg", alt: "My favorite face", caption: "my favorite face" },
+      { src: "./assets/uploads/img_photobooth.jpg", alt: "Photo booth strip", caption: "booth strip memories \ud83c\udf9e\ufe0f" },
+      { src: "./assets/uploads/nadia-mac-pov-collage.jpg", alt: "Same moment, two views", caption: "same moment, two little views" },
+      { src: "./assets/uploads/img_2434.jpg", alt: "The prettiest smile", caption: "the prettiest smile \u2661" }
     ]
   },
 

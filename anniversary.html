@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Happy Anniversary 💌 | Nadia's Diary 🎀</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Caveat:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/diary.css?v=20260920a" />
+  </head>
+  <body class="page-anniversary">
+    <header class="site-header">
+      <a class="brand" href="./index.html" id="siteTitle">Nadia's Diary 🎀</a>
+      <nav aria-label="Main navigation">
+        <a href="./index.html">Dianeyy 🐰</a>
+        <a href="./collection.html">Nadia's Dolls 🧸</a>
+        <a href="./birthday.html">Happy Birthday 🎂</a>
+        <a aria-current="page" href="./anniversary.html">Anniversary 💗</a>
+        <a href="./story.html">Our Story 💑</a>
+        <a href="./gallery.html">Gallery 📸</a>
+        <a href="./garden.html">Garden 🌿</a>
+        <a href="./games.html">Play &amp; Movies 🎮</a>
+        <a href="./wish.html">Wish 🌠</a>
+        <a href="./closet.html">Closet 👗</a>
+        <a href="./meal.html">Happy Meal 🍽️</a>
+        <a href="./space.html">Space Voyage 🚀</a>
+        <a href="./travel.html">Travel 🌍</a>
+        <a href="./journal.html">Journal 📔</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="anniversary-page">
+        <!-- ============ HERO ============ -->
+        <div class="anniversary-hero reveal">
+          <div class="anniv-heart-badge" aria-hidden="true">💗</div>
+          <p class="eyebrow">Our little forever 💌</p>
+          <h1>Happy Anniversary, my Nadia</h1>
+          <p class="lede">One year ago, you said yes to being mine — and every day since has been my favorite day. This page is our little celebration, saved here forever. ♡</p>
+        </div>
+
+        <!-- ============ MINI CARD ============ -->
+        <div class="anniv-mini-card-wrap reveal">
+          <div class="anniv-mini-card" id="annivMiniCard"></div>
+        </div>
+
+        <!-- ============ LOVE TIMER ============ -->
+        <div class="anniv-counter reveal">
+          <div class="anniv-counter-card">
+            <p class="anniv-counter-eyebrow">Our love timer ⏳</p>
+            <p class="anniv-counter-label">We've been together for</p>
+            <div class="anniv-love-timer">
+              <div class="anniv-timer-box">
+                <span class="anniv-timer-num" id="annivMonths">—</span>
+                <span class="anniv-timer-label">months</span>
+              </div>
+              <span class="anniv-timer-heart" aria-hidden="true">♡</span>
+              <div class="anniv-timer-box">
+                <span class="anniv-timer-num" id="annivMdDays">—</span>
+                <span class="anniv-timer-label">days</span>
+              </div>
+            </div>
+            <p class="anniv-since">loving you since <strong id="annivSinceDate">May 21, 2026</strong> ♡</p>
+
+            <div class="anniv-progress-wrap">
+              <div class="anniv-progress">
+                <div class="anniv-progress-fill" id="annivProgressFill"></div>
+              </div>
+              <p class="anniv-progress-label" id="annivProgressLabel">counting every single day ♡</p>
+            </div>
+
+            <div class="anniv-chips" id="annivChips"></div>
+
+            <div class="anniv-mini-stats">
+              <div class="anniv-mini">
+                <span class="anniv-mini-num" id="annivDays">—</span>
+                <span class="anniv-mini-label">days</span>
+              </div>
+              <div class="anniv-mini">
+                <span class="anniv-mini-num" id="annivWeeks">—</span>
+                <span class="anniv-mini-label">weeks</span>
+              </div>
+              <div class="anniv-mini">
+                <span class="anniv-mini-num" id="annivHours">—</span>
+                <span class="anniv-mini-label">hours</span>
+              </div>
+              <div class="anniv-mini">
+                <span class="anniv-mini-num" id="annivMinutes">—</span>
+                <span class="anniv-mini-label">minutes</span>
+              </div>
+            </div>
+
+            <button class="anniv-celebrate-btn anniv-pulse" id="annivCelebrateBtn" type="button">🎉 Celebrate us</button>
+          </div>
+        </div>
+
+        <!-- ============ ANNIVERSARY LETTERS ============ -->
+        <section class="envelope-stage" aria-label="Anniversary letters">
+          <div class="envelope-intro reveal">
+            <p class="eyebrow">Letters sealed with love ♡</p>
+            <h2>Little letters, saved for today.</h2>
+            <p class="hand">Tap an envelope to open your anniversary surprise.</p>
+          </div>
+          <div class="envelope-grid" id="annivEnvelopeGrid"></div>
+        </section>
+
+        <!-- ============ REASONS GRID ============ -->
+        <section class="anniv-reasons reveal" aria-label="Reasons I love you">
+          <p class="eyebrow">Reasons, as always ♡</p>
+          <h2>A few of the million reasons I love you.</h2>
+          <div class="anniv-reasons-grid" id="annivReasonsGrid"></div>
+        </section>
+
+        <!-- ============ SCRAPBOOK POLAROIDS ============ -->
+        <section class="anniv-scrapbook reveal" aria-label="Our favorite memories">
+          <p class="eyebrow">Favorite moments 📸</p>
+          <h2>One year of us, in little polaroids.</h2>
+          <div class="polaroid-wall" id="annivPolaroidWall"></div>
+        </section>
+
+        <!-- ============ CLOSING NOTE ============ -->
+        <section class="anniv-closing reveal" aria-label="A promise">
+          <div class="anniv-closing-card">
+            <span class="anniv-closing-sticker" aria-hidden="true">🎀</span>
+            <p class="anniv-closing-line">Here's to every anniversary ahead — I'll love you longer than this diary can count.</p>
+            <p class="anniv-closing-sign">Forever yours ♡</p>
+            <p class="anniv-closing-next" id="annivNextAnniv"></p>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p class="footer-text" id="footerText"></p>
+    </footer>
+
+    <script src="./content/site-data.js?v=20260920a"></script>
+    <script src="./assets/js/magic.js?v=20260920a"></script>
+    <script src="./assets/js/anniversary.js?v=20260920a"></script>
+    <script>document.getElementById("codeTitle").textContent = "Nadia's Diary 🎀";</script>
+  </body>
+</html>
