@@ -168,20 +168,49 @@
   function buildPolaroids() {
     const wall = $("#annivPolaroidWall");
     if (!wall) return;
-    const photos = DATA.photos || [];
-    wall.innerHTML = photos.map((photo, i) => `
+    let photos = DATA.photos || [];
+    const extra = (DATA.couplePhotos || []).map(p => (typeof p === "string" ? { src: p } : p));
+    photos = photos.concat(extra);
+
+    const render = () => {
+      const shown = photos.slice(0, shownCount);
+      wall.innerHTML = shown.map((photo, i) => `
       <figure class="polaroid" style="--tilt:${(i % 2 === 0 ? -1 : 1) * (2 + (i % 3))}deg;">
-        <img src="${escapeHtml(photo.src)}" alt="${escapeHtml(photo.alt || "")}" loading="lazy" decoding="async" />
+        <img src="${escapeHtml(photo.src)}" alt="${escapeHtml(photo.alt || "Us together")}" loading="lazy" decoding="async" />
         ${photo.caption ? `<figcaption>${escapeHtml(photo.caption)}</figcaption>` : ""}
       </figure>`).join("");
 
-    $$("figure.polaroid", wall).forEach((fig, i) => {
-      fig.style.cursor = "zoom-in";
-      fig.addEventListener("click", () => {
-        if (window.DiaryMagic && window.DiaryMagic.lightbox) {
-          window.DiaryMagic.lightbox(photos[i].src, photos[i].alt || "");
-        }
+      const more = $("#annivMoreBtn");
+      if (more) more.style.display = shownCount >= photos.length ? "none" : "";
+    };
+
+    const shownCount = 12;
+    render();
+
+    const moreBtn = $("#annivMoreBtn");
+    if (moreBtn) {
+      let count = shownCount;
+      moreBtn.addEventListener("click", () => {
+        count += 12;
+        const shown = photos.slice(0, count);
+        wall.innerHTML = shown.map((photo, i) => `
+        <figure class="polaroid" style="--tilt:${(i % 2 === 0 ? -1 : 1) * (2 + (i % 3))}deg;">
+          <img src="${escapeHtml(photo.src)}" alt="${escapeHtml(photo.alt || "Us together")}" loading="lazy" decoding="async" />
+          ${photo.caption ? `<figcaption>${escapeHtml(photo.caption)}</figcaption>` : ""}
+        </figure>`).join("");
+        if (count >= photos.length) moreBtn.style.display = "none";
       });
+    }
+
+    /* tap to open lightbox — delegate on wall */
+    wall.addEventListener("click", (ev) => {
+      const fig = ev.target.closest("figure.polaroid");
+      if (!fig) return;
+      const idx = Array.prototype.indexOf.call(wall.querySelectorAll("figure.polaroid"), fig);
+      const photo = photos[idx];
+      if (photo && window.DiaryMagic && window.DiaryMagic.lightbox) {
+        window.DiaryMagic.lightbox(photo.src, photo.alt || "");
+      }
     });
   }
 
