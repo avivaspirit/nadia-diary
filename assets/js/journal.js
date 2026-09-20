@@ -475,7 +475,15 @@
     const composeClose = $("#journalComposeClose");
     if (composeClose) composeClose.addEventListener("click", () => {
       const panel = $("#journalCompose");
-      if (panel) panel.classList.toggle("collapsed");
+      if (panel) panel.classList.add("collapsed");
+    });
+    const composeOpen = $("#journalComposeOpen");
+    if (composeOpen) composeOpen.addEventListener("click", () => {
+      const panel = $("#journalCompose");
+      if (panel) {
+        panel.classList.remove("collapsed");
+        panel.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     });
 
     /* expose for debugging */
