@@ -7858,3 +7858,119 @@ body.page-anniversary .reveal { opacity: 1 !important; }
   .anniv-heart-badge { animation: none; }
   .anniv-reason-card { animation: none; }
 }
+
+/* ---------- cuteness pass 2 (visual only, no text changes) ---------- */
+@keyframes annivWiggle {
+  0%, 100% { transform: rotate(-1.4deg); }
+  25% { transform: rotate(1.2deg) scale(1.015); }
+  50% { transform: rotate(-2deg); }
+  75% { transform: rotate(0.8deg) scale(1.01); }
+}
+
+/* love timer card gets a soft glow ring + tilt handled in JS */
+.anniv-counter-card {
+  overflow: hidden;
+  transition: box-shadow 0.4s ease;
+}
+.anniv-counter-card::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: conic-gradient(from 0deg, transparent 0 340deg, rgba(229,138,160,0.10) 350deg, rgba(217,168,102,0.14) 360deg);
+  animation: annivAuraSpin 9s linear infinite;
+  pointer-events: none;
+}
+@keyframes annivAuraSpin { to { transform: rotate(1turn); } }
+body.page-anniversary .anniv-counter-card { position: relative; }
+
+/* polaroids: cuter hover + soft tape strip */
+body.page-anniversary .polaroid-wall .polaroid { position: relative; }
+body.page-anniversary .polaroid-wall .polaroid::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 74px;
+  height: 20px;
+  background: rgba(243, 221, 185, 0.75);
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  z-index: 2;
+}
+body.page-anniversary .polaroid-wall .polaroid:hover {
+  transform: rotate(0deg) translateY(-12px) scale(1.06);
+  box-shadow: 0 22px 44px rgba(124, 51, 73, 0.22);
+}
+body.page-anniversary .polaroid-wall .polaroid img { border-radius: 4px; }
+
+/* celebrate button: candy gradient shimmer */
+.anniv-celebrate-btn { position: relative; overflow: hidden; }
+.anniv-celebrate-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.45) 50%, transparent 70%);
+  transform: translateX(-120%);
+  animation: annivBtnShine 3.2s ease-in-out infinite;
+}
+@keyframes annivBtnShine {
+  0%, 55% { transform: translateX(-120%); }
+  85%, 100% { transform: translateX(120%); }
+}
+
+/* heart badge: sparkle twinkle satellites */
+.anniv-heart-badge { position: relative; }
+.anniv-heart-badge::before,
+.anniv-heart-badge::after {
+  content: "\2728";
+  position: absolute;
+  font-size: 15px;
+  opacity: 0.85;
+  animation: annivTwinkle 2.2s ease-in-out infinite;
+}
+.anniv-heart-badge::before { top: -6px; right: -8px; }
+.anniv-heart-badge::after { bottom: -2px; left: -10px; animation-delay: 1.1s; }
+@keyframes annivTwinkle {
+  0%, 100% { transform: scale(0.7) rotate(-8deg); opacity: 0.35; }
+  50% { transform: scale(1.15) rotate(10deg); opacity: 1; }
+}
+
+/* timer numbers: soft heartbeat pulse on the heart separator */
+.anniv-timer-heart {
+  animation: annivHeartbeat 2.4s ease-in-out infinite, annivHeartGlow 2.4s ease-in-out infinite;
+}
+@keyframes annivHeartGlow {
+  0%, 100% { text-shadow: 0 3px 10px rgba(229,138,160,0.4); }
+  50% { text-shadow: 0 3px 10px rgba(229,138,160,0.4), 0 0 22px rgba(229,138,160,0.65); }
+}
+
+/* more button styled like a pill */
+.anniv-more-btn {
+  display: inline-block;
+  margin: 26px auto 0;
+  border: 1.5px dashed rgba(229,138,160,0.55);
+  background: rgba(255,255,255,0.65);
+  color: var(--rose-deep);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 11px 26px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.anniv-more-btn:hover {
+  background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+  color: #fff;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(229,138,160,0.4);
+}
+.anniv-scrapbook { display: flow-root; }
+.anniv-more-btn { display: block; margin-left: auto; margin-right: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anniv-counter-card::after, .anniv-celebrate-btn::before,
+  .anniv-heart-badge::before, .anniv-heart-badge::after { animation: none; }
+}

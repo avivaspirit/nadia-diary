@@ -233,6 +233,108 @@
     });
   }
 
+  /* -------------------------------------------------- cuteness upgrades */
+  function initCuteness() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    /* 1) 3D tilt on the love-timer card (desktop hover only) */
+    if (!window.matchMedia("(hover: none)").matches) {
+      const card = $(".anniv-counter-card");
+      if (card) {
+        card.addEventListener("mousemove", (e) => {
+          const r = card.getBoundingClientRect();
+          const rx = ((e.clientY - r.top) / r.height - 0.5) * -5;
+          const ry = ((e.clientX - r.left) / r.width - 0.5) * 5;
+          card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+        });
+        card.addEventListener("mouseleave", () => {
+          card.style.transition = "transform 0.6s cubic-bezier(.25,.8,.25,1)";
+          card.style.transform = "";
+          setTimeout(() => card.style.transition = "", 650);
+        });
+      }
+    }
+
+    /* 2) floating hearts + sparkles background (canvas, auto-fade, z-index low) */
+    const canvas = document.createElement("canvas");
+    canvas.id = "annivFloatCanvas";
+    canvas.style.cssText = "position:fixed;inset:0;width:100%;pointer-events:none;z-index:1;";
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+    let W, H, parts = [];
+    const HEARTS = ["💗", "💖", "🩷", "✨", "💕"];
+    function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+    resize();
+    addEventListener("resize", resize);
+
+    function spawn(n) {
+      for (let i = 0; i < n; i++) {
+        parts.push({
+          x: Math.random() * W,
+          y: H + 20,
+          s: 12 + Math.random() * 16,
+          v: 0.35 + Math.random() * 0.6,
+          sway: Math.random() * Math.PI * 2,
+          swayV: 0.008 + Math.random() * 0.015,
+          e: HEARTS[Math.floor(Math.random() * HEARTS.length)],
+          a: 0.55 + Math.random() * 0.35,
+          wob: Math.random() * Math.PI * 2
+        });
+      }
+    }
+    spawn(14);
+    let t = 0, alive = true;
+    (function loop() {
+      if (!alive) return;
+      t++;
+      ctx.clearRect(0, 0, W, H);
+      if (t < 520) { if (t % 46 === 0) spawn(2); }
+      parts.forEach(p => {
+        p.y -= p.v;
+        p.sway += p.swayV;
+        p.wob += 0.03;
+        const x = p.x + Math.sin(p.sway) * 26;
+        const s = p.s * (1 + Math.sin(p.wob) * 0.07);
+        ctx.globalAlpha = p.a * Math.min(1, t / 40);
+        ctx.font = s + "px serif";
+        ctx.fillText(p.e, x, p.y);
+      });
+      ctx.globalAlpha = 1;
+      parts = parts.filter(p => p.y > -40);
+      if (t > 700 && parts.length === 0) { canvas.remove(); alive = false; return; }
+      requestAnimationFrame(loop);
+    })();
+
+    /* 3) burst hearts on Celebrate click (extra, after confetti) */
+    const btn = $("#annivCelebrateBtn");
+    if (btn) {
+      btn.addEventListener("click", () => {
+        for (let k = 0; k < 10; k++) {
+          setTimeout(() => {
+            const h = document.createElement("span");
+            h.textContent = ["💗", "💖", "🩷", "💕", "✨"][Math.floor(Math.random() * 5)];
+            h.style.cssText = "position:fixed;pointer-events:none;z-index:99;font-size:" + (14 + Math.random() * 18) + "px;left:" + (btn.getBoundingClientRect().left + Math.random() * btn.offsetWidth) + "px;top:" + (btn.getBoundingClientRect().top - 8) + "px;transition:transform 1.1s cubic-bezier(.22,1,.36,1),opacity 1.1s ease;";
+            document.body.appendChild(h);
+            requestAnimationFrame(() => {
+              h.style.transform = "translateY(-" + (90 + Math.random() * 110) + "px) scale(" + (0.9 + Math.random() * 0.5) + ") rotate(" + ((Math.random() - 0.5) * 40) + "deg)";
+              h.style.opacity = "0";
+            });
+            setTimeout(() => h.remove(), 1200);
+          }, k * 60);
+        }
+      });
+    }
+
+    /* 4) mini card: gentle wiggle on hover, tiny bounce on load */
+    const mini = $(".anniv-mini-card");
+    if (mini) {
+      mini.addEventListener("mouseenter", () => {
+        mini.style.animation = "annivWiggle 0.5s ease";
+        setTimeout(() => mini.style.animation = "", 520);
+      });
+    }
+  }
+
   /* ---------------------------------------------------------------- init */
   function init() {
     try { startCounter(); } catch (e) { console.warn("anniv timer:", e.message); }
@@ -241,6 +343,7 @@
     try { buildReasons(); } catch (e) { console.warn("anniv reasons:", e.message); }
     try { buildPolaroids(); } catch (e) { console.warn("anniv polaroids:", e.message); }
     try { bindCelebrate(); } catch (e) { console.warn("anniv celebrate:", e.message); }
+    try { initCuteness(); } catch (e) { console.warn("anniv cuteness:", e.message); }
   }
 
   if (document.readyState === "loading") {
